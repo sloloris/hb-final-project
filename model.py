@@ -39,7 +39,7 @@ class Contact(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'),
                             nullable=False, default="other")
-    freq_of_contact = db.Column(db.Integer, db.ForeignKey('freq_of_contact.freq_id'),
+    contact_frequency = db.Column(db.Integer, db.ForeignKey('contact_frequencies.freq_id'),
                                 nullable=False, default=90)
     phone = db.Column(db.String(16), nullable=True)
     whatsapp = db.Column(db.String(16), nullable=True)
@@ -47,8 +47,8 @@ class Contact(db.Model):
 
     user = db.relationship("User", backref=db.backref("contacts",
                                                     order_by=user_id))
-    relationship = db.relationship("Relationship", backref=db.backref("contacts"))
-    freq_of_contact = db.relationship("ContactFrequency", 
+    relationship_fk = db.relationship("Relationship", backref=db.backref("contacts"))
+    frequency = db.relationship("ContactFrequency", 
                                     backref=db.backref("contacts", order_by=contact_id))
 
     def __repr__(self):
@@ -71,7 +71,7 @@ class Relationship(db.Model):
 class ContactFrequency(db.Model):
     """ How frequently the user wishes to contact a given contact. """
 
-    __tablename__ = "freq_of_contact"
+    __tablename__ = "contact_frequencies"
 
     freq_id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(20), nullable=False)
@@ -89,7 +89,7 @@ class Message(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('users.user_id'), default=None)
     msg_text = db.Column(db.String(700), nullable=False)
 
-    created_by = db.relationship("User", backref=db.backref("messages", 
+    user = db.relationship("User", backref=db.backref("messages", 
                                                             order_by=msg_id))
 
     def __repr__(self):
@@ -109,6 +109,7 @@ def connect_to_db(app):
     # or app.config['SQLALCHEMY_ECHO'] = True ???
     db.app = app
     db.init_app(app)
+    db.create_all()
 
 
 if __name__ == "__main__":
