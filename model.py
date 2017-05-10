@@ -1,4 +1,4 @@
-""" Database table models and functions. """
+""" Table models and functions for database 'contacts'. """
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -15,7 +15,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
-    nickame = db.Column(db.String(15), nullable=True) # for clarity: defaults to True
+    nickname = db.Column(db.String(15), nullable=True) # for clarity: defaults to True
     email = db.Column(db.String(50), nullable=False, unique=True) # also user login
     password = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(16), nullable=True)
@@ -34,13 +34,12 @@ class Contact(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(30), nullable=True)
-    nickame = db.Column(db.String(15), nullable=True)
+    nickname = db.Column(db.String(15), nullable=True)
     birthday = db.Column(db.DateTime, nullable=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
     relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'),
                             nullable=False, default="other")
-    contact_frequency = db.Column(db.Integer, db.ForeignKey('contact_frequencies.freq_id'),
-                                nullable=False, default=90)
+    contact_period = db.Column(db.Integer, nullable=False, default=90)
     phone = db.Column(db.String(16), nullable=True)
     whatsapp = db.Column(db.String(16), nullable=True)
 
@@ -48,8 +47,8 @@ class Contact(db.Model):
     user = db.relationship("User", backref=db.backref("contacts",
                                                     order_by=user_id))
     relationship_fk = db.relationship("Relationship", backref=db.backref("contacts"))
-    frequency = db.relationship("ContactFrequency", 
-                                    backref=db.backref("contacts", order_by=contact_id))
+    # period = db.relationship("ContactPeriod", 
+    #                                 backref=db.backref("contacts", order_by=contact_id))
 
     def __repr__(self):
         return "<Contact contact_id=%s email=%s belonging to user_id=%s>" % (self.contact_id, self.email, self.user_id)
@@ -68,16 +67,16 @@ class Relationship(db.Model):
         return "<Relationship rel_id=%s rel_type=%s>" % (self.rel_id, self.rel_type)
 
 
-class ContactFrequency(db.Model):
-    """ How frequently the user wishes to contact a given contact. """
+# class ContactPeriod(db.Model):
+#     """ How frequently the user wishes to contact a given contact. """
 
-    __tablename__ = "contact_frequencies"
+#     __tablename__ = "contact_periods"
 
-    freq_id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(20), nullable=False)
+#     period_id = db.Column(db.Integer, primary_key=True)
+#     description = db.Column(db.String(20), nullable=False)
 
-    def __repr__(self):
-        return "<ContactFrequency freq_id=%s (days) description=%s>" % (self.freq_id, self.description)
+#     def __repr__(self):
+#         return "<ContactPeriod period_id=%s (days) description=%s>" % (self.period_id, self.description)
 
 
 class Message(db.Model):
@@ -94,6 +93,9 @@ class Message(db.Model):
 
     def __repr__(self):
         return "<Message msg_id=%s created_by=%s>" % (self.msg_id, self.created_by)
+
+
+# class ScheduledMessage(db.Model): # this would be a queue
 
 
 ###############################################################################

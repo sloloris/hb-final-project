@@ -2,3 +2,7 @@
 secrets.sh
 env
 seed.py
+client_secret.json
+contacts.sql
+deets.py
+.DS_Store

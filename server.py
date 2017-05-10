@@ -5,7 +5,10 @@ from jinja2 import StrictUndefined
 from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 
-from model import User, Contact, Relationship, ContactFrequency, Message, connect_to_db, db
+from model import User, Contact, Relationship, Message, connect_to_db, db
+
+import json
+import quickstart
 
 
 app = Flask(__name__)
@@ -77,7 +80,7 @@ def add_import_contacts(user_id):
     return render_template("add_contacts.html")
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     app.debut = True
     app.jinja_env.auto_reload = app.debut
 
