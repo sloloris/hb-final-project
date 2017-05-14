@@ -1,5 +1,33 @@
 {% extends 'base.html' %}
+
+{% block title %} LANDING PAGE {% endblock %}
+
 {% block content %}
-LANDING PAGE
+
+<div class="container landing-contents">
+  <h1 class="giant-header">Keep your friends closer<h1>
+  <p class="lead">About section where all the explainy things about the app will be explained in a very explanatory way so you hopefully want to actually press this button and get started with Gmail yay!</p>
+
+  <a href={{ oauthurl }}>
+    <div 
+      class="google-login-btn" 
+      id="get-started" 
+      type="button">
+      Get Started with Gmail
+    </div>
+  </a>
+
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+
+// write redirectToAuth to redirect to gmail authorization page
+
+$('#get-started').on('click', redirectToAuth)
+
+
+
 
 {% endblock %}

@@ -17,7 +17,9 @@ class User(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     nickname = db.Column(db.String(15), nullable=True) # for clarity: defaults to True
     email = db.Column(db.String(50), nullable=False, unique=True) # also user login
-    password = db.Column(db.String(20), nullable=False)
+    # password = db.Column(db.String(20), nullable=False)
+    oauth_token = db.Column(db.String(200), nullable=True)
+    oauth_expiry = db.Column(db.DateTime, nullable=True)
     phone = db.Column(db.String(16), nullable=True)
     whatsapp = db.Column(db.String(16), nullable=True)
 

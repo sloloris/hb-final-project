@@ -8,7 +8,9 @@ from flask import Flask, jsonify, render_template, redirect, request, flash, ses
 from model import User, Contact, Relationship, Message, connect_to_db, db
 
 import json
-import quickstart
+import quickstart as gmail
+import deets # information not to post to github
+import oauth_gmail as oauth
 
 
 app = Flask(__name__)
@@ -22,7 +24,27 @@ app.jinja_env.undefined = StrictUndefined #what does this do?
 def index():
     """ Landing page. """
 
-    return render_template("landing.html")
+    oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
+
+    return render_template("landing.html", oauthurl=oauthurl)
+
+@app.route('/oauthcallback', methods=['GET'])
+def oauthcallback():
+    """
+    Redirect URI callback for Google OAuth 2.0. Auth token passed
+    a URL param called 'code'
+    """
+    code = request.args.get('code') # gets code from auth server
+    if code:
+        credentials = oauth.flow.step2_exchange(code) # method to exchange code & client secret 
+        # for credentials object (authenticate client)
+        print 'CREDENTIALS RETURNED:'
+        print credentials.get_access_token() # Returns access token and its expiration information. If the token does not exist, get one. If the token expired, refresh it.
+
+        # TODO: create user save access token to database
+
+    else:
+        return redirect("/")
 
 
 @app.route('/about')
@@ -79,12 +101,20 @@ def add_import_contacts(user_id):
 
     return render_template("add_contacts.html")
 
+@app.route('/<user_id>/send')
+def send_email(user_id):
+    """ Test page for interactive email sending. """
+
+
+
+    return render_template("send_email.html")
+
 
 if __name__ == "__main__":
     app.debut = True
     app.jinja_env.auto_reload = app.debut
 
-    connect_to_db(app)
+    # connect_to_db(app)
 
     # Activates DebugToolbar
     DebugToolbarExtension

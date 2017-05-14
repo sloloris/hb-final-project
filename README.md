@@ -21,6 +21,10 @@ model.py
 order_by='Other.variable'
 - can I set created_by in Message class to default None? - yes
 
+- check about oauth  variables in model.py. should they be in a separate table?
 
-GMAIL API
+what are the relationship variables used for?
+
+
+OTHER
 
