@@ -17,14 +17,30 @@ class User(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     nickname = db.Column(db.String(15), nullable=True) # for clarity: defaults to True
     email = db.Column(db.String(50), nullable=False, unique=True) # also user login
-    # password = db.Column(db.String(20), nullable=False)
-    oauth_token = db.Column(db.String(200), nullable=True)
-    oauth_expiry = db.Column(db.DateTime, nullable=True)
     phone = db.Column(db.String(16), nullable=True)
     whatsapp = db.Column(db.String(16), nullable=True)
 
+    oauth_token = db.Column(db.String(200), nullable=True)
+    oauth_expiry = db.Column(db.DateTime, nullable=True)
+
     def __repr__(self):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+
+
+# class Oauth(db.Model):
+#     """ Oauth credentials for given user. """
+
+#     __tablename__ = "oauth"
+
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True)
+
+
+#     user = db.relationship("User", backref=db.backref("oauth",
+#                                                     order_by=user_id))
+
+#     def __repr__(self):
+#         return "<Oauth oauth_token=%s oauth_expiry=%s for user_id=%s>" % (self.oauth_token, 
+#                                                             self.oauth_expiry, self.user_id)
 
 
 class Contact(db.Model):

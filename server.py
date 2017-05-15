@@ -11,6 +11,8 @@ import json
 import quickstart as gmail 
 import deets # information not to post to github
 import google_oauth as oauth # relevant oauth functions and methods
+import requests 
+import datetime
 
 
 app = Flask(__name__)
@@ -26,7 +28,7 @@ def index():
 
     oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
 
-    return render_template("landing.html", oauthurl=oauthurl)
+    return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
 
 @app.route('/oauthcallback', methods=['GET'])
 def oauthcallback():
@@ -41,10 +43,14 @@ def oauthcallback():
         print 'CREDENTIALS RETURNED:'
         print credentials.get_access_token() # Returns access token and its expiration information. If the token does not exist, get one. If the token expired, refresh it.
 
+        session['oauth_credentials'] = credentials.get_access_token()
+        # PARSE CREDENTIALS AND SEND TO REGISTER
+        return redirect('/register')
         # TODO: create user save access token to database
 
+
     else:
-        return redirect("/")
+        return redirect("/") # TODO: add a flash message here
 
 
 @app.route('/about')
@@ -54,25 +60,59 @@ def about():
     return "about.html"
 
 
-@app.route('/register')
-def register():
-    """ User account registration form. """
+@app.route('/register', methods=["GET"])
+def register_form():
+    """ Renders user registration form. """
 
     return render_template('registration.html')
 
+@app.route('/register', methods=["POST"])
+def register():
+    """ User account registration form. """
 
-@app.route('/login', methods=["GET"])
-def render_login_form(): # can I do this on the front end?
-    """ Renders login form. """
+    first_name = request.form.get("first_name")
+    last_name = request.form.get("last_name")
+    nickname = request.form.get("nickname")
+    email = request.get("https://www.googleapis.com/oauth2/v2/userinfo")
+    phone = request.form.get("phone")
+    whatsapp = request.form.get("whatsapp")
 
-    return render_template("login.html")
+    oauth_credentials = session['oauth_credentials']
+    print oauth_credentials
+    oauth_token = oauth_credentials[0]
+    oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=oauth_credentials[1])
+    # not an accurate date - how to fix?
+
+    user_info = request.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token={accessToken}")
+
+    # user = User.query.filter_by(email=email).all()
+    # if user == []:
+    #     new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token, oauth_expiry=oauth_expiry) #sqlalchemy instantiation of user
+    #     # for nullable values:
+    #     new_user.nickname = nickname or None # if nickname, set to nickname; else set to None
+    #     new_user.phone = phone or None
+    #     new_user.whatsapp = whatsapp or None
+
+    # db.session.add(new_user)
+    # db.session.commit()
+
+    print email
+    print "user info = ", user_info
+    return render_template('registration.html')
 
 
-@app.route('/login', methods=["POST"])
-def login_user():
-    """ Initiates new Flask session for user. """
+# @app.route('/login', methods=["GET"])
+# def render_login_form(): # can I do this on the front end?
+#     """ Renders login form. """
 
-    return redirect("/login")
+#     return render_template("login.html")
+
+
+# @app.route('/login', methods=["POST"])
+# def login_user():
+#     """ Initiates new Flask session for user. """
+
+#     return redirect("/login")
 
 
 @app.route('/<user_id>/account')
@@ -111,12 +151,12 @@ def send_email(user_id):
 
 
 if __name__ == "__main__":
-    app.debut = True
-    app.jinja_env.auto_reload = app.debut
+    app.debug = True
+    app.jinja_env.auto_reload = app.debug
 
     # connect_to_db(app)
 
     # Activates DebugToolbar
-    DebugToolbarExtension
+    DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')

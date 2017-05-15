@@ -2,15 +2,56 @@ body {
   font-family: 'Nunito', sans-serif;
 }
 
-.landing-contents {
-    text-align: center;
-    width: 50%;
+/* top navigation bar */
+.topnav {
+    background-color: rgba(0, 0, 255, .8);
+    overflow: hidden;
+    height: 4em;
 }
 
+.topnav a {
+    color: white;
+    float: right;
+    padding: 2em;
+}
+
+/* default button styling */
+.default-btn {
+    background: white;
+    border: 2px solid red;
+    border-radius: 3px;
+    color: black;
+    font-size: 1em;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.default-btn:hover {
+    background: rgba(255, 0, 0, 0.8);
+}
+
+/* form inputs */
+.form-input {
+    padding: 10px;
+}
+
+/* LANDING PAGE STYLING */
+
+/* landing page contents */
+.landing-contents {
+    text-align: center;
+    width: 75%;
+    padding-left: 25%;
+}
+
+/* main header on landing page */
 .giant-header {
     font-size: 5em;
 }
 
+/* login button for google oauth on landing page */
 .google-login-btn {
     background: rgba(255, 0, 0, 1.0);
     border: none;
@@ -23,6 +64,7 @@ body {
     display: inline-block;
     cursor: pointer;
 }
+
 .google-login-btn:hover {
     background: rgba(255, 0, 0, 0.8);
 }

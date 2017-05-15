@@ -2,6 +2,35 @@
 
 {% block title %} TITLE HERE {% endblock %}
 {% block content %}
-REGISTRATION PAGE
+<div class="landing-contents">
+  Thank you for registering with your Gmail address. To finish the registration process, please provide us with the following data.
+
+  <form name="register-details" action="/register" class="form-input" method="POST">
+    <label>
+      First name: <input type="text" name="first_name" required>
+    </label><br>
+    <label>
+      Last name: <input type="text" name="last_name" required>
+    </label><br>
+    <label>
+      Nickname: <input type="text" name="nickname">
+    </label><br>
+    <label>
+      Phone number: <input type="number" name="phone">
+    </label><br>
+    <label>
+      Is your Whatsapp number the same as your phone number?<br>
+        Yes <input type="radio" name="whatsapp" value="yes">
+        No <input type="radio" name="whatsapp" value="no">
+        I don't use Whatsapp <input type="radio" name="whatsapp" value="na"><br><br>
+    </label><br>
+    <label>
+      <input type="submit" class="default-btn" value="Onwards!">
+    </label>
+  </form>
+</div>
+
+<script>
+</script>
 
 {% endblock %}

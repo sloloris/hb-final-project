@@ -11,10 +11,12 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 oauth2client==4.0.0
 packaging==16.8
+pkg-resources==0.0.0
 psycopg2==2.7.1
 pyasn1==0.2.3
 pyasn1-modules==0.0.8
 pyparsing==2.2.0
+requests==2.14.2
 rsa==3.4.2
 six==1.10.0
 SQLAlchemy==1.1.7

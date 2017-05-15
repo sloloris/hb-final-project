@@ -20,8 +20,8 @@ SCOPES = [
 flow = OAuth2WebServerFlow(client_id=deets.client_id,
                            client_secret=deets.client_secret,
                            scope=SCOPES,
-                           redirect_uri='http://localhost:5000/oauthcallback') 
- 
+                           redirect_uri='http://localhost:5000/oauthcallback')
+
 
 ##############################################################################
 # def get_stored_credentials(user_id):
