@@ -8,9 +8,9 @@ from flask import Flask, jsonify, render_template, redirect, request, flash, ses
 from model import User, Contact, Relationship, Message, connect_to_db, db
 
 import json
-import quickstart as gmail
+import quickstart as gmail 
 import deets # information not to post to github
-import oauth_gmail as oauth
+import google_oauth as oauth # relevant oauth functions and methods
 
 
 app = Flask(__name__)
