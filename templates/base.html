@@ -12,6 +12,9 @@
 </head>
 
 <body>
+{% for message in get_flashed_messages() %}
+    <span> {{ message }}</span>
+{% endfor %}
 
 {% block content %} CONTENT HERE {% endblock %}
 

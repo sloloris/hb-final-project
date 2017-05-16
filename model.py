@@ -125,7 +125,7 @@ def connect_to_db(app):
 
     # Configure to use PostgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # ????
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True # ????
     # or app.config['SQLALCHEMY_ECHO'] = True ???
     db.app = app
     db.init_app(app)
