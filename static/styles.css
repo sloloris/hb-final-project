@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Nunito', sans-serif;
 }
@@ -6,14 +7,55 @@ body {
 .topnav {
     background-color: rgba(0, 0, 255, .8);
     overflow: hidden;
-    height: 4em;
+    color: white;
 }
 
 .topnav a {
     color: white;
-    float: right;
     padding: 2em;
+    float: right;
 }
+
+#user-topnav {
+    padding-left: 20%;
+    height: 10%;
+}
+
+/* landing page navigation bar */
+#landing-nav {
+    height: 4em;
+    width: 100%;
+}
+/* account homepage styling */
+.account-contents {
+    text-align: left;
+    padding: 20px;
+    padding-left: 22%;
+}
+
+/* side navigation */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 20%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+}
+
+#sidenav-links {
+    padding-top: 12%;
+    padding-left: 2em;
+}
+
+#sidenav-links a {
+    color: white;
+    font-size: 1.5em;
+}
+
 
 /* default button styling */
 .default-btn {

@@ -2,6 +2,40 @@
 
 {% block title %} TITLE HERE {% endblock %}
 {% block content %}
-USER PREFERENCES
 
+<div class="sidenav">
+<div id="sidenav-links">
+  <label><a href="/account_home">Account Home</a></label><br>
+  <label><a href="/{{ user_id }}/contacts">Add/Manage Contacts</a></label><br><br>
+  <label><a href="/logout">Log Out</a></label>
+</div>
+</div>
+
+
+<div class="topnav" id="user-topnav">
+<h1 id="inner-nav-header">Preferences</h1>
+</div>
+
+<div class="account-contents">
+  <form name="register-details" action="/{{ user_id }}/preferences" class="form-input" method="POST">
+    <label>
+      Nickname: <input type="text" name="nickname">
+    </label><br>
+    <label>
+      Phone number: <input type="number" name="phone">
+    </label><br>
+    <label>
+      Is your Whatsapp number the same as your phone number?<br>
+        Yes <input type="radio" name="whatsapp" value="yes">
+        No <input type="radio" name="whatsapp" value="no">
+        I don't use Whatsapp <input type="radio" name="whatsapp" value="na"><br><br>
+    </label><br>
+    <label>
+      Whatsapp number: <input type="number" name="phone">
+    </label><br>
+    <label>
+      <input type="submit" class="default-btn" value="Update">
+    </label>
+  </form>
+</div>
 {% endblock %}

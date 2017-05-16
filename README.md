@@ -15,6 +15,22 @@ registration.html
 -figure out whatsapp thing
 
 
+landing.html
+
+
+account_home
+- add user photo
+- add update for user photo
+
+preferences.html
+- actually add current preferences
+- javascript make form appear or disappear
+
+contacts.html 
+- figure out how to get the contacts back (authorize)
+
+
+
 
 
 

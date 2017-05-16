@@ -2,6 +2,24 @@
 {% block title %}User Account{% endblock %}
 
 {% block content %}
-USER ACCOUNT
+
+  <div class="sidenav">
+    <div id="sidenav-links">
+      <label><a href="/{{ user_id }}/preferences">Preferences</a></label><br>
+      <label><a href="/{{ user_id}}/contacts">Add/Manage Contacts</a></label><br><br>
+      <label><a href="/logout">Log Out</a></label>
+    </div>
+  </div>
+
+
+  <div class="topnav" id="user-topnav">
+    <h1 id="inner-nav-header">Welcome, {{ name }}</h1>
+  </div>
+
+You are now logged in
+
+
+
+
 
 {% endblock %}

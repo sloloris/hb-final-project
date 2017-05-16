@@ -26,9 +26,18 @@ app.jinja_env.undefined = StrictUndefined #what does this do?
 def index():
     """ Landing page. """
 
-    oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
+    # if user already logged in, redirect to account home
+    if session.get('user_id') == True: 
+        user = User.query.filter_by(user_id=int(session['user_id'])).one()
+        print "USER", user
 
-    return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
+        return redirect("/account_home")
+    # else get oauth url
+    else:
+        oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
+    
+        return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
+
 
 @app.route('/oauthcallback', methods=['GET'])
 def oauthcallback():
@@ -63,11 +72,26 @@ def oauthcallback():
             db.session.add(new_user)
             db.session.commit()
             # start a flask session for user
-            session['user_id'] = str(users.user_id)
-        else:
-            flash("User already exists. Please log in.")
+            user = User.query.filter_by(email=email).one()
+            session['user_id'] = str(user.user_id) 
 
-        return redirect('/')
+            return redirect('/account_home')
+
+            #return render_template("user_account.html", user_id=user.user_id, email=email, name=first_name)
+
+        elif user[0]:
+            user = User.query.filter_by(email=email).one()
+            session['user_id'] = str(user.user_id) 
+            session['oauth_credentials'] = credentials.get_access_token()
+
+            # update oauth credentials in database
+            user.oauth_token = session['oauth_credentials'][0]
+            user.oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=session['oauth_credentials'][1])
+
+            db.session.commit()
+
+            return redirect('/account_home')
+            # return render_template("user_account.html", user_id=user.user_id, email=email, name=first_name)
 
     else:
         flash("Something went wrong.")
@@ -81,78 +105,69 @@ def about():
     return render_template("about.html")
 
 
-# @app.route('/register', methods=["GET"])
-# def register_form():
-#     """ Renders user registration form. """
+@app.route('/logout')
+def render_login_form(): # can I do this on the front end?
+    """ Ends user session (logs user out). """
 
-#     return render_template('registration.html')
+    print "Logging out."
+    session.clear()
+    flash("You are now logged out.")
 
-# @app.route('/register', methods=["POST"])
-# def register():
-#     """ User account registration form. """
-
-#     first_name = request.form.get("first_name")
-#     last_name = request.form.get("last_name")
-#     nickname = request.form.get("nickname")
-#     # email = request.get("https://www.googleapis.com/oauth2/v2/userinfo")
-#     phone = request.form.get("phone")
-#     whatsapp = request.form.get("whatsapp")
-
-#     oauth_credentials = session['oauth_credentials']
-#     oauth_token = oauth_credentials[0]
-#     oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=oauth_credentials[1])
-#     # not an accurate date - how to fix?
-
-#     user_info = (requests.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s" % oauth_token)).json()
-
-#     user = User.query.filter_by(email=email).all()
-#     if user == []:
-#         new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token, oauth_expiry=oauth_expiry) #sqlalchemy instantiation of user
-#         # for nullable values:
-#         new_user.nickname = nickname or None # if nickname, set to nickname; else set to None
-#         new_user.phone = phone or None
-#         new_user.whatsapp = whatsapp or None
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     print "oauth token = ", oauth_token
-#     print "oauth expiry = ", oauth_expiry
-#     print "user info = ", user_info
-#     return render_template('registration.html')
+    return redirect('/')
 
 
-# @app.route('/login', methods=["GET"])
-# def render_login_form(): # can I do this on the front end?
-#     """ Renders login form. """
-
-#     return render_template("login.html")
-
-
-# @app.route('/login', methods=["POST"])
-# def login_user():
-#     """ Initiates new Flask session for user. """
-
-#     return redirect("/login")
-
-
-@app.route('/<user_id>/account')
-def show_user_account_home(user_id):
+@app.route('/account_home')
+def show_user_account_home():
     """ Renders user account homepage. """
 
-    return render_template("user_account.html")
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+    print user
+
+    return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
+    #, user_id=user.user_id, email=email, name=first_name)
 
 
-@app.route('/<user_id>/preferences')
+@app.route('/<user_id>/preferences', methods=["GET"])
 def user_preferences(user_id):
     """ Renders user preferences page. """
 
-    return render_template("user_preferences.html")
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+
+    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
 
 
-@app.route('/<user_id>/contacts')
+@app.route('/<user_id>/preferences', methods=["POST"])
+def update_user_preferences(user_id):
+    """ Updates user preferences in database. """
+
+    nickname = request.form.get('nickname')
+    phone = request.form.get('phone')
+    whatsapp = request.form.get('whatsapp')
+
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+    # for nullable values:
+    user.nickname = nickname or None # if nickname, set to nickname; else set to None
+    user.phone = str(phone) or None
+    if whatsapp == "yes":
+        whatsapp_number = request.form.get('whatsapp_number')
+        user.whatsapp = whatsapp_number
+
+    db.session.commit()
+
+    flash("Your preferences have been updated.")
+    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
+
+
+@app.route('/<user_id>/contacts') #add <user_id>
 def show_user_contacts(user_id):
     """ Displays all user contact pages. """
+
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+    email = str(user.email)
+    print type(email), email
+
+    contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
+    print contacts # response 401 unauthorized
 
     return render_template("contacts.html")
 
