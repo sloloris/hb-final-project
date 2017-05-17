@@ -12,6 +12,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/gmail.labels', # create, read, update & delete labels
     'https://www.googleapis.com/auth/gmail.modify', # all read/write permissions
     'https://www.google.com/m8/feeds/', # access to user contacts
+    'https://www.googleapis.com/auth/contacts.readonly',
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email'
 ]

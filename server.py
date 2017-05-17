@@ -14,6 +14,13 @@ import google_oauth as oauth # relevant oauth functions and methods
 import requests 
 import datetime
 
+# google contacts libraries
+# import atom.data # not working for some reason, already pip installed in .env
+# import gdata.data
+# import gdata.contacts.client
+# import gdata.contacts.data
+
+
 
 app = Flask(__name__)
 
@@ -88,8 +95,11 @@ def oauthcallback():
             user.oauth_token = session['oauth_credentials'][0]
             user.oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=session['oauth_credentials'][1])
 
+
             db.session.commit()
 
+            # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
+            # import pdb;pdb.set_trace()
             return redirect('/account_home')
             # return render_template("user_account.html", user_id=user.user_id, email=email, name=first_name)
 
@@ -166,7 +176,11 @@ def show_user_contacts(user_id):
     email = str(user.email)
     print type(email), email
 
+    # authorize client for Contacts API
+    # gd_client = gdata.contacts.client.ContactsClient(source='Contact Manager 1.0')
+
     contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
+    # import pdb;pdb.set_trace();
     print contacts # response 401 unauthorized
 
     return render_template("contacts.html")
@@ -184,6 +198,12 @@ def send_email(user_id):
 
 
     return render_template("send_email.html")
+
+
+@app.route('/<user_id>/messages')
+def messages_page(user_id):
+
+    return render_template
 
 
 if __name__ == "__main__":
