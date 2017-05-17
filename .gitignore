@@ -6,3 +6,4 @@ contacts.sql
 deets.py
 .DS_Store
 .env/
+.venv/

@@ -15,12 +15,10 @@ import requests
 import datetime
 
 # google contacts libraries
-# import atom.data # not working for some reason, already pip installed in .env
-# import gdata.data
-# import gdata.contacts.client
-# import gdata.contacts.data
-
-
+import atom.data # not working for some reason, already pip installed in .env
+import gdata.data
+import gdata.contacts.client
+import gdata.contacts.data
 
 app = Flask(__name__)
 
@@ -42,7 +40,7 @@ def index():
     # else get oauth url
     else:
         oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
-    
+   
         return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
 
 
@@ -177,9 +175,18 @@ def show_user_contacts(user_id):
     print type(email), email
 
     # authorize client for Contacts API
-    # gd_client = gdata.contacts.client.ContactsClient(source='Contact Manager 1.0')
+    # print session['oauth_credentials'][0]
+    access_token = str(session['oauth_credentials'][0])
+    gd_client = gdata.contacts.client.ContactsClient(
+        source='Contact Manager 1.0',
+        auth_token=gdata.gauth.ClientLoginToken(access_token)
+    )
 
-    contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
+
+    contacts = gd_client.get_contacts() # ERROR HERE: UNAUTHORIZED
+    # figure out what to pass !!!!
+    # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
+
     # import pdb;pdb.set_trace();
     print contacts # response 401 unauthorized
 
