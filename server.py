@@ -6,6 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 
 from model import User, Contact, Relationship, Message, connect_to_db, db
+from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db
 
 import json
 import quickstart as gmail 
@@ -15,7 +16,7 @@ import requests
 import datetime
 
 # google contacts libraries
-import atom.data # not working for some reason, already pip installed in .env
+import atom.data
 import gdata.data
 import gdata.contacts.client
 import gdata.contacts.data
@@ -57,58 +58,21 @@ def oauthcallback():
         print 'CREDENTIALS RETURNED:'
         print credentials.get_access_token() # Returns access token and its expiration information. If the token does not exist, get one. If the token expired, refresh it.
 
-        # authorize client contacts
-        auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id, client_secret=credentials.client_secret, scope='https://www.google.com/m8/feeds/contacts/default/full', access_token=credentials.access_token, refresh_token=credentials.refresh_token, user_agent='Contact Manager 1.0')
-        client = gdata.contacts.client.ContactsClient()
-        auth2token.authorize(client)
-        query = gdata.contacts.client.ContactsQuery()
-        query.max_results = 1000
-        feed = client.GetContacts(q=query) # TODO: figure out how to refactor this into /contacts and parse it
-        print feed
+        # returns giant list of google contacts, or something
+        get_google_contacts(credentials)
 
         # add credentials to session
-        session['oauth_credentials'] = credentials.get_access_token()
-
         oauth_credentials = credentials.get_access_token()
         oauth_token = oauth_credentials[0]
         oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=oauth_credentials[1])
+        session['oauth_token'] = oauth_token
+        session['oauth_expiry'] = oauth_expiry
 
-        # get user info from google
-        user_info = (requests.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s" % oauth_token)).json()
-        first_name = user_info['given_name']
-        last_name = user_info['family_name']
-        email = user_info['email']
+        # gets user info from google
+        first_name, last_name, email = get_user_info_from_google(oauth_token)
 
-        user = User.query.filter_by(email=email).all()
-        if user == []:
-            new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token,oauth_expiry=oauth_expiry) #sqlalchemy instantiation of user
-
-            db.session.add(new_user)
-            db.session.commit()
-            # start a flask session for user
-            user = User.query.filter_by(email=email).one()
-            session['user_id'] = str(user.user_id) 
-
-            return redirect('/account_home')
-
-            #return render_template("user_account.html", user_id=user.user_id, email=email, name=first_name)
-
-        elif user[0]:
-            user = User.query.filter_by(email=email).one()
-            session['user_id'] = str(user.user_id) 
-            session['oauth_credentials'] = credentials.get_access_token()
-
-            # update oauth credentials in database
-            user.oauth_token = session['oauth_credentials'][0]
-            user.oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=session['oauth_credentials'][1])
-
-
-            db.session.commit()
-
-            # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
-            # import pdb;pdb.set_trace()
-            return redirect('/account_home')
-            # return render_template("user_account.html", user_id=user.user_id, email=email, name=first_name)
+        # creates or updates user in the contacts database & redirects to account page
+        return create_update_user_in_db(credentials, email)
 
     else:
         flash("Something went wrong.")
