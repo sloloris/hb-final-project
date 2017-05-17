@@ -5,6 +5,7 @@ model.py
 
 server.py
 - finish document docstring
+- parse landing page function
 
 registration.html
 - add hover to explain nickname

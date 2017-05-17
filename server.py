@@ -57,6 +57,15 @@ def oauthcallback():
         print 'CREDENTIALS RETURNED:'
         print credentials.get_access_token() # Returns access token and its expiration information. If the token does not exist, get one. If the token expired, refresh it.
 
+        # authorize client contacts
+        auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id, client_secret=credentials.client_secret, scope='https://www.google.com/m8/feeds/contacts/default/full', access_token=credentials.access_token, refresh_token=credentials.refresh_token, user_agent='Contact Manager 1.0')
+        client = gdata.contacts.client.ContactsClient()
+        auth2token.authorize(client)
+        query = gdata.contacts.client.ContactsQuery()
+        query.max_results = 1000
+        feed = client.GetContacts(q=query) # TODO: figure out how to refactor this into /contacts and parse it
+        print feed
+
         # add credentials to session
         session['oauth_credentials'] = credentials.get_access_token()
 
