@@ -33,11 +33,12 @@ def index():
     """ Landing page. """
 
     # if user already logged in, redirect to account home
-    if session.get('user_id') == True: 
+    if 'user_id' in session:
         user = User.query.filter_by(user_id=int(session['user_id'])).one()
         print "USER", user
 
         return redirect("/account_home")
+
     # else get oauth url
     else:
         oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url

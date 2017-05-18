@@ -7,3 +7,4 @@ deets.py
 .DS_Store
 .env/
 .venv/
+contact_output.txt
