@@ -31,8 +31,10 @@ def get_google_contacts(credentials):
     auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id, client_secret=credentials.client_secret, scope='https://www.google.com/m8/feeds/contacts/default/property-KEY', access_token=credentials.access_token, refresh_token=credentials.refresh_token, user_agent='Contact Manager 1.0')
     client = gdata.contacts.client.ContactsClient()
     auth2token.authorize(client)
+    updated_min = '2014-01-01' # date from which to retrieve contacts
     query = gdata.contacts.client.ContactsQuery()
-    query.max_results = 10
+    query.max_results = 100
+    query.updated_min = updated_min
     feed = client.GetContacts(q=query) # TODO: figure out how to refactor this into /contacts and parse it
 
     if feed:
@@ -50,48 +52,20 @@ def get_google_contacts(credentials):
     contact_file = open('contact_output.txt')
     contact_list = []
     for line in contact_file:
-        name = re.findall(r'(?<=<ns1:fullName>)(.*)(?=</ns1:fullName>)', line)
+        first_name = re.findall(r'(?<=<ns1:givenName>)(.*)(?=</ns1:givenName>)', line)
+        last_name = re.findall(r'(?<=<ns1:familyName)(.*)(?=</ns1:familyName>)', line)
         email = re.findall(r'[\w\.-]+@[\w\.-]+', line)
-        contact_list.append((name, email))
+        contact = [first_name, last_name, email]
+        for item in contact:
+            if item == []:
+                item = None
+            else: item = item[0]
+        if not contact == [[], [], []]:
+            contact_list.append(contact)
 
     print contact_list
 
     contact_file.close()
-
-
-
-    # contact_file = open('contact_output.txt')
-
-        # for i, entry in enumerate(feed.entry):
-        #     print "contact skipped"
-        #     # if entry.email[0]:
-        #     #     print entry.email.json() or entry.phone or None
-        #     if not entry.name is None:
-        #         family_name = entry.name.family_name is None and " " or entry.name.family_name.text
-        #         full_name = entry.name.full_name is None and " " or entry.name.full_name.text
-        #         given_name = entry.name.given_name is None and " " or entry.name.given_name.text
-        #         print '\n%s %s: %s - %s' % (i+1, full_name, given_name, family_name)
-
-                # if entry.email and entry.email.attr(address):
-                #     email = entry.email.attr(address)
-                #     # email = re.findall(r'[\w\.-]+@[\w\.-]+', entry)
-                #     print email
-
-
-    # for entry in contact_file:
-        # if not entry.name is None:
-        #     family_name = entry.name.family_name is None and " " or entry.name.family_name.text
-        #     full_name = entry.name.full_name is None and " " or entry.name.full_name.text
-        #     given_name = entry.name.given_name is None and " " or entry.name.given_name.text
-        #     print '\n%s %s: %s - %s' % (i+1, full_name, given_name, family_name)
-        # contact_email = entry.find('email')
-        # if not contact_email == None:
-        #     xml=ET.fromstring(contact_email)
-        #     email = xml.find('./email').attrib['address']
-        #     print email
-
-    # contact_file.close()
-
 
   
 
