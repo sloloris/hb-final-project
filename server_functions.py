@@ -24,51 +24,6 @@ import re # regular expressions
 import xml.etree.ElementTree as ET
 
 
-def get_google_contacts(credentials):
-    """ Gets user's Google contacts from Contacts API. """
-
-    # authorize client contacts
-    auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id, client_secret=credentials.client_secret, scope='https://www.google.com/m8/feeds/contacts/default/property-KEY', access_token=credentials.access_token, refresh_token=credentials.refresh_token, user_agent='Contact Manager 1.0')
-    client = gdata.contacts.client.ContactsClient()
-    auth2token.authorize(client)
-    updated_min = '2014-01-01' # date from which to retrieve contacts
-    query = gdata.contacts.client.ContactsQuery()
-    query.max_results = 100
-    query.updated_min = updated_min
-    feed = client.GetContacts(q=query) # TODO: figure out how to refactor this into /contacts and parse it
-
-    if feed:
-        print "CONTACT FEED RETURNED"
-        print feed
-    
-    # for testing purposes
-    contact_file = open('contact_output.txt', 'w') # 'w' for write capabilities
-    contact_file.write(str(feed))
-    contact_file.close()
-    
-
-    print "CONTACTS PIPED TO CONTACT_OUTPUT.TXT"
-
-    contact_file = open('contact_output.txt')
-    contact_list = []
-    for line in contact_file:
-        first_name = re.findall(r'(?<=<ns1:givenName>)(.*)(?=</ns1:givenName>)', line)
-        last_name = re.findall(r'(?<=<ns1:familyName)(.*)(?=</ns1:familyName>)', line)
-        email = re.findall(r'[\w\.-]+@[\w\.-]+', line)
-        contact = [first_name, last_name, email]
-        for item in contact:
-            if item == []:
-                item = None
-            else: item = item[0]
-        if not contact == [[], [], []]:
-            contact_list.append(contact)
-
-    print contact_list
-
-    contact_file.close()
-
-  
-
 def get_user_info_from_google(oauth_token):
     # get user info from google
     user_info = (requests.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s" % oauth_token)).json()
@@ -78,7 +33,8 @@ def get_user_info_from_google(oauth_token):
 
     return [first_name, last_name, email]
 
-def create_update_user_in_db(credentials, email):
+
+def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry):
     user = User.query.filter_by(email=email).all()
     if user == []:
         # instantiate new user object in database
@@ -91,7 +47,7 @@ def create_update_user_in_db(credentials, email):
         user = User.query.filter_by(email=email).one()
         session['user_id'] = str(user.user_id) 
 
-        return redirect('/account_home')
+        print 'New user with id %s added to database.' % (session['user_id'])
 
     elif user[0]:
         user = User.query.filter_by(email=email).one()
@@ -106,5 +62,74 @@ def create_update_user_in_db(credentials, email):
 
         # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
         # import pdb;pdb.set_trace()
-        return redirect('/account_home')
+        print 'Oauth credentials updated for user %s in database.' % (session['user_id'])
         
+
+
+def get_google_contacts(credentials):
+    """ Gets user's Google contacts from Contacts API. """
+
+    # authorize client contacts
+    auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id, client_secret=credentials.client_secret, scope='https://www.google.com/m8/feeds/contacts/default/full', access_token=credentials.access_token, refresh_token=credentials.refresh_token, user_agent='Contact Manager 1.0')
+    client = gdata.contacts.client.ContactsClient()
+    auth2token.authorize(client)
+    updated_min = '2014-01-01' # starting date after which to retrieve contacts
+    query = gdata.contacts.client.ContactsQuery()
+    query.max_results = 9999
+    query.updated_min = updated_min
+    feed = client.GetContacts(q=query)
+
+    if feed:
+        print "CONTACT FEED RETURNED"
+    
+    # for testing purposes
+    contact_file = open('contact_output.txt', 'w') # 'w' for write capabilities
+    contact_file.write(str(feed))
+    contact_file.close()
+    
+    print "CONTACTS PIPED TO CONTACT_OUTPUT.TXT"
+
+
+def clean_google_contact_data(user_email):
+    """ Takes text file of data returned from Google Contacts API and reformats into list of dictionaries containing first_name, last_name, and email. """
+
+    contact_file = open('contact_output.txt')
+    contact_list = []
+    for line in contact_file:
+        first_name = re.findall(r'(?<=<ns1:givenName>)(.*)(?=</ns1:givenName>)', line)
+        last_name = re.findall(r'(?<=<ns1:familyName>)(.*)(?=</ns1:familyName>)', line)
+        email = re.findall(r'[\w\.-]+@[\w\.-]+', line)
+
+        contact = {}
+        if email and len(email[0]) < 50:
+            if first_name and len(first_name[0]) < 20:
+                contact['first_name'] = first_name[0]
+            else:
+                contact['first_name'] = None
+            if last_name and len(last_name[0]) < 30:
+                contact['last_name'] = last_name[0]
+            else:
+                contact['last_name'] = None
+            contact['email'] = email[0]
+
+        if contact:
+            contact_list.append(contact)
+
+    contact_file.close()
+    print "CONTACT LIST CREATED"
+    return contact_list
+  
+
+def save_user_contacts_to_db(user_id, contact_list):
+    """ Saves all user contacts from Google Contacts API into contacts table. """
+
+    for contact in contact_list:
+        # raise Exception
+        contact_query = Contact.query.filter_by(email=contact['email']).all()
+        if not contact_query:
+            new_contact = Contact(user_id=user_id, first_name=contact['first_name'], last_name=contact['last_name'], email=contact['email'])
+            db.session.add(new_contact)
+
+    db.session.commit()
+
+    print "%d contacts added to database for user %s." % (len(contact_list), user_id)

@@ -13,8 +13,8 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    first_name = db.Column(db.String(20), nullable=True)
-    last_name = db.Column(db.String(30), nullable=True)
+    first_name = db.Column(db.String(20), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
     nickname = db.Column(db.String(15), nullable=True) # for clarity: defaults to True
     email = db.Column(db.String(50), nullable=False, unique=True) # also user login
     phone = db.Column(db.String(16), nullable=True)
@@ -49,8 +49,8 @@ class Contact(db.Model):
     __tablename__ = "contacts"
 
     contact_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    first_name = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    first_name = db.Column(db.String(20), nullable=True)
     last_name = db.Column(db.String(30), nullable=True)
     nickname = db.Column(db.String(15), nullable=True)
     birthday = db.Column(db.DateTime, nullable=True)

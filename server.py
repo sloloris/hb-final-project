@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 
 from model import User, Contact, Relationship, Message, connect_to_db, db
-from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db
+from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db, clean_google_contact_data, save_user_contacts_to_db
 
 import json
 import quickstart as gmail 
@@ -59,9 +59,6 @@ def oauthcallback():
         print 'CREDENTIALS RETURNED:'
         print credentials.get_access_token() # Returns access token and its expiration information. If the token does not exist, get one. If the token expired, refresh it.
 
-        # returns giant list of google contacts, or something
-        get_google_contacts(credentials)
-
         # add credentials to session
         oauth_credentials = credentials.get_access_token()
         oauth_token = oauth_credentials[0]
@@ -73,11 +70,20 @@ def oauthcallback():
         first_name, last_name, email = get_user_info_from_google(oauth_token)
 
         # creates or updates user in the contacts database & redirects to account page
-        return create_update_user_in_db(credentials, email)
+        create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry)
+
+        get_google_contacts(credentials) # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
+
+        contact_list = clean_google_contact_data(email) # clean data out of file and return list of contact dictionaries
+        # print contact_list
+
+        save_user_contacts_to_db(int(session['user_id']), contact_list)
+
+        return redirect('/account_home')
 
     else:
         flash("Something went wrong.")
-        return redirect("/") 
+        return redirect("/")
 
 
 @app.route('/about')

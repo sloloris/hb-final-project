@@ -30,6 +30,9 @@ preferences.html
 contacts.html 
 - figure out how to get the contacts back (authorize)
 
+server_functions.py
+- in get_google_contacts, extract phone numbers
+
 
 
 
