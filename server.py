@@ -150,27 +150,10 @@ def update_user_preferences(user_id):
 def show_user_contacts(user_id):
     """ Displays all user contact pages. """
 
-    user = User.query.filter_by(user_id=int(session['user_id'])).one()
-    email = str(user.email)
-    print type(email), email
+    user_contacts = Contact.query.filter_by(user_id=int(session['user_id'])).all()
+    print user_contacts
 
-    # authorize client for Contacts API
-    # print session['oauth_credentials'][0]
-    access_token = str(session['oauth_credentials'][0])
-    gd_client = gdata.contacts.client.ContactsClient(
-        source='Contact Manager 1.0',
-        auth_token=gdata.gauth.ClientLoginToken(access_token)
-    )
-
-
-    contacts = gd_client.get_contacts() # ERROR HERE: UNAUTHORIZED
-    # figure out what to pass !!!!
-    # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
-
-    # import pdb;pdb.set_trace();
-    print contacts # response 401 unauthorized
-
-    return render_template("contacts.html")
+    return render_template("contacts.html", user_contacts=user_contacts)
 
 @app.route('/<user_id>/add_contacts')
 def add_import_contacts(user_id):
