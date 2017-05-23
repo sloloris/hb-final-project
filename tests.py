@@ -15,7 +15,7 @@ class LoggedInTestCase(unittest.TestCase):
         self.client = server.app.test_client()
         server.app.config['TESTING'] = True
 
-        os.system('createdb testcontacts')
+        # os.system('createdb testcontacts')
         model.connect_to_db(server.app, "postgresql:///testcontacts")
         model.fill_relationships_table()
         model.test_data()
@@ -24,10 +24,12 @@ class LoggedInTestCase(unittest.TestCase):
             session['user_id'] = 1
 
     def tearDown(self):
-        os.system('dropdb testcontacts')
+        model.db.session.close()
+        model.db.drop_all()
+        # os.system('dropdb testcontacts')
 
     def test_index(self):
-        result = self.client.get('/')
+        result = self.client.get('/', follow_redirects=True)
 
         self.assertIn('<div class="sidenav">', result.data)
         self.assertNotIn('<div class="topnav" id="landing-nav">', result.data)
@@ -40,9 +42,9 @@ class LoggedOutTestCase(unittest.TestCase):
         server.app.config['TESTING'] = True
 
     def test_index(self):
-        result = self.client.get('/')
+        result = self.client.get('/', follow_redirects=True)
 
-        self.assertIn('https://accounts.google.com/signin/oauth/oauthchooseaccount?client_id=1031894893410-0e7i2f7kaoenh6s9htvvm3mb1cab1trc.apps.googleusercontent.com&as=7e20c7a12da8bebd&destination=http%3A%2F%2Flocalhost%3A5000&approval_state=!ChRrSkpKVWRtOEI1ZGlGZk85T1EtaRIfYzBhM2xrclRDS0FUb1Bud0gtVkU1UUZHMGdOc3d4VQ%E2%88%99ADiIGyEAAAAAWSXc04-5axhkY-AJTOqqHCCsKwd8FTjK&xsrfsig=AHgIfE_XjrmCptD3FSQBqKcN_oj3T9rJJA&flowName=GeneralOAuthFlow', result.data)
+        self.assertIn('https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.compose+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.labels+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.modify+https%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds%2F+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcontacts.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&amp;redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Foauthcallback&amp;response_type=code&amp;client_id=1031894893410-0e7i2f7kaoenh6s9htvvm3mb1cab1trc.apps.googleusercontent.com&amp;access_type=offline', result.data)
         self.assertNotIn('<div class="sidenav">', result.data)
 
 
