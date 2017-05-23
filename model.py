@@ -55,8 +55,7 @@ class Contact(db.Model):
     nickname = db.Column(db.String(15), nullable=True)
     birthday = db.Column(db.DateTime, nullable=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
-    relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'),
-                            nullable=False, default="other")
+    relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'), nullable=False, default="other")
     contact_period = db.Column(db.Integer, nullable=False, default=90)
     phone = db.Column(db.String(16), nullable=True)
     whatsapp = db.Column(db.String(16), nullable=True)
@@ -118,19 +117,74 @@ class Message(db.Model):
 
 ###############################################################################
 
+# Test Data
+
+def test_data():
+    """ Create fake data to seed test database with. """
+
+    test_user = User(first_name='Test', 
+                    last_name='User', 
+                    email='contactmanager.tests@gmail.com')
+
+    db.session.add(test_user)
+    db.session.commit()
+
+    contact1 = Contact(user_id=1,
+                    first_name='Ari', 
+                    last_name='Zona', 
+                    email='ari.zona3875@gmail.com')
+
+    contact2 = Contact(user_id=1,
+                    first_name='Cali', 
+                    last_name='Fornia', 
+                    email='cali.fornia1209@gmail.com')
+
+    contact3 = Contact(user_id=1,
+                    first_name='George', 
+                    last_name='Gia', 
+                    email='georgia0876@gmail.com')
+
+    contact4 = Contact(user_id=1,
+                    first_name='Ken', 
+                    last_name='Tucky', 
+                    email='ken.tucky0965@gmail.com')
+
+    contact5 = Contact(user_id=1,
+                    first_name='Mary', 
+                    last_name='Land', 
+                    email='mary.land5866@gmail.com')
+
+
+
+    db.session.add_all([contact1, contact2, contact3, contact4, contact5])
+    db.session.commit()
+
+
+
+
+###############################################################################
+
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri='postgresql:///contacts'):
     """Connect the database to our Flask app."""
 
     # Configure to use PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True # ????
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # ????
     # or app.config['SQLALCHEMY_ECHO'] = True ???
     db.app = app
     db.init_app(app)
     db.create_all()
 
+def fill_relationships_table():
+    friend = Relationship(rel_id='frnd', rel_type='friend')
+    family = Relationship(rel_id='fmly', rel_type='family')
+    professional = Relationship(rel_id='prof', rel_type='professional')
+    other = Relationship(rel_id='other', rel_type='other')
+
+    db.session.add_all([friend, family, professional, other])
+    db.session.commit()
 
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
@@ -138,5 +192,6 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
+    fill_relationships_table()
     print "Connected to DB."
 

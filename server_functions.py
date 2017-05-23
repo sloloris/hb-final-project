@@ -9,7 +9,6 @@ from model import User, Contact, Relationship, Message, connect_to_db, db
 
 import json
 import quickstart as gmail 
-import deets # information not to post to github
 import google_oauth as oauth # relevant oauth functions and methods
 import requests 
 import datetime
@@ -21,7 +20,6 @@ import gdata.contacts.client
 import gdata.contacts.data
 
 import re # regular expressions
-import xml.etree.ElementTree as ET
 
 
 def get_user_info_from_google(oauth_token):
@@ -33,7 +31,7 @@ def get_user_info_from_google(oauth_token):
 
     return [first_name, last_name, email]
 
-
+# FOR TESTS: CREATE FAKE CREDENTIALS
 def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry):
     user = User.query.filter_by(email=email).all()
     if user == []:
@@ -65,7 +63,7 @@ def create_update_user_in_db(credentials, email, first_name, last_name, oauth_to
         print 'Oauth credentials updated for user %s in database.' % (session['user_id'])
         
 
-
+# INTEGRATION TEST ONLY
 def get_google_contacts(credentials):
     """ Gets user's Google contacts from Contacts API. """
 
@@ -82,7 +80,6 @@ def get_google_contacts(credentials):
     if feed:
         print "CONTACT FEED RETURNED"
     
-    # for testing purposes
     contact_file = open('contact_output.txt', 'w') # 'w' for write capabilities
     contact_file.write(str(feed))
     contact_file.close()

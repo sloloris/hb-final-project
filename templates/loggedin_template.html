@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} TITLE HERE {% endblock %}
+
+{% block body %} 
+  <div class="sidenav">
+    <div id="sidenav-links">
+      {% block sidenav_links %}
+
+      {% endblock %}
+    </div>
+  </div>
+
+
+  <div class="topnav" id="user-topnav">
+    <h1 id="inner-nav-header">Welcome, {{ name }}</h1>
+  </div>
+{% block content %}
+
+
+
+
+CONTENT HERE 
+
+
+
+{% endblock %}
+{% endblock %}

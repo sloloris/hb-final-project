@@ -8,11 +8,12 @@ from flask import Flask, jsonify, render_template, redirect, request, flash, ses
 from model import User, Contact, Relationship, Message, connect_to_db, db
 from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db, clean_google_contact_data, save_user_contacts_to_db
 
+import os
+
 import json
 import quickstart as gmail 
-import deets # information not to post to github
 import google_oauth as oauth # relevant oauth functions and methods
-import requests 
+import requests
 import datetime
 
 # google contacts libraries
@@ -35,7 +36,7 @@ def index():
     # if user already logged in, redirect to account home
     if 'user_id' in session:
         user = User.query.filter_by(user_id=int(session['user_id'])).one()
-        print "USER", user
+        print "USER", user, "logged in."
 
         return redirect("/account_home")
 
@@ -75,7 +76,6 @@ def oauthcallback():
         get_google_contacts(credentials) # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
 
         contact_list = clean_google_contact_data(email) # clean data out of file and return list of contact dictionaries
-        # print contact_list
 
         save_user_contacts_to_db(int(session['user_id']), contact_list)
 
@@ -155,11 +155,11 @@ def show_user_contacts(user_id):
 
     return render_template("contacts.html", user_contacts=user_contacts)
 
-@app.route('/<user_id>/add_contacts')
-def add_import_contacts(user_id):
-    """ Allow user to add / import contacts. """
+# @app.route('/<user_id>/add_contacts')
+# def add_import_contacts(user_id):
+#     """ Allow user to add / import contacts. """
 
-    return render_template("add_contacts.html")
+#     return render_template("add_contacts.html")
 
 @app.route('/<user_id>/send')
 def send_email(user_id):
@@ -179,6 +179,7 @@ def messages_page(user_id):
 if __name__ == "__main__":
     app.debug = True
     app.jinja_env.auto_reload = app.debug
+
 
     connect_to_db(app)
 

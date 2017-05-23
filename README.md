@@ -45,15 +45,13 @@ order_by='Other.variable'
 
 CODE REVIEW QUESTIONS:
 
-model.py
-- check about oauth  variables in model.py. should they be in a separate table?
+secrets.sh imports the same as deets.py right?
+function efficiency - esp. save_user_contacts_to_db
+optimal refactorization?
+what kind of tests to focus on? test function by function?
+- test helper functions
+- test database functions
 
-what are the relationship variables used for?
-
-** CHECK MODEL.PY
-should i store oauth credentials using gmail's thing?
-
-OTHER
 
 
 
