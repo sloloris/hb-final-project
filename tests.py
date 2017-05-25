@@ -1,4 +1,4 @@
-""" Tests. """
+""" Tests. Test database testcontacts must be created in order for these to work. """
 
 import unittest
 import os

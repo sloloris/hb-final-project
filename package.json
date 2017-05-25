@@ -1,0 +1,25 @@
+{
+  "name": "hb-final-project",
+  "version": "1.0.0",
+  "description": "Final project for Hackbright Academy Ada June 2017 cohort",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "webpack": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sloloris/hb-final-project.git"
+  },
+  "author": "Isabelle Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sloloris/hb-final-project/issues"
+  },
+  "homepage": "https://github.com/sloloris/hb-final-project#readme"
+}

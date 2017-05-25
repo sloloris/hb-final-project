@@ -1,10 +1,7 @@
 *.pyc
 secrets.sh
-seed.py
 client_secret.json
 contacts.sql
-deets.py
 .DS_Store
-.env/
 .venv/
 contact_output.txt
