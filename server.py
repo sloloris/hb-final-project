@@ -111,7 +111,8 @@ def show_user_account_home():
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     print user
 
-    return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
+    return render_template("base.html")
+    # return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
     #, user_id=user.user_id, email=email, name=first_name)
 
 
