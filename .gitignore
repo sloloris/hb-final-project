@@ -5,3 +5,4 @@ contacts.sql
 .DS_Store
 .venv/
 contact_output.txt
+node_modules/
