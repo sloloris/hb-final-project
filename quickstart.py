@@ -6,7 +6,7 @@ import base64
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from apiclient import errors, discovery
-import deets # info not to post to github
+import secrets # info not to post to github
 
 SCOPES = 'https://www.googleapis.com/auth/gmail.send'
 CLIENT_SECRET_FILE = 'client_secret.json'
@@ -55,8 +55,8 @@ def CreateMessage(sender, to, subject, msgHtml, msgPlain):
     return body
 
 def main():
-    to = deets.isa_email
-    sender = deets.isa_email
+    to = secrets.isa_email
+    sender = secrets.isa_email
     subject = "test test"
     msgHtml = "Hi<br/>Html Email"
     msgPlain = "Hi\nPlain Email"
