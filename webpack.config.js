@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     bundle: __dirname + '/static/app.js'
   },
+  
   output: {
     path: __dirname + '/static/build',
     filename: '[name].js'

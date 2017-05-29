@@ -8,6 +8,9 @@ https://github.com/dbader/schedule
 https://schedule.readthedocs.io/en/stable/
 
 
+fetch: added whatwg-fetch to webpack.config entry point
+
+
 
 TopNav.js
 - make user name appear
@@ -18,6 +21,11 @@ state changes in response to actions as defined by reducers
 components display parts of the UI based on the state, which is passed to them via their containers
 
 ... is the spread operator - it flattens the obj1 in obj2 = {...obj1, key: value} into obj2
+
+thunk is a function that returns another function containing "dispatch" as input 
+dispatch sends action to store
+
+
 
 
 

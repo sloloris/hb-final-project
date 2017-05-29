@@ -14,9 +14,9 @@
 {% for message in get_flashed_messages() %}
     <span >{{ message }}</span>
 {% endfor %}
-    <span style="display: none;" id="user-id" value={{ session['user_id'] }} />
+    <p hidden id="user-id" value={{ session['user_id'] }} />
 
-    <div id='root'></app>
+    {% block content %} <div id='root'></div> {% endblock %}
   <script src="../static/build/bundle.js"></script>
 
 </body>
