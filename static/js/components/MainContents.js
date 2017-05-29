@@ -10,9 +10,25 @@ class MainContents extends Component {
   }
 
   render() {
+    var placeholder = 'PLACEHOLDER CONTENT'
+
+    switch(this.props.currentViewIndex) {
+      case 0:
+        placeholder = 'This is the contacts view'
+        break;
+
+      case 1:
+        placeholder = 'This is the messages view'
+        break;
+
+      default:
+        break;
+    }
+
+
     return (
       <div className="main-contents">
-      HERE ARE SOME CONTENTS
+        { placeholder }
       </div>
     )
   }

@@ -11810,15 +11810,15 @@ var LeftNav = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'link-list' },
         _react2.default.createElement(
           'ul',
           { className: 'nav-pages-list' },
           this._getNavPages()
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'logout-btn', onClick: this.props.onClickLogout },
+          'a',
+          { href: '/logout', className: 'logout-btn' },
           'Log Out'
         )
       );
@@ -11883,10 +11883,25 @@ var MainContents = function (_Component) {
   _createClass(MainContents, [{
     key: 'render',
     value: function render() {
+      var placeholder = 'PLACEHOLDER CONTENT';
+
+      switch (this.props.currentViewIndex) {
+        case 0:
+          placeholder = 'This is the contacts view';
+          break;
+
+        case 1:
+          placeholder = 'This is the messages view';
+          break;
+
+        default:
+          break;
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'main-contents' },
-        'HERE ARE SOME CONTENTS'
+        placeholder
       );
     }
   }]);
@@ -12109,7 +12124,7 @@ exports = module.exports = __webpack_require__(28)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n/*.nav-pages-list {\n}*/\n\n.page-name {\n    color: white;\n}\n\n/* selected list item */\n.left-nav li.selected {\n    color: blue;\n}\n\n.logout-btn {\n    color: red;\n}", ""]);
+exports.push([module.i, "\n\n/*.nav-pages-list {\n}*/\n\n.page-name {\n    color: white;\n}\n\n/*.link-list {   \n}*/\n/* selected list item */\n.left-nav li.selected {\n    color: blue;\n}\n\n.logout-btn {\n    color: red;\n}", ""]);
 
 // exports
 
@@ -12123,7 +12138,7 @@ exports = module.exports = __webpack_require__(28)(undefined);
 
 
 // module
-exports.push([module.i, ".main-contents {\n    background-color: #fafafa;\n    font-color: black;\n    font-size: 30px;\n}", ""]);
+exports.push([module.i, ".main-contents {\n    background-color: #fafafa;\n    font-color: black;\n    font-size: 30px;\n    height: 100vh;\n}", ""]);
 
 // exports
 

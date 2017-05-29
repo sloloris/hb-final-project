@@ -1,15 +1,21 @@
 TO DO LIST:
 
+- ajax/thunk request to session.clear() for onClickLogout
+- create & style contacts list
+- create messages interface
+- create scheduling mechanism:
+https://github.com/dbader/schedule
+https://schedule.readthedocs.io/en/stable/
+
+
+
 TopNav.js
 - make user name appear
 
 
-
-
-
-
-
-
+store contains the state
+state changes in response to actions as defined by reducers
+components display parts of the UI based on the state, which is passed to them via their containers
 
 
 

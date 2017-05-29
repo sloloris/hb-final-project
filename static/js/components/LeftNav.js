@@ -12,7 +12,6 @@ class LeftNav extends Component {
     currentViewIndex: PropTypes.number.isRequired,
     navPages: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
-    // onClickLogout: PropTypes.func.isRequired
   }
 
   // property understood by React; defines default props in case onClick is not otherwise found
@@ -38,11 +37,13 @@ class LeftNav extends Component {
   // passes nav pages w/classes determined by _getNavPages to display of leftNav
   render() {
     return (
-      <div>
-        <ul className="nav-pages-list">
+      <div className='link-list'>
+        <ul className='nav-pages-list'>
           {this._getNavPages()}
         </ul>
-        <div className="logout-btn" onClick={this.props.onClickLogout}>Log Out</div>
+        <a href='/logout' className='logout-btn'>
+          Log Out
+        </a>
       </div>
     )
   }

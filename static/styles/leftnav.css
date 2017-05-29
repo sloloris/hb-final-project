@@ -7,6 +7,8 @@
     color: white;
 }
 
+/*.link-list {   
+}*/
 /* selected list item */
 .left-nav li.selected {
     color: blue;
