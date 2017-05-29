@@ -1,4 +1,4 @@
-require('../../styles.css') // add stylings
+require('../../styles/leftnav.css') // add stylings
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -6,17 +6,20 @@ import classNames from 'classnames' // passes dictionary where key is a class an
 
 // define LeftNav component
 class LeftNav extends Component {
+
   // define LeftNav property types
   static propTypes = {
     currentViewIndex: PropTypes.number.isRequired,
     navPages: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
-    onClickLogout: PropTypes.func.isRequired
+    // onClickLogout: PropTypes.func.isRequired
   }
+
   // property understood by React; defines default props in case onClick is not otherwise found
   static defaultProps = {
     onClick: console.log('clicked!')
   }
+
   // define classes for nav pages and assign to list items
   _getNavPages = () => {
     return this.props.navPages.map((navPage, index) => {
@@ -31,10 +34,11 @@ class LeftNav extends Component {
         )
     })
   }
+  
   // passes nav pages w/classes determined by _getNavPages to display of leftNav
   render() {
     return (
-      <div className="left-nav">
+      <div>
         <ul className="nav-pages-list">
           {this._getNavPages()}
         </ul>

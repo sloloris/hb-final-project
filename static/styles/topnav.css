@@ -1,0 +1,9 @@
+.user-topnav {
+    background-color: blue;
+    height: 40px;
+}
+
+.user-greeting {
+    color: white;
+    font-size: 20px;
+}

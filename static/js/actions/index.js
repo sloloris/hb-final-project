@@ -6,3 +6,7 @@ export const setCurrentView = (index) => ({
         index: index
     }
 })
+
+export const logoutUser = () => {
+    console.log('use theoretically logs out here')
+}

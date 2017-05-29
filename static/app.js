@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk' // ajax library
 import { Provider } from 'react-redux'
-import reducer from './reducers'
-import Dashboard from './components/Dashboard'
+import reducer from './js/reducers'
+import Home from './js/components/Home'
+
 
 // create store
 const store = createStore(

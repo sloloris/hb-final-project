@@ -1,0 +1,17 @@
+
+
+/*.nav-pages-list {
+}*/
+
+.page-name {
+    color: white;
+}
+
+/* selected list item */
+.left-nav li.selected {
+    color: blue;
+}
+
+.logout-btn {
+    color: red;
+}

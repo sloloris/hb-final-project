@@ -1,5 +1,18 @@
 TO DO LIST:
 
+TopNav.js
+- make user name appear
+
+
+
+
+
+
+
+
+
+
+
 model.py
 - write ScheduledMessage class 
 

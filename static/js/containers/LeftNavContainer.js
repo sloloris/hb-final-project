@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import LeftNav from '../components/LeftNav'
+import { setCurrentView } from '../actions'
 
 // takes properties of LeftNavContainer defined in Dashboard and maps to the state
 const mapStateToProps = (state, ownProps) => ({
@@ -11,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 // makes sure prop changes are dispatched
 const mapDispatchToProps = (dispatch) => ({
     // logoutUser defined in index.js
-    onClickLogout: logoutUser().bind(this, dispatch), 
+    // onClickLogout: logoutUser().bind(this, dispatch), 
     // setCurrentView defined in index.js creates action event & dispatch broadcasts it (index is bound to clicked item)
     onClick: (index) => {dispatch(setCurrentView(index))}
 })
