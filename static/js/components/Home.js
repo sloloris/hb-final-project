@@ -1,4 +1,4 @@
-require('../../styles/styles.css')
+require('../../styles/main.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';

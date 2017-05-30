@@ -1,9 +1,12 @@
 .user-topnav {
     background-color: blue;
-    height: 40px;
+    height: 64px;
+    flex: 0 0 auto;
+    line-height: 64px;
 }
 
 .user-greeting {
     color: white;
     font-size: 20px;
+    margin: 0 16px;
 }

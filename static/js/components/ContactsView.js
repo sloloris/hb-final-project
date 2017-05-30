@@ -1,4 +1,4 @@
-// require('../../styles/contactsview.css')
+require('../../styles/contactsview.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -14,9 +14,9 @@ class ContactsView extends Component {
     return this.props.contacts.map((contact, index) => {
       return (
         <li className='contact-list-item' key={index}>
-          <div className='contact-fname'>{ contact.first_name }</div>
-          <div className='contact-lname'>{ contact.last_name }</div>
-          <div className='contact-email'>{ contact.email }</div>
+          <div className='field contact-fname'>{ contact.first_name }</div>
+          <div className='field contact-lname'>{ contact.last_name }</div>
+          <div className='field contact-email'>{ contact.email }</div>
         </li>
       ) 
     })

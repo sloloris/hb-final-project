@@ -26,9 +26,14 @@ module.exports = {
         }
       },
       { test: /\.json/, loader: 'json-loader'},
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      // { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.png$/, loader: 'url-loader?limit=100000' },
       { test: /\.svg$/, loader: 'url-loader?limit=100000' },
+
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader')
+      },
 
       {
         test: /\.scss$/,
@@ -38,7 +43,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin({ 
-      filename: '[name].styles.css', 
+      filename: 'styles.css', 
       disable: false,
       allChunks: true
     }),

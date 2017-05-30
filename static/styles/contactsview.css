@@ -1,0 +1,13 @@
+
+/* external div for contacts container */
+.contacts-view {
+    margin: 0 16px;
+}
+
+.contacts-list {
+
+}
+
+.contact-list-item .field {
+    display: inline-block;
+}

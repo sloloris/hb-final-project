@@ -1,7 +1,10 @@
+@import '../../node_modules/minireset.css/minireset.min.css';
+@import '../../node_modules/normalize.css/normalize.css';
+
 body {
   font-family: 'Nunito', sans-serif;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   height: 100vh;
 }
 
