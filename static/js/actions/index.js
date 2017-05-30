@@ -35,8 +35,9 @@ export const setContacts = (contacts) => ({
     }
 })
 
-export const getUserContacts = (dispatch, userId) => {
+export const getUserContacts = (dispatch) => { // did not need to pass userId because it's already in function
   return (dispatch) => {
+    console.log('userId:' + userId)
     fetch('/user/' + userId + '/contacts')
     .then((resp) => resp.json())
     .then((data) => {

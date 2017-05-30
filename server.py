@@ -120,8 +120,7 @@ def show_user_account_home():
 def show_user_contacts(user_id):
     """ Displays all user contact pages. """
 
-    # user_contacts = Contact.query.filter_by(user_id=int(session['user_id'])).all()
-    user_contacts = Contact.query.filter_by(user_id=2).all()
+    user_contacts = Contact.query.filter_by(user_id=user_id).all()
 
     contacts = []
     for contact in user_contacts:

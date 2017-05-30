@@ -6945,8 +6945,10 @@ var setContacts = exports.setContacts = function setContacts(contacts) {
     };
 };
 
-var getUserContacts = exports.getUserContacts = function getUserContacts(dispatch, userId) {
+var getUserContacts = exports.getUserContacts = function getUserContacts(dispatch) {
+    // did not need to pass userId because it's already in function
     return function (dispatch) {
+        console.log('userId:' + userId);
         fetch('/user/' + userId + '/contacts').then(function (resp) {
             return resp.json();
         }).then(function (data) {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setCurrentView, getUserContacts } from '../actions'
+import { setCurrentView, getUserContacts, userId } from '../actions'
 import MainContents from '../components/MainContents'
 
 const mapStateToProps = (state, ownProps) => ({
