@@ -11406,9 +11406,32 @@ var ContactsView = function (_Component) {
         'div',
         { className: 'contacts-view' },
         _react2.default.createElement(
-          'ul',
-          { className: 'contacts-list' },
-          this._generateContactListItems()
+          'div',
+          { className: 'contacts-table' },
+          _react2.default.createElement(
+            'div',
+            { className: 'contacts-list contacts-list-header' },
+            _react2.default.createElement(
+              'div',
+              { className: 'header-item contact-list-item field' },
+              'First Name'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'header-item contact-list-item field' },
+              'Last Name'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'header-item contact-list-item field' },
+              'Email'
+            )
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'contacts-list' },
+            this._generateContactListItems()
+          )
         )
       );
     }

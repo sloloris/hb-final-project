@@ -25,9 +25,16 @@ class ContactsView extends Component {
   render() {
     return (
       <div className='contacts-view'>
-        <ul className='contacts-list'>
-          {this._generateContactListItems()}
-        </ul>
+        <div className='contacts-table'>
+          <div  className='contacts-list contacts-list-header'>
+            <div className='header-item contact-list-item field'>First Name</div>
+            <div className='header-item contact-list-item field'>Last Name</div>
+            <div className='header-item contact-list-item field'>Email</div>    
+          </div>           
+            <ul className='contacts-list'>
+              {this._generateContactListItems()}
+            </ul>
+        </div>
       </div>
     )
   }

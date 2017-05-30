@@ -25,7 +25,7 @@
 
 .user-greeting {
     color: white;
-    font-size: 20px;
+    font-size: 32px;
     margin: 0 16px;
 }
 /* external div for contacts container */
@@ -33,12 +33,35 @@
     margin: 0 16px;
 }
 
-.contacts-list {
+.contacts-table {
+    margin: 48px;
+    width: 896px;
+}
 
+.contacts-list {
+    margin: 0 48px;
+}
+
+.contacts-list-header {
+    background-color: #292929;
+    color: #ffffff;
+    width: 896px;
+}
+
+.header-item {
+    display: inline-block;
+    width: 240px;
+    line-height: 40px;
 }
 
 .contact-list-item .field {
     display: inline-block;
+    width: 240px;
+    line-height: 40px;
+}
+
+.email {
+    width: 416;
 }.main-contents {
     background-color: #fafafa;
     font-color: black;
