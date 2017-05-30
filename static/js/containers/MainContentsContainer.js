@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
-import { setCurrentView } from '../actions'
+import { setCurrentView, getUserContacts } from '../actions'
 import MainContents from '../components/MainContents'
 
 const mapStateToProps = (state, ownProps) => ({
     currentViewIndex: state.currentView,
+    contacts: state.contacts
 })
 
 const mapDispatchToProps = {   
+    getUserContacts: getUserContacts
 }
 
 const MainContentsContainer = connect(

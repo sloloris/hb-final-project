@@ -25,6 +25,8 @@ components display parts of the UI based on the state, which is passed to them v
 thunk is a function that returns another function containing "dispatch" as input 
 dispatch sends action to store
 
+reducer is like a key in state where the next state value is what the reducer returns
+
 
 
 

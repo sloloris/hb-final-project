@@ -116,6 +116,23 @@ def show_user_account_home():
     #, user_id=user.user_id, email=email, name=first_name)
 
 
+@app.route('/user/<user_id>/contacts', methods=["GET"]) #add <user_id>
+def show_user_contacts(user_id):
+    """ Displays all user contact pages. """
+
+    # user_contacts = Contact.query.filter_by(user_id=int(session['user_id'])).all()
+    user_contacts = Contact.query.filter_by(user_id=2).all()
+
+    contacts = []
+    for contact in user_contacts:
+        contacts.append( { 'contact_id': contact.contact_id,
+                            'first_name': contact.first_name,
+                            'last_name': contact.last_name,
+                            'email': contact.email} )
+
+    return jsonify(contacts)
+
+
 @app.route('/<user_id>/preferences', methods=["GET"])
 def user_preferences(user_id):
     """ Renders user preferences page. """
@@ -146,21 +163,6 @@ def update_user_preferences(user_id):
     flash("Your preferences have been updated.")
     return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
 
-
-@app.route('/<user_id>/contacts', methods=["GET"]) #add <user_id>
-def show_user_contacts(user_id):
-    """ Displays all user contact pages. """
-
-    user_contacts = Contact.query.filter_by(user_id=int(session['user_id'])).all()
-    print user_contacts
-
-    return jsonify(contacts=user_contacts.all())
-
-# @app.route('/<user_id>/add_contacts')
-# def add_import_contacts(user_id):
-#     """ Allow user to add / import contacts. """
-
-#     return render_template("add_contacts.html")
 
 @app.route('/<user_id>/send')
 def send_email(user_id):

@@ -2,23 +2,30 @@ require('../../styles/maincontents.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ContactsView from './ContactsView'
 
 
 class MainContents extends Component {
   static propTypes = {
     currentViewIndex: PropTypes.number.isRequired,
+    contacts: PropTypes.array.isRequired,
+    getUserContacts: PropTypes.func.isRequired
+  }
+
+  componentDidMount() {
+    this.props.getUserContacts()
   }
 
   render() {
-    var placeholder = 'PLACEHOLDER CONTENT'
+    var contents = 'CONTENTS'
 
     switch(this.props.currentViewIndex) {
       case 0:
-        placeholder = 'This is the contacts view'
+        contents = <ContactsView contacts={this.props.contacts} /> // (instance of component ContactsView)
         break;
 
       case 1:
-        placeholder = 'This is the messages view'
+        contents = 'This is the messages view'
         break;
 
       default:
@@ -28,7 +35,7 @@ class MainContents extends Component {
 
     return (
       <div className="main-contents">
-        { placeholder }
+        { contents }
       </div>
     )
   }

@@ -2,9 +2,11 @@
 
 import { combineReducers } from 'redux'
 import currentView from './currentView'
+import contacts from './contacts'
 
 const contactManager = combineReducers({
-    currentView
+    currentView,
+    contacts
 })
 
 export default contactManager

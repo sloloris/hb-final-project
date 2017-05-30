@@ -28,19 +28,20 @@ export const finishFetchingContacts = (userId) => ({
     }
 })
 
-const setContacts = (contacts) => ({
+export const setContacts = (contacts) => ({
     type: 'SET_CONTACTS',
     payload: {
         contacts: contacts
     }
 })
 
-const getUserContacts = (dispatch, userId) => {
-        return (dispatch) => {
-        fetch(userId + 'contacts')
-        .then((response) => {
-            var contacts = response.json().contacts
-            dispatch(setContacts(contacts))
-        })
-    }
+export const getUserContacts = (dispatch, userId) => {
+  return (dispatch) => {
+    fetch('/user/' + userId + '/contacts')
+    .then((resp) => resp.json())
+    .then((data) => {
+        var contacts = data
+        dispatch(setContacts(contacts))
+    })
+  }
 }
