@@ -1,0 +1,45 @@
+
+
+.msgs-display {
+    margin: 0 16px;
+    margin-top: 48px;
+}
+
+.msg-list-item {
+    line-height: 40px;
+}
+
+.msg-field {
+    display: inline-block;
+    padding: 8px;
+}
+
+.msg_id {
+    width: 32px;
+}
+
+.created-by {
+    width: 120px;
+}
+
+.msg-text {
+    width: 744px;
+}
+
+
+/*.msg-table {
+
+}*/
+
+/*.msg-list {
+
+}*/
+
+.msg-list-header{
+    background-color: #292929;
+    color: white;
+}
+
+/*.msg-header-item {
+
+}*/

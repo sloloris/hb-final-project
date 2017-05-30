@@ -3,10 +3,12 @@
 import { combineReducers } from 'redux'
 import currentView from './currentView'
 import contacts from './contacts'
+import messages from './messagesDisplay'
 
 const contactManager = combineReducers({
     currentView,
-    contacts
+    contacts,
+    messages
 })
 
 export default contactManager

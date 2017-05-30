@@ -118,7 +118,7 @@ def show_user_account_home():
 
 @app.route('/user/<user_id>/contacts', methods=["GET"]) #add <user_id>
 def show_user_contacts(user_id):
-    """ Displays all user contact pages. """
+    """ Sends json of user contacts to client. """
 
     user_contacts = Contact.query.filter_by(user_id=user_id).all()
 
@@ -127,9 +127,32 @@ def show_user_contacts(user_id):
         contacts.append( { 'contact_id': contact.contact_id,
                             'first_name': contact.first_name,
                             'last_name': contact.last_name,
-                            'email': contact.email} )
+                            'email': contact.email } )
 
     return jsonify(contacts)
+
+
+@app.route('/user/<user_id>/messages', methods=["GET"])
+def messages_page(user_id):
+    """ Sends json of user messages to client. """
+
+    default_msgs = Message.query.filter_by(created_by=1).all()
+    user_msgs = Message.query.filter_by(created_by=user_id).all()
+
+    messages = []
+    for msg in default_msgs:
+        messages.append( { 'msg_id': msg.msg_id,
+                            'created_by': msg.created_by,
+                            'msg_text': msg.msg_text } )
+
+    if user_msgs:
+        for msg in user_msgs:
+            if msg.created_by != 1:
+                messages.append( { 'msg_id': msg.msg_id,
+                                    'created_by': msg.created_by,
+                                    'msg_text': msg.msg_text } )
+
+    return jsonify(messages)
 
 
 @app.route('/<user_id>/preferences', methods=["GET"])
@@ -172,10 +195,7 @@ def send_email(user_id):
     return render_template("send_email.html")
 
 
-@app.route('/<user_id>/messages')
-def messages_page(user_id):
 
-    return render_template
 
 
 if __name__ == "__main__":

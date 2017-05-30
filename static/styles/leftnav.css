@@ -7,11 +7,19 @@
     color: white;
 }
 
-/*.link-list {   
-}*/
+.link-list {   
+    margin: 64px 0 0 32px;
+    font-size: 24px;
+    line-height: 48px;
+    padding: 8px;
+    font-weight: 200;
+}
+
+
 /* selected list item */
 .left-nav li.selected {
     color: blue;
+    font-weight: 400;
 }
 
 .logout-btn {

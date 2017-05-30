@@ -27,6 +27,16 @@ dispatch sends action to store
 
 reducer is like a key in state where the next state value is what the reducer returns
 
+SEND THUNK (AJAX) REQUEST:
+1. create server route, return jsonify
+2. create action to receive & parse json
+3. create reducer
+4. add reducer to reducer index.js (make sure to import first!)
+5. feed function through relevant container (import, map data to state, map function to dispatch)
+6. create component to render data on page
+7. if component is in another component, make sure to add an instance of it to the latter's render & the relevant data & functions to the latter's props
+
+
 
 
 

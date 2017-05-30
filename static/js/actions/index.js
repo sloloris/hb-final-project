@@ -13,20 +13,20 @@ export const setCurrentView = (index) => ({
     }
 })
 
-export const beginFetchingContacts = (userId) => ({
-    type: 'BEGIN_FETCHING_CONTACTS',
-    payload: {
-        userId: userId
-    }
-})
+// export const beginFetchingContacts = (userId) => ({
+//     type: 'BEGIN_FETCHING_CONTACTS',
+//     payload: {
+//         userId: userId
+//     }
+// })
 
-export const finishFetchingContacts = (userId) => ({
-    type: 'FINISH_FETCHING_CONTACTS',
-    payload: {
-        userId: userId,
-        data: data
-    }
-})
+// export const finishFetchingContacts = (userId) => ({
+//     type: 'FINISH_FETCHING_CONTACTS',
+//     payload: {
+//         userId: userId,
+//         data: data
+//     }
+// })
 
 export const setContacts = (contacts) => ({
     type: 'SET_CONTACTS',
@@ -35,14 +35,35 @@ export const setContacts = (contacts) => ({
     }
 })
 
+// this is a thunk
 export const getUserContacts = (dispatch) => { // did not need to pass userId because it's already in function
   return (dispatch) => {
-    console.log('userId:' + userId)
     fetch('/user/' + userId + '/contacts')
-    .then((resp) => resp.json())
+    .then((resp) => resp.json()) 
     .then((data) => {
-        var contacts = data
-        dispatch(setContacts(contacts))
+      var contacts = data
+      dispatch(setContacts(contacts))
     })
   }
 }
+
+export const displayMessages = (messages) => ({
+  type: 'DISPLAY_MESSAGES',
+  payload: {
+    messages: messages
+  }
+})
+
+// this is also a thunk
+export const getMessages = (dispatch) => {
+  return (dispatch) => {
+    fetch('/user/' + userId + '/messages')
+    .then((resp) => resp.json())
+    .then((data) => {
+      var messages = data
+      dispatch(displayMessages(messages))
+    })
+  }
+}
+
+
