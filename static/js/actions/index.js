@@ -31,7 +31,8 @@ export const setCurrentView = (index) => ({
 export const setContacts = (contacts) => ({
     type: 'SET_CONTACTS',
     payload: {
-        contacts: contacts
+        contacts: contacts,
+        userId: userId
     }
 })
 
@@ -66,4 +67,17 @@ export const getMessages = (dispatch) => {
   }
 }
 
-
+export const postContactPeriod = (dispatch) => {
+  return (dispatch) => {
+    fetch('/set_period', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      contact_id: 206, // example data
+      period: 'hubot',
+      })
+    })
+  }
+}

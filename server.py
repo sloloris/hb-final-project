@@ -155,6 +155,21 @@ def messages_page(user_id):
     return jsonify(messages)
 
 
+@app.route('/set_period', methods=["POST"])
+def set_period():
+    """ Set period on a contact in database according to user input on Contacts View. """
+
+    contact_id = request.form.get('contact_id')
+    period = request.form.get('period')
+
+    contact = Contact.query.filter_by(contact_id=contact_id).first()
+    contact.contact_period = int(period)
+    db.session.commit()
+
+    print 'period set to', period, 'days for contact with id:', contact_id
+
+
+
 @app.route('/<user_id>/preferences', methods=["GET"])
 def user_preferences(user_id):
     """ Renders user preferences page. """

@@ -43,7 +43,7 @@
 
 .contacts-table {
     margin: 48px;
-    width: 896px;
+    width: 928px;
 }
 
 .contacts-list {
@@ -53,7 +53,7 @@
 .contacts-list-header {
     background-color: #292929;
     color: #ffffff;
-    width: 896px;
+    width: 928px;
 }
 
 .header-item {
@@ -66,10 +66,16 @@
     display: inline-block;
     width: 240px;
     line-height: 40px;
+    border: 0px;
+    padding: 0px;
 }
 
 .email {
-    width: 416;
+    width: 416px;
+}
+
+.contact-period {
+    width: 32px;
 }
 
 .msgs-display {
@@ -583,7 +589,7 @@ body {
 .left-nav {
     background-color: black;
     flex-flow: row;
-    width: 240px;
+    width: 200px;
     height: 100vh;
     flex: 0 0 auto;
 }

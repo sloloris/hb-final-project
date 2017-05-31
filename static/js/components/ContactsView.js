@@ -2,6 +2,8 @@ require('../../styles/contactsview.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+// import { userId } from '../actions'
+import ContactPeriodForm from './ContactPeriodForm'
 
 
 class ContactsView extends Component {
@@ -17,6 +19,7 @@ class ContactsView extends Component {
           <div className='field contact-fname'>{ contact.first_name }</div>
           <div className='field contact-lname'>{ contact.last_name }</div>
           <div className='field contact-email'>{ contact.email }</div>
+          <div className='field contact-period'><ContactPeriodForm contact_id={ contact.contact_id }/></div>
         </li>
       ) 
     })
@@ -29,11 +32,12 @@ class ContactsView extends Component {
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>
             <div className='header-item contact-list-item field'>Last Name</div>
-            <div className='header-item contact-list-item field'>Email</div>    
+            <div className='header-item contact-list-item field'>Email</div>  
+            <div className='header-item contact-list-item field'>Period</div>   
           </div>           
-            <ul className='contacts-list'>
-              {this._generateContactListItems()}
-            </ul>
+          <ul className='contacts-list'>
+            {this._generateContactListItems()}
+          </ul>
         </div>
       </div>
     )

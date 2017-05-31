@@ -6899,7 +6899,7 @@ module.exports = ReactNoopUpdateQueue;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = undefined;
+exports.postContactPeriod = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = undefined;
 
 __webpack_require__(245);
 
@@ -6936,7 +6936,8 @@ var setContacts = exports.setContacts = function setContacts(contacts) {
   return {
     type: 'SET_CONTACTS',
     payload: {
-      contacts: contacts
+      contacts: contacts,
+      userId: userId
     }
   };
 };
@@ -6971,6 +6972,21 @@ var getMessages = exports.getMessages = function getMessages(dispatch) {
     }).then(function (data) {
       var messages = data;
       dispatch(displayMessages(messages));
+    });
+  };
+};
+
+var postContactPeriod = exports.postContactPeriod = function postContactPeriod(dispatch) {
+  return function (dispatch) {
+    fetch('/set_period', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        contact_id: 206, // example data
+        period: 'hubot'
+      })
     });
   };
 };
@@ -11373,6 +11389,10 @@ var _propTypes = __webpack_require__(14);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _ContactPeriodForm = __webpack_require__(246);
+
+var _ContactPeriodForm2 = _interopRequireDefault(_ContactPeriodForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11382,6 +11402,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 __webpack_require__(114);
+// import { userId } from '../actions'
 
 var ContactsView = function (_Component) {
   _inherits(ContactsView, _Component);
@@ -11417,6 +11438,11 @@ var ContactsView = function (_Component) {
             'div',
             { className: 'field contact-email' },
             contact.email
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'field contact-period' },
+            _react2.default.createElement(_ContactPeriodForm2.default, { contact_id: contact.contact_id })
           )
         );
       });
@@ -11449,6 +11475,11 @@ var ContactsView = function (_Component) {
               'div',
               { className: 'header-item contact-list-item field' },
               'Email'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'header-item contact-list-item field' },
+              'Period'
             )
           ),
           _react2.default.createElement(
@@ -25876,6 +25907,120 @@ module.exports = function(module) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(14);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ContactPeriodForm = function (_Component) {
+  _inherits(ContactPeriodForm, _Component);
+
+  function ContactPeriodForm(props) {
+    _classCallCheck(this, ContactPeriodForm);
+
+    var _this = _possibleConstructorReturn(this, (ContactPeriodForm.__proto__ || Object.getPrototypeOf(ContactPeriodForm)).call(this, props)); // need?
+
+
+    _this.state = { value: 90 };
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(ContactPeriodForm, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState({ contact_id: contact_id,
+        value: event.target.value });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      alert('Contact period updated to' + this.state.value);
+      event.preventDefault();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        { onSubmit: this.handleSubmit },
+        _react2.default.createElement(
+          'label',
+          null,
+          _react2.default.createElement(
+            'select',
+            { value: this.state.value, onChange: this.handleChange },
+            _react2.default.createElement(
+              'option',
+              { value: '15' },
+              '7'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '15' },
+              '15'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '30' },
+              '30'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '60' },
+              '60'
+            ),
+            _react2.default.createElement(
+              'option',
+              { selected: true, value: '90' },
+              '90'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '60' },
+              '180'
+            )
+          )
+        ),
+        _react2.default.createElement('input', { type: 'submit', value: 'submit' })
+      );
+    }
+  }]);
+
+  return ContactPeriodForm;
+}(_react.Component);
+
+ContactPeriodForm.propTypes = {
+  contact_id: _propTypes2.default.number.isRequired
+};
+exports.default = ContactPeriodForm;
 
 /***/ })
 /******/ ]);

@@ -16,7 +16,7 @@ body {
 .left-nav {
     background-color: black;
     flex-flow: row;
-    width: 240px;
+    width: 200px;
     height: 100vh;
     flex: 0 0 auto;
 }
