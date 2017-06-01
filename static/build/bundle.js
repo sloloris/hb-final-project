@@ -6899,7 +6899,7 @@ module.exports = ReactNoopUpdateQueue;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.postContactPeriod = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = undefined;
+exports.postContactPeriod = exports.contactPeriodSuccess = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = undefined;
 
 __webpack_require__(245);
 
@@ -6976,16 +6976,24 @@ var getMessages = exports.getMessages = function getMessages(dispatch) {
   };
 };
 
+var contactPeriodSuccess = exports.contactPeriodSuccess = function contactPeriodSuccess() {
+  return {
+    type: 'POST_CONTACT_PERIOD_SUCCESS',
+    payload: {}
+  };
+};
+
 var postContactPeriod = exports.postContactPeriod = function postContactPeriod(dispatch) {
   return function (dispatch) {
     fetch('/set_period', {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         contact_id: 206, // example data
-        period: 'hubot'
+        period: 30
       })
     });
   };
@@ -25929,6 +25937,8 @@ var _propTypes = __webpack_require__(14);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _actions = __webpack_require__(57);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25946,7 +25956,7 @@ var ContactPeriodForm = function (_Component) {
     var _this = _possibleConstructorReturn(this, (ContactPeriodForm.__proto__ || Object.getPrototypeOf(ContactPeriodForm)).call(this, props)); // need?
 
 
-    _this.state = { value: 90 };
+    _this.state = { value: 90 }; // figure out how to make this the form input
 
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -25956,14 +25966,23 @@ var ContactPeriodForm = function (_Component) {
   _createClass(ContactPeriodForm, [{
     key: 'handleChange',
     value: function handleChange(event) {
-      this.setState({ contact_id: contact_id,
+      this.setState({ contact_id: this.props.contact_id,
         value: event.target.value });
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
-      alert('Contact period updated to' + this.state.value);
+      alert('Contact' + this.props.contact_id + 'period updated to' + this.state.value);
       event.preventDefault();
+      $.ajax({
+        url: '/set_period',
+        type: 'POST',
+        data: { contact_id: this.props.contact_id,
+          value: this.state.value },
+        success: function success() {
+          alert('Data posted to server');
+        }
+      });
     }
   }, {
     key: 'render',
@@ -25999,16 +26018,17 @@ var ContactPeriodForm = function (_Component) {
             ),
             _react2.default.createElement(
               'option',
-              { selected: true, value: '90' },
+              { defaultValue: '90' },
               '90'
             ),
             _react2.default.createElement(
               'option',
-              { value: '60' },
+              { value: '180' },
               '180'
             )
           )
         ),
+        _react2.default.createElement('input', { type: 'hidden', name: 'contact_id', value: this.props.contact_id }),
         _react2.default.createElement('input', { type: 'submit', value: 'submit' })
       );
     }

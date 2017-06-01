@@ -19,7 +19,9 @@ class ContactsView extends Component {
           <div className='field contact-fname'>{ contact.first_name }</div>
           <div className='field contact-lname'>{ contact.last_name }</div>
           <div className='field contact-email'>{ contact.email }</div>
-          <div className='field contact-period'><ContactPeriodForm contact_id={ contact.contact_id }/></div>
+          <div className='field contact-period'>
+            <ContactPeriodForm contact_id={ contact.contact_id }/>
+          </div>
         </li>
       ) 
     })

@@ -160,13 +160,13 @@ def set_period():
     """ Set period on a contact in database according to user input on Contacts View. """
 
     contact_id = request.form.get('contact_id')
-    period = request.form.get('period')
+    period = request.form.get('value')
 
     contact = Contact.query.filter_by(contact_id=contact_id).first()
     contact.contact_period = int(period)
     db.session.commit()
 
-    print 'period set to', period, 'days for contact with id:', contact_id
+    return 'something returned'
 
 
 
