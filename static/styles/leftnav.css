@@ -5,23 +5,29 @@
 
 .page-name {
     color: white;
+    padding: 0 0 0 32px;
 }
 
 .link-list {   
-    margin: 64px 0 0 32px;
+    margin: 64px 0 0 0;
     font-size: 24px;
     line-height: 48px;
-    padding: 8px;
+/*    padding: 8px;*/
     font-weight: 200;
 }
 
 
 /* selected list item */
-.left-nav li.selected {
-    color: blue;
+/*.left-nav li.selected {*/
+.selected {
     font-weight: 400;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .logout-btn {
-    color: red;
+    color: white;
+    position: fixed;
+    padding-left: 32px;
+    /*background-color: rgba(255, 255, 255, 0.5);*/
+    bottom: 0;
 }

@@ -12070,6 +12070,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -12081,19 +12083,104 @@ __webpack_require__(120);
 var ScheduleView = function (_Component) {
   _inherits(ScheduleView, _Component);
 
-  function ScheduleView() {
+  function ScheduleView(props) {
     _classCallCheck(this, ScheduleView);
 
-    return _possibleConstructorReturn(this, (ScheduleView.__proto__ || Object.getPrototypeOf(ScheduleView)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (ScheduleView.__proto__ || Object.getPrototypeOf(ScheduleView)).call(this, props));
+
+    _this.state = {
+      chooseContact: null,
+      userEmail: 'isabelle.k.miller@gmail.com',
+      // startDate: ,
+      contactPeriod: 90
+    };
+
+    _this.handleInputChange = _this.handleInputChange.bind(_this);
+    return _this;
   }
 
   _createClass(ScheduleView, [{
+    key: 'handleInputChange',
+    value: function handleInputChange(event) {
+      var target = event.target;
+      var value = target.type === 'checkbox' ? target.checked : target.value;
+      var name = target.name;
+
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      alert('Message scheduled!');
+      event.preventDefault();
+      // $.ajax({
+      //     url: '/set_period',
+      //     type: 'POST',
+      //     data: {contact_id: this.props.contact_id,
+      //           value: this.state.value},
+      //     success: (response) => {
+      //       alert('Data posted to server');
+      //     }
+      //   })
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        'some div here'
+        { className: 'schedule-form-container' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmit },
+          _react2.default.createElement(
+            'label',
+            null,
+            'To:',
+            _react2.default.createElement('input', {
+              name: 'chooseContact',
+              type: 'text',
+              value: 'Start typing a name...' //{this.state.chooseContact}
+              , onChange: this.handleInputChange })
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'From:',
+            _react2.default.createElement('input', {
+              name: 'userEmail',
+              type: 'text',
+              value: 'isabelle.k.miller@gmail.com' //{this.state.numberOfGuests}
+              , onChange: this.handleInputChange })
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Start date:',
+            _react2.default.createElement('input', {
+              name: 'startDate',
+              type: 'date',
+              value: this.state.startDate,
+              onChange: this.handleInputChange })
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Contact period:',
+            _react2.default.createElement('input', {
+              name: 'contactPeriod',
+              type: 'number',
+              value: this.state.contactPeriod,
+              onChange: this.handleInputChange })
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('input', { type: 'submit', className: 'btn schedule-btn', value: 'Schedule' })
+        )
       );
     }
   }]);

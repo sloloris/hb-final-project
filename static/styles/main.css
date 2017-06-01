@@ -14,7 +14,7 @@ body {
 }
 
 .left-nav {
-    background-color: black;
+    background-color: #292929;
     flex-flow: row;
     width: 240px;
     height: 100vh;
@@ -81,7 +81,7 @@ body {
 
 /* login button for google oauth on landing page */
 .google-login-btn {
-    background: rgba(255, 0, 0, 1.0);
+    background: #292929;
     border: none;
     border-radius: 3px;
     color: white;
