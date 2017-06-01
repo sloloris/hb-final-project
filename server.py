@@ -155,6 +155,17 @@ def messages_page(user_id):
     return jsonify(messages)
 
 
+@app.route('/user/<user_id>/messages', methods=["POST"])
+def add_new_message(user_id):
+    """ Allows users to add new messages to database. """
+
+    user_id = request.form.get('userId')
+    msg_text = request.form.get('msgText')
+
+    print 'user_id:', user_id, 'msg_text:', msg_text
+    return jsonify({})
+
+
 @app.route('/set_period', methods=["POST"])
 def set_period():
     """ Set period on a contact in database according to user input on Contacts View. """

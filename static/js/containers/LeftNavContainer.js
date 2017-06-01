@@ -11,8 +11,6 @@ const mapStateToProps = (state, ownProps) => ({
 // dispatch = broadcast for listening
 // makes sure prop changes are dispatched
 const mapDispatchToProps = (dispatch) => ({
-    // logoutUser defined in index.js
-    // onClickLogout: logoutUser().bind(this, dispatch), 
     // setCurrentView defined in index.js creates action event & dispatch broadcasts it (index is bound to clicked item)
     onClick: (index) => {dispatch(setCurrentView(index))}
 })

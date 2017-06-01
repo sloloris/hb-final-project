@@ -24,17 +24,6 @@
 
 .logout-btn {
     color: red;
-}.user-topnav {
-    background-color: blue;
-    height: 64px;
-    flex: 0 0 auto;
-    line-height: 64px;
-}
-
-.user-greeting {
-    color: white;
-    font-size: 32px;
-    margin: 0 16px;
 }
 /* external div for contacts container */
 .contacts-view {
@@ -120,7 +109,31 @@
 
 /*.msg-header-item {
 
-}*/.main-contents {
+}*/
+
+.btn {
+    color: white;
+    margin-right: 32px;
+    border: white solid 1px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+}
+
+/* , means all of either */
+.btn-save, .btn-cancel { 
+    color: black;
+    border: black solid 1px;
+}
+
+.btn-container {
+    text-align: right;
+    height: 40px;
+    background-color: #eaeaea;
+}
+
+
+.main-contents {
     background-color: #fafafa;
     font-color: black;
     font-size: 20px;
@@ -589,7 +602,7 @@ body {
 .left-nav {
     background-color: black;
     flex-flow: row;
-    width: 200px;
+    width: 240px;
     height: 100vh;
     flex: 0 0 auto;
 }
@@ -599,6 +612,10 @@ body {
     display: flex;
     flex-flow: column;
     height: 100vh; /* view port height - % of browser window */
+}
+
+.no-display {
+    display: none;
 }
 
 

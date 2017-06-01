@@ -16,7 +16,7 @@ body {
 .left-nav {
     background-color: black;
     flex-flow: row;
-    width: 200px;
+    width: 240px;
     height: 100vh;
     flex: 0 0 auto;
 }
@@ -26,6 +26,10 @@ body {
     display: flex;
     flex-flow: column;
     height: 100vh; /* view port height - % of browser window */
+}
+
+.no-display {
+    display: none;
 }
 
 

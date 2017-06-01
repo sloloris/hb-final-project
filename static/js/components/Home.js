@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import LeftNavContainer from '../containers/LeftNavContainer'
-import TopNavContainer from '../containers/TopNavContainer'
+// import TopNavContainer from '../containers/TopNavContainer'
 import MainContentsContainer from '../containers/MainContentsContainer'
 
 class Home extends Component {
@@ -14,10 +14,10 @@ class Home extends Component {
       <div className='account-home'>
         <div className='left-nav'>
           <LeftNavContainer
-            navPages={['Contacts', 'Messages']} />
+            navPages={['Contacts', 'Messages', 'Schedule']} />
         </div>
         <div className='right-contents'>
-          <TopNavContainer />
+          {/*<TopNavContainer />*/}
           <MainContentsContainer />
         </div>
       </div>

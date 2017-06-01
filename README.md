@@ -43,6 +43,11 @@ SEND THUNK POST REQUEST WITH FORM:
 2. put component in parent component where you want form to render
 
 
+CREATE ACTION:
+return JSON from server route
+call action addMessage on reducer 
+
+
 
 
 

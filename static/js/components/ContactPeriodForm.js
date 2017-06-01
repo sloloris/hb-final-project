@@ -9,7 +9,7 @@ class ContactPeriodForm extends Component {
   }
   constructor(props) { // need?
     super(props);
-    this.state = {value: 90}; // figure out how to make this the form input
+    this.state = {value: 90}; 
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,7 +28,7 @@ class ContactPeriodForm extends Component {
         type: 'POST',
         data: {contact_id: this.props.contact_id,
               value: this.state.value},
-        success: () => {
+        success: (response) => {
           alert('Data posted to server');
         }
     })

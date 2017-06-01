@@ -4,6 +4,9 @@ const messages = (state = [], action) => {
         case 'DISPLAY_MESSAGES':
             return action.payload.messages 
 
+        case 'ADD_MESSAGE':
+            return state.push(action.payload.msg)
+
         default:
             return state
     }

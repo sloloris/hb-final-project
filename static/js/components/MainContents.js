@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ContactsView from './ContactsView'
 import MessagesDisplay from './MessagesDisplay'
+import ScheduleView from './ScheduleView'
 
 
 class MainContents extends Component {
@@ -29,8 +30,11 @@ class MainContents extends Component {
         break;
 
       case 1:
-        contents = <MessagesDisplay messages={this.props.messages} />
+        contents = <MessagesDisplayContainer messages={this.props.messages} />
         break;
+
+      case 2:
+        contents = <ScheduleView />
 
       default:
         break;

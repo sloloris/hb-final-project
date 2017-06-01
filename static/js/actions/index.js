@@ -2,9 +2,8 @@
 
 import 'whatwg-fetch'
 var userIdSpan = document.getElementById('user-id');
-var userId = parseInt(userIdSpan.getAttribute('value'));
+export const userId = parseInt(userIdSpan.getAttribute('value'))
 console.log("User", userId, "logged in.");
-
 
 export const setCurrentView = (index) => ({
     type: 'SET_CURRENT_VIEW',
@@ -67,25 +66,32 @@ export const getMessages = (dispatch) => {
   }
 }
 
-export const contactPeriodSuccess = () => ({
-  type: 'POST_CONTACT_PERIOD_SUCCESS',
+export const addMessages = (msg) => ({
+  type: 'ADD_MESSAGE',
   payload: {
-
+    msg: msg
   }
 })
 
-export const postContactPeriod = (dispatch) => {
-  return (dispatch) => {
-    fetch('/set_period', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      contact_id: 206, // example data
-      period: 30,
-      })
-    })
-  }
-}
+// export const contactPeriodSuccess = () => ({
+//   type: 'POST_CONTACT_PERIOD_SUCCESS',
+//   payload: {
+
+//   }
+// })
+
+// export const postContactPeriod = (dispatch) => {
+//   return (dispatch) => {
+//     fetch('/set_period', {
+//     method: 'POST',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       contact_id: 206, // example data
+//       period: 30,
+//       })
+//     })
+//   }
+// }
