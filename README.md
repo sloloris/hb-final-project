@@ -1,11 +1,11 @@
 TO DO LIST:
 
-- ajax/thunk request to session.clear() for onClickLogout
 - create & style contacts list
-- create messages interface
 - create scheduling mechanism:
 https://github.com/dbader/schedule
 https://schedule.readthedocs.io/en/stable/
+
+- make sure that messages actually post to database (currently hardcoded)
 
 background/"chron" job library for flask/python to schedule messages
 
@@ -96,6 +96,9 @@ order_by='Other.variable'
 
 
 * RESEARCH PAGINATION
+
+to fix button
+-webkit-appearance: button; is commented out in node_modules/normalize/normalize.css
 
 
 

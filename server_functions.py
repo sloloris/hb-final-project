@@ -127,6 +127,13 @@ def save_user_contacts_to_db(user_id, contact_list):
             new_contact = Contact(user_id=user_id, first_name=contact['first_name'], last_name=contact['last_name'], email=contact['email'])
             db.session.add(new_contact)
 
+    # figure out a better way to do this later
+    Contact.query.filter_by(first_name=None).delete()
+    Contact.query.filter_by(last_name=None).delete()
+
     db.session.commit()
 
     print "%d contacts added to database for user %s." % (len(contact_list), user_id)
+
+
+

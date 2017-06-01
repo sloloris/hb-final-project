@@ -420,7 +420,7 @@ button,
 html [type="button"], /* 1 */
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button; /* 2 */
+  /*-webkit-appearance: button; /* 2 */
 }
 
 /**
@@ -646,7 +646,7 @@ body {
 /* landing page contents */
 .landing-contents {
     text-align: center;
-    width: 60%;
+    width: 100%;
     padding-left: 20%;
     padding-right: 20%;
     padding-top: 5%;

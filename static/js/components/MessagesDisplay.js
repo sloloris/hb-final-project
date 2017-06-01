@@ -54,13 +54,17 @@ class MessagesDisplay extends Component {
         data: {userId: userId,
               msgText: this.state.msgText},
         success: (response) => {
+          // this.props.messages // it's not updating in real time - why?
           this.props.addMessage({
-            msg_id: 88,
+            msg_id: 3,
             created_by: 2,
             msg_text: 'this is only a test'
           })
-          this.setState(this.state)
         }
+    })
+    this.setState({
+      ...this.state,
+      displayAdd: false
     })
   }
 

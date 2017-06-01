@@ -5,8 +5,11 @@ const messages = (state = [], action) => {
             return action.payload.messages 
 
         case 'ADD_MESSAGE':
+            // create new array so react recognizes changes to state
             state.push(action.payload.msg)
-            return state
+            var newState = Array.from(state)
+            return newState
+            // return state
 
         default:
             return state

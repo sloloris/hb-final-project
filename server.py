@@ -162,6 +162,10 @@ def add_new_message(user_id):
     user_id = request.form.get('userId')
     msg_text = request.form.get('msgText')
 
+    new_msg = Message(created_by=user_id, msg_text=msg_text)
+    db.session.add(new_msg)
+    db.session.commit()
+
     print 'user_id:', user_id, 'msg_text:', msg_text
     return jsonify({})
 
@@ -181,35 +185,35 @@ def set_period():
 
 
 
-@app.route('/<user_id>/preferences', methods=["GET"])
-def user_preferences(user_id):
-    """ Renders user preferences page. """
+# @app.route('/<user_id>/preferences', methods=["GET"])
+# def user_preferences(user_id):
+#     """ Renders user preferences page. """
 
-    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+#     user = User.query.filter_by(user_id=int(session['user_id'])).one()
 
-    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
+#     return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
 
 
-@app.route('/<user_id>/preferences', methods=["POST"])
-def update_user_preferences(user_id):
-    """ Updates user preferences in database. """
+# @app.route('/<user_id>/preferences', methods=["POST"])
+# def update_user_preferences(user_id):
+#     """ Updates user preferences in database. """
 
-    nickname = request.form.get('nickname')
-    phone = request.form.get('phone')
-    whatsapp = request.form.get('whatsapp')
+#     nickname = request.form.get('nickname')
+#     phone = request.form.get('phone')
+#     whatsapp = request.form.get('whatsapp')
 
-    user = User.query.filter_by(user_id=int(session['user_id'])).one()
-    # for nullable values:
-    user.nickname = nickname or None # if nickname, set to nickname; else set to None
-    user.phone = str(phone) or None
-    if whatsapp == "yes":
-        whatsapp_number = request.form.get('whatsapp_number')
-        user.whatsapp = whatsapp_number
+#     user = User.query.filter_by(user_id=int(session['user_id'])).one()
+#     # for nullable values:
+#     user.nickname = nickname or None # if nickname, set to nickname; else set to None
+#     user.phone = str(phone) or None
+#     if whatsapp == "yes":
+#         whatsapp_number = request.form.get('whatsapp_number')
+#         user.whatsapp = whatsapp_number
 
-    db.session.commit()
+#     db.session.commit()
 
-    flash("Your preferences have been updated.")
-    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
+#     flash("Your preferences have been updated.")
+#     return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
 
 
 @app.route('/<user_id>/send')
