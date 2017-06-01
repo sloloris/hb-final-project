@@ -10,7 +10,7 @@ const mapDispatchToProps = {
     addMessage: addMessage
 }
 
-const MessageDisplayContainer = connect(
+const MessagesDisplayContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(MessagesDisplay)

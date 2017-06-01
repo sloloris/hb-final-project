@@ -4732,7 +4732,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addMessages = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = exports.userId = undefined;
+exports.addMessage = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = exports.userId = undefined;
 
 __webpack_require__(246);
 
@@ -4809,7 +4809,7 @@ var getMessages = exports.getMessages = function getMessages(dispatch) {
   };
 };
 
-var addMessages = exports.addMessages = function addMessages(msg) {
+var addMessage = exports.addMessage = function addMessage(msg) {
   return {
     type: 'ADD_MESSAGE',
     payload: {
@@ -11782,9 +11782,9 @@ var _ContactsView = __webpack_require__(104);
 
 var _ContactsView2 = _interopRequireDefault(_ContactsView);
 
-var _MessagesDisplay = __webpack_require__(107);
+var _MessagesDisplayContainer = __webpack_require__(250);
 
-var _MessagesDisplay2 = _interopRequireDefault(_MessagesDisplay);
+var _MessagesDisplayContainer2 = _interopRequireDefault(_MessagesDisplayContainer);
 
 var _ScheduleView = __webpack_require__(247);
 
@@ -11825,7 +11825,7 @@ var MainContents = function (_Component) {
           break;
 
         case 1:
-          contents = _react2.default.createElement(MessagesDisplayContainer, { messages: this.props.messages });
+          contents = _react2.default.createElement(_MessagesDisplayContainer2.default, { messages: this.props.messages });
           break;
 
         case 2:
@@ -11946,7 +11946,12 @@ var MessagesDisplay = function (_Component) {
         data: { userId: _actions.userId,
           msgText: _this.state.msgText },
         success: function success(response) {
-          (0, _actions.addMessage)();
+          _this.props.addMessage({
+            msg_id: 88,
+            created_by: 2,
+            msg_text: 'this is only a test'
+          });
+          _this.setState(_this.state);
         }
       });
     };
@@ -12034,7 +12039,8 @@ var MessagesDisplay = function (_Component) {
 }(_react.Component);
 
 MessagesDisplay.propTypes = {
-  messages: _propTypes2.default.array.isRequired
+  messages: _propTypes2.default.array.isRequired,
+  addMessage: _propTypes2.default.func.isRequired
 };
 exports.default = MessagesDisplay;
 
@@ -12213,7 +12219,8 @@ var messages = function messages() {
             return action.payload.messages;
 
         case 'ADD_MESSAGE':
-            return state.push(action.payload.msg);
+            state.push(action.payload.msg);
+            return state;
 
         default:
             return state;
@@ -26088,6 +26095,41 @@ exports.default = ScheduleView;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactRedux = __webpack_require__(27);
+
+var _actions = __webpack_require__(36);
+
+var _MessagesDisplay = __webpack_require__(107);
+
+var _MessagesDisplay2 = _interopRequireDefault(_MessagesDisplay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return {
+        messages: ownProps.messages
+    };
+};
+
+var mapDispatchToProps = {
+    addMessage: _actions.addMessage
+};
+
+var MessagesDisplayContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_MessagesDisplay2.default);
+
+exports.default = MessagesDisplayContainer;
 
 /***/ })
 /******/ ]);

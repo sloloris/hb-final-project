@@ -3,12 +3,13 @@ require('../../styles/messagesdisplay.css')
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { addMessage, userId } from '../actions'
+import { userId } from '../actions'
 
 
 class MessagesDisplay extends Component {
   static propTypes = { 
     messages: PropTypes.array.isRequired,
+    addMessage: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -53,7 +54,12 @@ class MessagesDisplay extends Component {
         data: {userId: userId,
               msgText: this.state.msgText},
         success: (response) => {
-          addMessage()
+          this.props.addMessage({
+            msg_id: 88,
+            created_by: 2,
+            msg_text: 'this is only a test'
+          })
+          this.setState(this.state)
         }
     })
   }

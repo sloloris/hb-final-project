@@ -66,7 +66,7 @@ export const getMessages = (dispatch) => {
   }
 }
 
-export const addMessages = (msg) => ({
+export const addMessage = (msg) => ({
   type: 'ADD_MESSAGE',
   payload: {
     msg: msg

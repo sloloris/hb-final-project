@@ -5,7 +5,8 @@ const messages = (state = [], action) => {
             return action.payload.messages 
 
         case 'ADD_MESSAGE':
-            return state.push(action.payload.msg)
+            state.push(action.payload.msg)
+            return state
 
         default:
             return state

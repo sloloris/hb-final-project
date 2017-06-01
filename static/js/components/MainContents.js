@@ -3,7 +3,7 @@ require('../../styles/maincontents.css')
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ContactsView from './ContactsView'
-import MessagesDisplay from './MessagesDisplay'
+import MessagesDisplayContainer from '../containers/MessagesDisplayContainer'
 import ScheduleView from './ScheduleView'
 
 
