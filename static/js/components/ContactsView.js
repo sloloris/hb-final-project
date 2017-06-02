@@ -19,9 +19,9 @@ class ContactsView extends Component {
           <div className='field contact-fname'>{ contact.first_name }</div>
           <div className='field contact-lname'>{ contact.last_name }</div>
           <div className='field contact-email'>{ contact.email }</div>
-          <div className='field contact-period'>
+{/*          <div className='field contact-period'>
             <ContactPeriodForm contact_id={ contact.contact_id }/>
-          </div>
+          </div>*/}
         </li>
       ) 
     })
@@ -35,7 +35,7 @@ class ContactsView extends Component {
             <div className='header-item contact-list-item field'>First Name</div>
             <div className='header-item contact-list-item field'>Last Name</div>
             <div className='header-item contact-list-item field'>Email</div>  
-            <div className='header-item contact-list-item field'>Period</div>   
+{/*            <div className='header-item contact-list-item field'>Period</div>  */} 
           </div>           
           <ul className='contacts-list'>
             {this._generateContactListItems()}

@@ -11577,11 +11577,6 @@ var ContactsView = function (_Component) {
             'div',
             { className: 'field contact-email' },
             contact.email
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'field contact-period' },
-            _react2.default.createElement(_ContactPeriodForm2.default, { contact_id: contact.contact_id })
           )
         );
       });
@@ -11614,11 +11609,6 @@ var ContactsView = function (_Component) {
               'div',
               { className: 'header-item contact-list-item field' },
               'Email'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'header-item contact-list-item field' },
-              'Period'
             )
           ),
           _react2.default.createElement(
