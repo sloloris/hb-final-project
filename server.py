@@ -188,6 +188,21 @@ def set_period():
 def create_new_schedule():
     """ Save user schedule to database. """
 
+    user_id = int(session['user_id'])
+    contact_id = request.form.get('chooseContact')
+    start_date = request.form.get('startDate')
+    period = request.form.get('contactPeriod')
+
+    # send_date = start_date + period or something
+    # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
+                                        contact_id=contact_id,
+                                        send_date=send_date)
+
+    # db.session.add(new_scheduled_msg)
+    # db.session.commit()
+
+    return jsonify({})
+
 
 
 # @app.route('/<user_id>/preferences', methods=["GET"])

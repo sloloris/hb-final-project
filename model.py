@@ -120,7 +120,7 @@ class ScheduledMessage(db.Model): # this would be a queue
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False, default=None)
     contact_id = db.Column(db.Integer, db.ForeignKey('contacts.contact_id'), nullable=False)
     send_date = db.Column(db.DateTime, nullable=False)
-    sent = db.Column(db.Boolean, nullable=False)
+    sent = db.Column(db.Boolean, nullable=False, default=False)
 
     user = db.relationship("User", backref=db.backref("scheduled_messages", 
                                                         order_by=user_id))
