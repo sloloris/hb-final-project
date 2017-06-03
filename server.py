@@ -184,6 +184,11 @@ def set_period():
     return 'something returned'
 
 
+@app.route('/schedule', methods=["POST"])
+def create_new_schedule():
+    """ Save user schedule to database. """
+
+
 
 # @app.route('/<user_id>/preferences', methods=["GET"])
 # def user_preferences(user_id):
