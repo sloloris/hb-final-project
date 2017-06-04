@@ -8,8 +8,8 @@ https://schedule.readthedocs.io/en/stable/
 SUNDAY
 - create server-side chron job
 - autofill for schedule template
-- appearing button by selected contacts
-- change contact sort on click
+- appearing schedule button on selected contacts
+- change contact sort on click (not prioritized for demo night)
 
 
 
