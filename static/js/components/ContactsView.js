@@ -13,7 +13,9 @@ class ContactsView extends Component {
 
   _generateContactListItems = () => {
     var contacts = this.props.contacts
+    contacts.sort(function(a,b) {return (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0);} ); 
     return this.props.contacts.map((contact, index) => {
+    // return sortedContacts.map((contact,index)) => {
       return (
         <li className='contact-list-item' key={index}>
           <div className='field contact-fname'>{ contact.first_name }</div>

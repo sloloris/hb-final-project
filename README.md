@@ -5,9 +5,11 @@ TO DO LIST:
 https://github.com/dbader/schedule
 https://schedule.readthedocs.io/en/stable/
 
-- make sure that messages actually post to database (currently hardcoded)
-
-background/"chron" job library for flask/python to schedule messages
+SUNDAY
+- create server-side chron job
+- autofill for schedule template
+- appearing button by selected contacts
+- change contact sort on click
 
 
 

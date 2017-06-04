@@ -2,47 +2,50 @@ require('../../styles/scheduleview.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 
 class ScheduleView extends Component {
   static propTypes = { 
-
   }
 
 constructor(props) {
     super(props);
     this.state = {
-      chooseContact: null,
-      userEmail: 'isabelle.k.miller@gmail.com',
-      // startDate: ,
+      chooseContact: '',
+      startDate: moment().format('YYYY-MM-DD'),
       contactPeriod: 90
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = (event) => {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value
+    // target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+
 
     this.setState({
       [name]: value
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
   alert('Message scheduled!');
   event.preventDefault();
-  // $.ajax({
-  //     url: '/set_period',
-  //     type: 'POST',
-  //     data: {contact_id: this.props.contact_id,
-  //           value: this.state.value},
-  //     success: (response) => {
-  //       alert('Data posted to server');
-  //     }
-  //   })
+  $.ajax({
+      url: '/schedule',
+      type: 'POST',
+      data: { contact_id: this.state.chooseContact,
+            start_date: this.state.startDate,
+            period: this.state.contactPeriod
+            },
+      success: (response) => {
+        console.log('Data posted to server');
+      }
+    })
   }
 
   render() {
@@ -54,18 +57,12 @@ constructor(props) {
             <input
               name='chooseContact'
               type='text'
-              value='Start typing a name...' //{this.state.chooseContact}
+              placeholder='enter email'
+              value={this.state.chooseContact} 
               onChange={this.handleInputChange} />
           </label>
           <br />
-          <label>
-            From: 
-            <input
-              name='userEmail'
-              type='text'
-              value='isabelle.k.miller@gmail.com' //{this.state.numberOfGuests}
-              onChange={this.handleInputChange} />
-          </label>
+
           <br />
           <br />
           <label>
@@ -79,7 +76,7 @@ constructor(props) {
           <br />
           <br />
           <label>
-            Contact period: 
+            Contact period (days): 
             <input
               name='contactPeriod'
               type='number'

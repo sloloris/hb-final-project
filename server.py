@@ -166,8 +166,11 @@ def add_new_message(user_id):
     db.session.add(new_msg)
     db.session.commit()
 
+    response = {'user_id': user_id,
+                'msg_text': msg_text}
+
     print 'user_id:', user_id, 'msg_text:', msg_text
-    return jsonify({})
+    return jsonify(response)
 
 
 @app.route('/set_period', methods=["POST"])
@@ -189,18 +192,24 @@ def create_new_schedule():
     """ Save user schedule to database. """
 
     user_id = int(session['user_id'])
-    contact_id = request.form.get('chooseContact')
-    start_date = request.form.get('startDate')
-    period = request.form.get('contactPeriod')
+    contact_id = request.form.get('contact_id')
+    start_date = request.form.get('start_date')
+    period = request.form.get('period')
 
     # send_date = start_date + period or something
     # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
-                                        contact_id=contact_id,
-                                        send_date=send_date)
+                                        # contact_id=contact_id,
+                                        # send_date=send_date)
 
     # db.session.add(new_scheduled_msg)
     # db.session.commit()
 
+    # chron job + query database for user email
+
+    print 'user_id:', user_id
+    print 'contact_id:', contact_id
+    print 'start_date:', start_date
+    print 'period:', period
     return jsonify({})
 
 
