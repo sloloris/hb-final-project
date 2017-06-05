@@ -17,7 +17,7 @@ class ScheduleView extends Component {
         chooseContact: '',
         startDate: moment().format('YYYY-MM-DD'),
         contactPeriod: 90,
-        contacts: props.contacts
+        // contacts: props.contacts
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,15 +48,15 @@ class ScheduleView extends Component {
     console.log('chooseContact is now ' + value)
   }
 
-  // _generateChooseContactAutocompleteItems = () => {
-  //   var contacts = this.props.contacts
-  //   console.log(contacts)
-  //   return contacts.map((contact, index) => {
-  //     return (
-  //     { label: {contact.first_name + ' ' + contact.last_name + ' ' + '<' + contact.email + '>' }}
-  //     )
-  //   })
-  // }
+  _generateChooseContactAutocompleteItems = () => {
+    var contacts = this.props.contacts
+    console.log(contacts)
+    return contacts.map((contact, index) => {
+      return (
+      { label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' }
+      )
+    })
+  }
 
   handleSubmit = (event) => {
   alert('Message scheduled!');
@@ -75,6 +75,7 @@ class ScheduleView extends Component {
   }
 
   render() {
+    // var autocompleteItems = { ...this._generateChooseContactAutocompleteItems }
     return (
       <div className='schedule-form-container'>
         <form onSubmit={ this.handleSubmit }>
@@ -83,14 +84,15 @@ class ScheduleView extends Component {
 
              <Autocomplete
               getItemValue={(item) => item.label}
-              items={[
-                // { this._generateChooseContactAutocompleteItems() }
-                { label: 'apricot' },
-                { label: 'apple' },
-                { label: 'banana' },
-                { label: 'pear' },
-                { label: 'grapefruit' }
-              ]}
+              items=
+                { this._generateChooseContactAutocompleteItems() }
+                // { autocompleteItems }
+                // { label: 'apricot' },
+                // { label: 'apple' },
+                // { label: 'banana' },
+                // { label: 'pear' },
+                // { label: 'grapefruit' }
+              
               renderItem={(item, isHighlighted) =>
                 <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}>
                   {item.label}

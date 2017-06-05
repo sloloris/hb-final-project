@@ -2,13 +2,13 @@ import { connect } from 'react-redux'
 import ScheduleView from '../components/ScheduleView'
 
 const mapStateToProps = (state, ownProps) => ({
-    contacts: ownProps.contacts
+    contacts: state.contacts
 })
 
 const mapDispatchToProps = {  
 }
 
-const MessagesDisplayContainer = connect(
+const ScheduleViewContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ScheduleView)

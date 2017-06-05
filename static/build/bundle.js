@@ -27680,6 +27680,14 @@ var ScheduleView = function (_Component) {
       console.log('chooseContact is now ' + value);
     };
 
+    _this._generateChooseContactAutocompleteItems = function () {
+      var contacts = _this.props.contacts;
+      console.log(contacts);
+      return contacts.map(function (contact, index) {
+        return { label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' };
+      });
+    };
+
     _this.handleSubmit = function (event) {
       alert('Message scheduled!');
       event.preventDefault();
@@ -27699,29 +27707,19 @@ var ScheduleView = function (_Component) {
     _this.state = {
       chooseContact: '',
       startDate: (0, _moment2.default)().format('YYYY-MM-DD'),
-      contactPeriod: 90,
-      contacts: props.contacts
+      contactPeriod: 90
     };
 
     _this.handleInputChange = _this.handleInputChange.bind(_this);
     return _this;
   }
 
-  // _generateChooseContactAutocompleteItems = () => {
-  //   var contacts = this.props.contacts
-  //   console.log(contacts)
-  //   return contacts.map((contact, index) => {
-  //     return (
-  //     { label: {contact.first_name + ' ' + contact.last_name + ' ' + '<' + contact.email + '>' }}
-  //     )
-  //   })
-  // }
-
   _createClass(ScheduleView, [{
     key: 'render',
     value: function render() {
       var _this2 = this;
 
+      // var autocompleteItems = { ...this._generateChooseContactAutocompleteItems }
       return _react2.default.createElement(
         'div',
         { className: 'schedule-form-container' },
@@ -27736,10 +27734,15 @@ var ScheduleView = function (_Component) {
               getItemValue: function getItemValue(item) {
                 return item.label;
               },
-              items: [
-              // { this._generateChooseContactAutocompleteItems() }
-              { label: 'apricot' }, { label: 'apple' }, { label: 'banana' }, { label: 'pear' }, { label: 'grapefruit' }],
-              renderItem: function renderItem(item, isHighlighted) {
+              items: this._generateChooseContactAutocompleteItems()
+              // { autocompleteItems }
+              // { label: 'apricot' },
+              // { label: 'apple' },
+              // { label: 'banana' },
+              // { label: 'pear' },
+              // { label: 'grapefruit' }
+
+              , renderItem: function renderItem(item, isHighlighted) {
                 return _react2.default.createElement(
                   'div',
                   { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
