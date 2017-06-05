@@ -22,6 +22,7 @@ class User(db.Model):
 
     oauth_token = db.Column(db.String(200), nullable=True)
     oauth_expiry = db.Column(db.DateTime, nullable=True)
+    refresh_token = db.Column(db.String(200), nullable=True)
 
     def __repr__(self):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
