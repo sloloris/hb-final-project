@@ -27401,7 +27401,7 @@ var MainContents = function (_Component) {
           break;
 
         case 2:
-          contents = _react2.default.createElement(_ScheduleView2.default, null);
+          contents = _react2.default.createElement(_ScheduleView2.default, { contacts: this.props.contacts });
 
         default:
           break;
@@ -27719,7 +27719,6 @@ var ScheduleView = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      // var autocompleteItems = { ...this._generateChooseContactAutocompleteItems }
       return _react2.default.createElement(
         'div',
         { className: 'schedule-form-container' },
@@ -27734,15 +27733,9 @@ var ScheduleView = function (_Component) {
               getItemValue: function getItemValue(item) {
                 return item.label;
               },
-              items: this._generateChooseContactAutocompleteItems()
-              // { autocompleteItems }
-              // { label: 'apricot' },
-              // { label: 'apple' },
-              // { label: 'banana' },
-              // { label: 'pear' },
-              // { label: 'grapefruit' }
+              items: this._generateChooseContactAutocompleteItems(),
 
-              , renderItem: function renderItem(item, isHighlighted) {
+              renderItem: function renderItem(item, isHighlighted) {
                 return _react2.default.createElement(
                   'div',
                   { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },

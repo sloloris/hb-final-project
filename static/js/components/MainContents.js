@@ -34,7 +34,7 @@ class MainContents extends Component {
         break;
 
       case 2:
-        contents = <ScheduleView />
+        contents = <ScheduleView contacts={this.props.contacts} />
 
       default:
         break;

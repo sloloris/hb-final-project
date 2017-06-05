@@ -75,7 +75,6 @@ class ScheduleView extends Component {
   }
 
   render() {
-    // var autocompleteItems = { ...this._generateChooseContactAutocompleteItems }
     return (
       <div className='schedule-form-container'>
         <form onSubmit={ this.handleSubmit }>
@@ -86,12 +85,7 @@ class ScheduleView extends Component {
               getItemValue={(item) => item.label}
               items=
                 { this._generateChooseContactAutocompleteItems() }
-                // { autocompleteItems }
-                // { label: 'apricot' },
-                // { label: 'apple' },
-                // { label: 'banana' },
-                // { label: 'pear' },
-                // { label: 'grapefruit' }
+
               
               renderItem={(item, isHighlighted) =>
                 <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}>
