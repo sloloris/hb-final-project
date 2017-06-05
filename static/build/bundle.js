@@ -27619,6 +27619,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(11);
@@ -27634,6 +27636,8 @@ var _moment = __webpack_require__(0);
 var _moment2 = _interopRequireDefault(_moment);
 
 var _reactAutocomplete = __webpack_require__(367);
+
+var _reactAutocomplete2 = _interopRequireDefault(_reactAutocomplete);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27661,7 +27665,19 @@ var ScheduleView = function (_Component) {
       // target.type === 'checkbox' ? target.checked : target.value;
       var name = target.name;
 
-      _this.setState(_defineProperty({}, name, value));
+      _this.setState(_extends({}, _this.state, _defineProperty({}, name, value)));
+    };
+
+    _this._onChangeChooseContact = function (event, value) {
+      // const target = event.target;
+      // const value = target.value
+      // const name = 'chooseContact'
+
+      _this.setState(_extends({}, _this.state, {
+        'chooseContact': value
+      }));
+
+      console.log('chooseContact is now ' + value);
     };
 
     _this.handleSubmit = function (event) {
@@ -27683,17 +27699,29 @@ var ScheduleView = function (_Component) {
     _this.state = {
       chooseContact: '',
       startDate: (0, _moment2.default)().format('YYYY-MM-DD'),
-      contactPeriod: 90
+      contactPeriod: 90,
+      contacts: props.contacts
     };
 
     _this.handleInputChange = _this.handleInputChange.bind(_this);
     return _this;
   }
 
+  // _generateChooseContactAutocompleteItems = () => {
+  //   var contacts = this.props.contacts
+  //   console.log(contacts)
+  //   return contacts.map((contact, index) => {
+  //     return (
+  //     { label: {contact.first_name + ' ' + contact.last_name + ' ' + '<' + contact.email + '>' }}
+  //     )
+  //   })
+  // }
+
   _createClass(ScheduleView, [{
     key: 'render',
     value: function render() {
-      // var chooseContact = this.state.chooseContact
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'schedule-form-container' },
@@ -27704,12 +27732,32 @@ var ScheduleView = function (_Component) {
             'label',
             null,
             'To:',
-            _react2.default.createElement('input', {
+            _react2.default.createElement(_reactAutocomplete2.default, {
+              getItemValue: function getItemValue(item) {
+                return item.label;
+              },
+              items: [
+              // { this._generateChooseContactAutocompleteItems() }
+              { label: 'apricot' }, { label: 'apple' }, { label: 'banana' }, { label: 'pear' }, { label: 'grapefruit' }],
+              renderItem: function renderItem(item, isHighlighted) {
+                return _react2.default.createElement(
+                  'div',
+                  { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
+                  item.label
+                );
+              },
+              shouldItemRender: function shouldItemRender(item, val) {
+                return item.label.lastIndexOf(val, 0) === 0;
+              },
               name: 'chooseContact',
-              type: 'text',
-              placeholder: 'enter email',
               value: this.state.chooseContact,
-              onChange: this.handleInputChange })
+              onChange: function onChange(event, val) {
+                return _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
+              },
+              onSelect: function onSelect(val) {
+                _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
+              }
+            })
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement('br', null),
@@ -27747,7 +27795,9 @@ var ScheduleView = function (_Component) {
   return ScheduleView;
 }(_react.Component);
 
-ScheduleView.propTypes = {};
+ScheduleView.propTypes = {
+  contacts: _propTypes2.default.array.isRequired
+};
 exports.default = ScheduleView;
 
 /***/ }),
