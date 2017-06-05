@@ -15,6 +15,9 @@ import quickstart as gmail
 import google_oauth as oauth # relevant oauth functions and methods
 import requests
 import datetime
+import schedule
+import time
+import random
 
 # google contacts libraries
 import atom.data
@@ -42,6 +45,7 @@ def index():
 
     # else get oauth url
     else:
+        flow.params['access_type'] = 'offline'
         oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
    
         return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
@@ -64,6 +68,8 @@ def oauthcallback():
         oauth_credentials = credentials.get_access_token()
         oauth_token = oauth_credentials[0]
         oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=oauth_credentials[1])
+        print credentials
+        refresh_token = credentials.refresh_token
         session['oauth_token'] = oauth_token
         session['oauth_expiry'] = oauth_expiry
 
@@ -71,7 +77,7 @@ def oauthcallback():
         first_name, last_name, email = get_user_info_from_google(oauth_token)
 
         # creates or updates user in the contacts database & redirects to account page
-        create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry)
+        create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry, refresh_token)
 
         get_google_contacts(credentials) # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
 
@@ -192,9 +198,16 @@ def create_new_schedule():
     """ Save user schedule to database. """
 
     user_id = int(session['user_id'])
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
     contact_id = request.form.get('contact_id')
+    contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
     start_date = request.form.get('start_date')
     period = request.form.get('period')
+
+    messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+    random_int = random.randint(0, len(messages) - 1)
+
+    msg_text = messages[random_int].msg_text
 
     # send_date = start_date + period or something
     # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
@@ -205,6 +218,17 @@ def create_new_schedule():
     # db.session.commit()
 
     # chron job + query database for user email
+    # gmail.SendMessage(sender, to, subject, msgHtml, msgPlain)
+    gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+    print 'Message sent'
+
+    def job():
+        start_date = start_date
+        schedule.every(period).days.do(job)
+
+        while 1:
+            schedule.run_pending()
+            time.sleep(1)
 
     print 'user_id:', user_id
     print 'contact_id:', contact_id
@@ -245,13 +269,13 @@ def create_new_schedule():
 #     return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
 
 
-@app.route('/<user_id>/send')
-def send_email(user_id):
-    """ Test page for interactive email sending. """
+# @app.route('/<user_id>/send')
+# def send_email(user_id):
+#     """ Test page for interactive email sending. """
 
 
 
-    return render_template("send_email.html")
+#     return render_template("send_email.html")
 
 
 

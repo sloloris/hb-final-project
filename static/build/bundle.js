@@ -12090,7 +12090,7 @@ var ScheduleView = function (_Component) {
       $.ajax({
         url: '/schedule',
         type: 'POST',
-        data: { contact_id: _this.state.chooseContact,
+        data: { contact_id: 837, //this.state.chooseContact,
           start_date: _this.state.startDate,
           period: _this.state.contactPeriod
         },

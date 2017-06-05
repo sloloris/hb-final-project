@@ -38,7 +38,7 @@ constructor(props) {
   $.ajax({
       url: '/schedule',
       type: 'POST',
-      data: { contact_id: this.state.chooseContact,
+      data: { contact_id: 837,//this.state.chooseContact,
             start_date: this.state.startDate,
             period: this.state.contactPeriod
             },

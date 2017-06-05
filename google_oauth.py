@@ -22,5 +22,6 @@ SCOPES = [
 flow = OAuth2WebServerFlow(client_id=os.environ['client_id'],
                            client_secret=os.environ['client_secret'],
                            scope=SCOPES,
-                           redirect_uri='http://localhost:5000/oauthcallback')
-
+                           redirect_uri='http://localhost:5000/oauthcallback',
+                           prompt='consent')
+flow.params['access_type'] = 'offline'

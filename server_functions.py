@@ -32,11 +32,11 @@ def get_user_info_from_google(oauth_token):
     return [first_name, last_name, email]
 
 # FOR TESTS: CREATE FAKE CREDENTIALS
-def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry):
+def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry, refresh_token):
     user = User.query.filter_by(email=email).all()
     if user == []:
         # instantiate new user object in database
-        new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token,oauth_expiry=oauth_expiry) #sqlalchemy instantiation of user
+        new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token, oauth_expiry=oauth_expiry, refresh_token=refresh_token) #sqlalchemy instantiation of user
 
         db.session.add(new_user)
         db.session.commit()
