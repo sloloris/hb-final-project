@@ -46,7 +46,7 @@ def get_credentials(sender_email):
     revoke_uri = None
     client_id = os.environ['client_id']
     client_secret = os.environ['client_secret']
-    refresh_token = user.oauth_token
+    refresh_token = user.refresh_token
 
     credentials = GoogleCredentials( 
         access_token, 

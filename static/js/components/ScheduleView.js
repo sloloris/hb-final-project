@@ -3,21 +3,23 @@ require('../../styles/scheduleview.css')
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { Autocomplete } from 'react-autocomplete'
 
 
 class ScheduleView extends Component {
   static propTypes = { 
+
   }
 
-constructor(props) {
-    super(props);
-    this.state = {
-      chooseContact: '',
-      startDate: moment().format('YYYY-MM-DD'),
-      contactPeriod: 90
-    };
+  constructor(props) {
+      super(props);
+      this.state = {
+        chooseContact: '',
+        startDate: moment().format('YYYY-MM-DD'),
+        contactPeriod: 90
+      };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+      this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange = (event) => {
@@ -26,8 +28,8 @@ constructor(props) {
     // target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-
     this.setState({
+      // ...this.state,
       [name]: value
     });
   }
@@ -38,7 +40,7 @@ constructor(props) {
   $.ajax({
       url: '/schedule',
       type: 'POST',
-      data: { contact_id: 837,//this.state.chooseContact,
+      data: { contact_id: 578,//this.state.chooseContact,
             start_date: this.state.startDate,
             period: this.state.contactPeriod
             },
@@ -49,6 +51,7 @@ constructor(props) {
   }
 
   render() {
+    // var chooseContact = this.state.chooseContact
     return (
       <div className='schedule-form-container'>
         <form onSubmit={ this.handleSubmit }>
@@ -60,6 +63,7 @@ constructor(props) {
               placeholder='enter email'
               value={this.state.chooseContact} 
               onChange={this.handleInputChange} />
+
           </label>
           <br />
 
