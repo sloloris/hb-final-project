@@ -18,6 +18,7 @@ pyasn1-modules==0.0.8
 pyparsing==2.2.0
 requests==2.14.2
 rsa==3.4.2
+schedule==0.4.2
 six==1.10.0
 SQLAlchemy==1.1.7
 uritemplate==3.0.0
