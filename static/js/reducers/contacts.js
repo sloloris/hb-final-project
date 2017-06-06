@@ -18,6 +18,7 @@ const contacts = (state = [], action) => {
         //     }
 
         case 'SET_CONTACTS':
+            console.log(action.payload.contacts)
             return action.payload.contacts // next state
 
         default:

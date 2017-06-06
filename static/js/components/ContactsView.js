@@ -14,11 +14,21 @@ class ContactsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchContacts: ''
+      searchContacts: '',
+      // contacts: props.contacts
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.contacts != this.props.contacts) {
+  //     this.setState({
+  //       ...this.state,
+  //       contacts: nextProps.contacts
+  //     })
+  //   }
+  // }
 
   handleInputChange = (event) => {
     const target = event.target;
@@ -48,15 +58,16 @@ class ContactsView extends Component {
   _onClickSortContactListByLastName = () => {
     var contacts = this.props.contacts
     contacts.sort(function(a,b) {return (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0);} ); 
-    return contacts.map((contact, index) => {
-      return (
-        <li className='contact-list-item' key={index}>
-          <div className='field contact-fname'>{ contact.first_name }</div>
-          <div className='field contact-lname'>{ contact.last_name }</div>
-          <div className='field contact-email'>{ contact.email }</div>
-        </li>
-      )
-    })
+    this.setState({...this.state, contacts:contacts })
+    // return contacts.map((contact, index) => {
+    //   return (
+    //     <li className='contact-list-item' key={index}>
+    //       <div className='field contact-fname'>{ contact.first_name }</div>
+    //       <div className='field contact-lname'>{ contact.last_name }</div>
+    //       <div className='field contact-email'>{ contact.email }</div>
+    //     </li>
+    //  )
+    // })
   }
 
   render() {

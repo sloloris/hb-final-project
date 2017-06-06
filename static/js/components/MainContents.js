@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import ContactsView from './ContactsView'
 import MessagesDisplayContainer from '../containers/MessagesDisplayContainer'
 import ScheduleView from './ScheduleView'
+import CSSTransitionGroup from 'react-transition-group'
 
 
 class MainContents extends Component {
@@ -17,6 +18,7 @@ class MainContents extends Component {
   }
 
   componentDidMount() {
+    console.log('mounting maincontents')
     this.props.getUserContacts(),
     this.props.getMessages()
   }
@@ -43,7 +45,9 @@ class MainContents extends Component {
 
     return (
       <div className="main-contents">
+        <CSSTransitionGroup>
         { contents }
+        </CSSTransitionGroup>
       </div>
     )
   }

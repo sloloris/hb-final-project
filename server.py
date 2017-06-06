@@ -124,6 +124,7 @@ def show_user_account_home():
 
 @app.route('/user/<user_id>/contacts', methods=["GET"]) #add <user_id>
 def show_user_contacts(user_id):
+    print 'got in this handler'
     """ Sends json of user contacts to client. """
 
     user_contacts = Contact.query.filter_by(user_id=user_id).all()

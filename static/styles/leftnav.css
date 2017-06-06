@@ -16,12 +16,21 @@
   font-weight: 200;
 }
 
+.nav-pages-list li {
+  background: #292929;
+  transition: background 0.2s ease;
+}
+
+.nav-pages-list li:hover {
+  background: #353535;
+  cursor: pointer;
+}
 
 /* selected list item */
 /*.left-nav li.selected {*/
-.selected {
+.nav-pages-list li.selected {
   font-weight: 400;
-  background-color: rgba(144, 206, 183, 0.6);
+  background: rgba(144, 206, 183, 0.6);
 
 }
 

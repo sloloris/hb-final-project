@@ -7,30 +7,38 @@
 .contacts-table {
     margin: 48px;
     width: 928px;
+    border: 1px solid #dadada;
+    background: white;
 }
 
 .contacts-list {
-    margin: 0 48px;
+    margin: 0;
 }
 
 .contacts-list-header {
     background-color: #292929;
     color: #ffffff;
-    width: 928px;
+    width: 100%;
+    padding: 0 16px;
+    border-radius: 3px 3px 0 0; 
 }
 
 .header-item {
     display: inline-block;
-    width: 240px;
+    width: 280px;
     line-height: 40px;
 }
 
 .contact-list-item .field {
     display: inline-block;
-    width: 240px;
+    width: 280px;
     line-height: 40px;
     border: 0px;
-    padding: 0px;
+    padding: 0 16px;
+}
+
+li.contact-list-item:nth-child(odd) {
+    background: #eaeaea
 }
 
 .email {
