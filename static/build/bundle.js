@@ -27096,6 +27096,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(11);
@@ -27112,6 +27114,8 @@ var _ContactPeriodForm2 = _interopRequireDefault(_ContactPeriodForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -27124,18 +27128,20 @@ __webpack_require__(235);
 var ContactsView = function (_Component) {
   _inherits(ContactsView, _Component);
 
-  function ContactsView() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function ContactsView(props) {
     _classCallCheck(this, ContactsView);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (ContactsView.__proto__ || Object.getPrototypeOf(ContactsView)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ContactsView.__proto__ || Object.getPrototypeOf(ContactsView)).call.apply(_ref, [this].concat(args))), _this), _this._generateContactListItems = function () {
+    _this.handleInputChange = function (event) {
+      var target = event.target;
+      var value = target.value;
+      var name = target.name;
+
+      _this.setState(_extends({}, _this.state, _defineProperty({}, name, value)));
+    };
+
+    _this._generateContactListItems = function () {
       var contacts = _this.props.contacts;
       contacts.sort(function (a, b) {
         return a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0;
@@ -27161,7 +27167,9 @@ var ContactsView = function (_Component) {
           )
         );
       });
-    }, _this._onClickSortContactListByLastName = function () {
+    };
+
+    _this._onClickSortContactListByLastName = function () {
       var contacts = _this.props.contacts;
       contacts.sort(function (a, b) {
         return a.last_name > b.last_name ? 1 : b.last_name > a.last_name ? -1 : 0;
@@ -27187,7 +27195,14 @@ var ContactsView = function (_Component) {
           )
         );
       });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    _this.state = {
+      searchContacts: ''
+    };
+
+    _this.handleInputChange = _this.handleInputChange.bind(_this);
+    return _this;
   }
 
   _createClass(ContactsView, [{
@@ -27196,6 +27211,12 @@ var ContactsView = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'contacts-view' },
+        'Find a friend: ',
+        _react2.default.createElement('input', {
+          name: 'searchContacts',
+          type: 'text',
+          value: this.state.searchContacts,
+          onChange: this.handleInputChange }),
         _react2.default.createElement(
           'div',
           { className: 'contacts-table' },
@@ -27687,7 +27708,6 @@ var ScheduleView = function (_Component) {
     _this.handleInputChange = function (event) {
       var target = event.target;
       var value = target.value;
-      // target.type === 'checkbox' ? target.checked : target.value;
       var name = target.name;
 
       _this.setState(_extends({}, _this.state, _defineProperty({}, name, value)));

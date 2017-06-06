@@ -17,7 +17,6 @@ class ScheduleView extends Component {
         chooseContact: '',
         startDate: moment().format('YYYY-MM-DD'),
         contactPeriod: 90,
-        // contacts: props.contacts
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,7 +25,6 @@ class ScheduleView extends Component {
   handleInputChange = (event) => {
     const target = event.target;
     const value = target.value
-    // target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({

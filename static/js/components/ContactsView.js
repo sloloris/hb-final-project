@@ -11,6 +11,26 @@ class ContactsView extends Component {
     contacts: PropTypes.array.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchContacts: ''
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.value
+    const name = target.name;
+
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  }
+
   _generateContactListItems = () => {
     var contacts = this.props.contacts
     contacts.sort(function(a,b) {return (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0);} ); 
@@ -42,6 +62,11 @@ class ContactsView extends Component {
   render() {
     return (
       <div className='contacts-view'>
+        Find a friend: <input
+          name='searchContacts'
+          type='text'
+          value={this.state.searchContacts}
+          onChange={this.handleInputChange} />
         <div className='contacts-table'>
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>

@@ -9,7 +9,7 @@ CLIENTSECRETS_LOCATION = '<CLIENT_SECRETS.JSON>'
 REDIRECT_URI = ["http://localhost"] # '<YOUR_REGISTERED_REDIRECT_URI>'
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.compose', # create, read, update & delete drafts. send messages & drafts
-    'https://www.googleapis.com/auth/gmail.labels', # create, read, update & delete labels
+    # 'https://www.googleapis.com/auth/gmail.labels', # create, read, update & delete labels
     'https://www.googleapis.com/auth/gmail.modify', # all read/write permissions
     'https://www.google.com/m8/feeds/', # access to user contacts
     'https://www.googleapis.com/auth/contacts.readonly',

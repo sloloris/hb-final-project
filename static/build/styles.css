@@ -4,32 +4,43 @@
 }*/
 
 .page-name {
-    color: white;
-    padding: 0 0 0 32px;
+  color: white;
+  padding: 0 0 0 32px;
 }
 
 .link-list {   
-    margin: 64px 0 0 0;
-    font-size: 24px;
-    line-height: 48px;
+  margin: 64px 0 0 0;
+  font-size: 24px;
+  line-height: 48px;
 /*    padding: 8px;*/
-    font-weight: 200;
+  font-weight: 200;
 }
 
 
 /* selected list item */
 /*.left-nav li.selected {*/
 .selected {
-    font-weight: 400;
-    background-color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  background-color: rgba(144, 206, 183, 0.6);
+
 }
 
 .logout-btn {
-    color: white;
-    position: fixed;
-    padding-left: 32px;
-    /*background-color: rgba(255, 255, 255, 0.5);*/
-    bottom: 0;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  padding-left: 32px;
+  /*background-color: rgba(255, 255, 255, 0.5);*/
+  bottom: 0;
+  text-decoration: none;
+  width: 240px;
+  height: 48px;
+  border-top: 1px solid #90ceb7;
+}
+
+.logout-btn:hover {
+  color: #90ceb7;
+  font-weight: 400;
 }
 /* external div for contacts container */
 .contacts-view {
