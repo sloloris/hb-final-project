@@ -7460,12 +7460,11 @@ var setContacts = exports.setContacts = function setContacts(contacts) {
 // this is a thunk
 var getUserContacts = exports.getUserContacts = function getUserContacts(dispatch) {
   // did not need to pass userId because it's already in function
-  console.log('getting user contacts...');
   return function (dispatch) {
+    console.log('sending contacts request');
     fetch('/user/' + userId + '/contacts').then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log('got contacts...');
       var contacts = data;
       dispatch(setContacts(contacts));
     });
@@ -27211,15 +27210,19 @@ var ContactsView = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'contacts-view' },
-        'Find a friend: ',
-        _react2.default.createElement('input', {
-          name: 'searchContacts',
-          type: 'text',
-          value: this.state.searchContacts,
-          onChange: this.handleInputChange }),
         _react2.default.createElement(
           'div',
-          { className: 'contacts-table' },
+          { className: 'search-bar contacts-content' },
+          'Find a friend: ',
+          _react2.default.createElement('input', {
+            name: 'searchContacts',
+            type: 'text',
+            value: this.state.searchContacts,
+            onChange: this.handleInputChange })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'contacts-table contacts-content' },
           _react2.default.createElement(
             'div',
             { className: 'contacts-list contacts-list-header' },
@@ -27434,7 +27437,6 @@ var MainContents = function (_Component) {
   _createClass(MainContents, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log('mounting maincontents');
       this.props.getUserContacts(), this.props.getMessages();
     }
   }, {

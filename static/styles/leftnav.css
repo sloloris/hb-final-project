@@ -18,7 +18,7 @@
 
 .nav-pages-list li {
   background: #292929;
-  transition: background 0.2s ease;
+  transition: background 0.3s ease;
 }
 
 .nav-pages-list li:hover {
@@ -45,9 +45,9 @@
   width: 240px;
   height: 48px;
   border-top: 1px solid #90ceb7;
+  transition: background 0.3s ease;
 }
 
 .logout-btn:hover {
-  color: #90ceb7;
-  font-weight: 400;
+  background: #353535;
 }

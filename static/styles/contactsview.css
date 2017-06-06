@@ -4,9 +4,12 @@
     margin: 0 16px;
 }
 
-.contacts-table {
+.contacts-content {
     margin: 48px;
     width: 928px;
+}
+
+.contacts-table {
     border: 1px solid #dadada;
     background: white;
 }
@@ -16,17 +19,22 @@
 }
 
 .contacts-list-header {
-    background-color: #292929;
+    background: #292929;
     color: #ffffff;
     width: 100%;
     padding: 0 16px;
-    border-radius: 3px 3px 0 0; 
+    border-radius: 3px 3px 0 0;
 }
 
 .header-item {
     display: inline-block;
     width: 280px;
     line-height: 40px;
+    transition: color 0.3s ease;
+}
+
+.header-item:hover {
+    color: #90ceb7;
 }
 
 .contact-list-item .field {

@@ -18,7 +18,6 @@ class MainContents extends Component {
   }
 
   componentDidMount() {
-    console.log('mounting maincontents')
     this.props.getUserContacts(),
     this.props.getMessages()
   }

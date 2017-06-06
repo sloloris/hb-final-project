@@ -126,6 +126,8 @@ def show_user_account_home():
 def show_user_contacts(user_id):
     """ Sends json of user contacts to client. """
 
+    print "got in this handler"
+
     user_contacts = Contact.query.filter_by(user_id=user_id).all()
 
     contacts = []

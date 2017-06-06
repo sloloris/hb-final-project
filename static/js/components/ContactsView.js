@@ -73,12 +73,14 @@ class ContactsView extends Component {
   render() {
     return (
       <div className='contacts-view'>
-        Find a friend: <input
-          name='searchContacts'
-          type='text'
-          value={this.state.searchContacts}
-          onChange={this.handleInputChange} />
-        <div className='contacts-table'>
+        <div className='search-bar contacts-content'>
+          Find a friend: <input
+            name='searchContacts'
+            type='text'
+            value={this.state.searchContacts}
+            onChange={this.handleInputChange} />
+        </div>
+        <div className='contacts-table contacts-content'>
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>
             <div className='header-item contact-list-item field' onClick={ this._onClickSortContactListByLastName } >Last Name</div>
