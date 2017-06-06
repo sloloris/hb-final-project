@@ -39,61 +39,119 @@ body {
 /* LANDING PAGE STYLING */
 
 /* top navigation bar */
-.topnav {
-    background-color: rgba(0, 0, 255, .8);
-    overflow: hidden;
-    color: white;
+.landing-topnav {
+  background-color: rgba(51, 51, 51, .8);
+  overflow: hidden;
+  color: white;
+  height: 64px;
+  width: 100%;
 }
 
-.topnav a {
-    color: white;
-    padding: 2em;
-    float: right;
+.topnav-title {
+  color: #90CEB7;
+  text-align: right;
+  padding: 0 0 0 32px;
+  display: inline-block;
+  line-height: 64px;
+  float: left;
+  font-family: 'Vidaloka', serif;
+  font-size: 32px;
 }
+
+.landing-topnav a {
+  color: white;
+  padding: 0 32px 0 0;
+  line-height: 64px;
+  float: right;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.landing-topnav a:hover {
+  color: #90CEB7;
+  font-weight: 700;
+}
+
+/*#login-link {
+  border: solid 2px #90CEB7;
+  border-radius: 3px;
+  background: none;
+  transition: background 0.5s ease;
+}
+
+#login-link:hover {
+  color: white;
+  background: #90CEB7;
+}*/
 
 /* landing page navigation bar */
-#landing-nav {
-    height: 4em;
-    width: 100%;
-}
 
 /* landing page contents */
 .landing-contents {
-    text-align: center;
-    width: 100%;
-    padding-left: 20%;
-    padding-right: 20%;
-    padding-top: 5%;
+  position: relative;
+}
+
+.behind-container {
+  z-index: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+}
+
+#landing-background-img {
+  margin: 0;
+  padding: 0;
+  opacity: .6;
+}
+
+.front-container {
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  padding-left: 24%;
+  padding-right: 24%;
+  padding-top: 104px;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 /* main header on landing page */
+.header {
+  margin: 0px;
+  color: #191111;
+}
 .giant-header {
-    font-size: 4em;
-    margin: 0px;
+  font-size: 64px;
+  font-weight: 700;
+  margin: 0px;
 
 }
 
 /* sub-header on landing page */
 .subheader {
-    font-size: 0.75em;
-    margin: 10px;
+  font-size: 24px;
+  margin: 10px;
 }
 
 /* login button for google oauth on landing page */
 .google-login-btn {
-    background: #292929;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    font-size: 0.5em;
-    width: 240px;
-    line-height: 48px;
-    text-align: center;
-    display: inline-block;
-    cursor: pointer;
+  background: #90CEB7;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 0.5em;
+  width: 240px;
+  line-height: 48px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.5s ease;
 }
 
 .google-login-btn:hover {
-    background: rgba(255, 0, 0, 0.8);
+    background: #333333;
 }
 

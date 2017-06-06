@@ -1,5 +1,10 @@
 TO DO LIST:
--create a container for ScheduleView & put contacts in autocomplete
+- create a container for ScheduleView & put contacts in autocomplete
+- color scheme
+- CSS sizing & layout in account_home
+
+
+
 
 
 

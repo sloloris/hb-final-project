@@ -14,18 +14,28 @@ class ContactsView extends Component {
   _generateContactListItems = () => {
     var contacts = this.props.contacts
     contacts.sort(function(a,b) {return (a.first_name > b.first_name) ? 1 : ((b.first_name > a.first_name) ? -1 : 0);} ); 
-    return this.props.contacts.map((contact, index) => {
-    // return sortedContacts.map((contact,index)) => {
+    return contacts.map((contact, index) => {
       return (
         <li className='contact-list-item' key={index}>
           <div className='field contact-fname'>{ contact.first_name }</div>
           <div className='field contact-lname'>{ contact.last_name }</div>
           <div className='field contact-email'>{ contact.email }</div>
-{/*          <div className='field contact-period'>
-            <ContactPeriodForm contact_id={ contact.contact_id }/>
-          </div>*/}
         </li>
       ) 
+    })
+  }
+  
+  _onClickSortContactListByLastName = () => {
+    var contacts = this.props.contacts
+    contacts.sort(function(a,b) {return (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0);} ); 
+    return contacts.map((contact, index) => {
+      return (
+        <li className='contact-list-item' key={index}>
+          <div className='field contact-fname'>{ contact.first_name }</div>
+          <div className='field contact-lname'>{ contact.last_name }</div>
+          <div className='field contact-email'>{ contact.email }</div>
+        </li>
+      )
     })
   }
 
@@ -35,9 +45,8 @@ class ContactsView extends Component {
         <div className='contacts-table'>
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>
-            <div className='header-item contact-list-item field'>Last Name</div>
+            <div className='header-item contact-list-item field' onClick={ this._onClickSortContactListByLastName } >Last Name</div>
             <div className='header-item contact-list-item field'>Email</div>  
-{/*            <div className='header-item contact-list-item field'>Period</div>  */} 
           </div>           
           <ul className='contacts-list'>
             {this._generateContactListItems()}

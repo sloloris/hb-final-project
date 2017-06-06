@@ -45,7 +45,7 @@ def index():
 
     # else get oauth url
     else:
-        flow.params['access_type'] = 'offline'
+        oauth.flow.params['access_type'] = 'offline'
         oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
    
         return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
@@ -282,13 +282,13 @@ def create_new_schedule():
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.jinja_env.auto_reload = app.debug
+    # app.debug = True
+    # app.jinja_env.auto_reload = app.debug
 
 
     connect_to_db(app)
 
     # Activates DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
