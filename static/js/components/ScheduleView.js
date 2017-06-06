@@ -6,6 +6,7 @@ import moment from 'moment'
 import Autocomplete from 'react-autocomplete'
 
 
+
 class ScheduleView extends Component {
   static propTypes = { 
     contacts: PropTypes.array.isRequired
