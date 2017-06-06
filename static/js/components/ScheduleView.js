@@ -74,65 +74,73 @@ class ScheduleView extends Component {
 
   render() {
     return (
-      <div className='schedule-form-container'>
-        <form onSubmit={ this.handleSubmit }>
-          <label>
-            To: 
+      <div className='schedule-form-view'>
+        <div className='schedule-form-container'>
+          <div className='form-container'>
+            <form onSubmit={ this.handleSubmit } className='form'>
+              <label>
+              To (contact): &nbsp;
+                <Autocomplete
+                  getItemValue={(item) => item.label}
+                  items=
+                    { this._generateChooseContactAutocompleteItems() }
 
-             <Autocomplete
-              getItemValue={(item) => item.label}
-              items=
-                { this._generateChooseContactAutocompleteItems() }
-
-              
-              renderItem={(item, isHighlighted) =>
-                <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}>
-                  {item.label}
-                </div>
-              }
-              shouldItemRender={(item, val) => {
-                return item.label.lastIndexOf(val, 0) === 0
-              }}
-              name='chooseContact'
-              value={this.state.chooseContact}
-              onChange={(event, val) => this.setState({...this.state,'chooseContact': val})}
-              onSelect={(val) => {this.setState({...this.state, 'chooseContact': val})}}
-            />
-
-{/*            <input
-              name='chooseContact'
-              type='text'
-              placeholder='enter email'
-              value={this.state.chooseContact} 
-              onChange={this.handleInputChange} />*/}
-
-          </label>
-          <br />
-
-          <br />
-          <br />
-          <label>
-            Start date: 
-            <input
-              name='startDate'
-              type='date'
-              value={this.state.startDate}
-              onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <br />
-          <label>
-            Contact period (days): 
-            <input
-              name='contactPeriod'
-              type='number'
-              value={this.state.contactPeriod}
-              onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <br />
-          <input type='submit' className='btn schedule-btn' value='Schedule' />
-        </form>
+                  
+                  renderItem={(item, isHighlighted) =>
+                    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}>
+                      {item.label}
+                    </div>
+                  }
+                  shouldItemRender={(item, val) => {
+                    return item.label.lastIndexOf(val, 0) === 0
+                  }}
+                  className='autocomplete-input'
+                  name='chooseContact'
+                  value={this.state.chooseContact}
+                  onChange={(event, val) => this.setState({...this.state,'chooseContact': val})}
+                  onSelect={(val) => {this.setState({...this.state, 'chooseContact': val})}}
+                />
+              </label>
+              <br />
+              <br />
+              <br />
+              <br />
+              Start date: &nbsp;
+              <label>
+                
+                <input
+                  className='start-date-input'
+                  name='startDate'
+                  type='date'
+                  value={this.state.startDate}
+                  onChange={this.handleInputChange} />
+              </label>
+              <br />
+              <br />
+              <br />
+              <br />
+              <label>
+                Contact period (days): &nbsp;
+                <input
+                  className='contact-period-input'
+                  name='contactPeriod'
+                  type='number'
+                  value={this.state.contactPeriod}
+                  onChange={this.handleInputChange} />
+              </label>
+              <br />
+              <br />
+              <input type='submit' className='btn schedule-btn' value='Schedule' />
+            </form>
+          </div>
+          <div className='schedule-instructions'>
+            To select a contact, start typing their name.
+            <br /><br /><br />
+            Select a date from which to start your email messaging schedule.
+            <br /><br /><br />
+            The contact period is how many <p className='highlighted-text'>days</p> by which emails will regularly be sent to your selected contact. Messages will be randomly selected from your message template collection accessible in the Messages tab. 
+          </div>
+        </div>
       </div>
     );
   }

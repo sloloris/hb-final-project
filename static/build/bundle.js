@@ -7465,6 +7465,7 @@ var getUserContacts = exports.getUserContacts = function getUserContacts(dispatc
     fetch('/user/' + userId + '/contacts').then(function (resp) {
       return resp.json();
     }).then(function (data) {
+      console.log('got some data');
       var contacts = data;
       dispatch(setContacts(contacts));
     });
@@ -27968,12 +27969,12 @@ var MessagesDisplay = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'msg-header-item msg-field msg-text' },
-              'Message Preview'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'btn add-msg-btn', onClick: this._onClickAdd },
-              'Add Template'
+              'Message Preview',
+              _react2.default.createElement(
+                'div',
+                { className: 'btn add-msg-btn', onClick: this._onClickAdd },
+                'Add Template'
+              )
             )
           ),
           _react2.default.createElement(
@@ -28129,68 +28130,101 @@ var ScheduleView = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'schedule-form-container' },
+        { className: 'schedule-form-view' },
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit },
+          'div',
+          { className: 'schedule-form-container' },
           _react2.default.createElement(
-            'label',
-            null,
-            'To:',
-            _react2.default.createElement(_reactAutocomplete2.default, {
-              getItemValue: function getItemValue(item) {
-                return item.label;
-              },
-              items: this._generateChooseContactAutocompleteItems(),
+            'div',
+            { className: 'form-container' },
+            _react2.default.createElement(
+              'form',
+              { onSubmit: this.handleSubmit, className: 'form' },
+              _react2.default.createElement(
+                'label',
+                null,
+                'To (contact): \xA0',
+                _react2.default.createElement(_reactAutocomplete2.default, {
+                  getItemValue: function getItemValue(item) {
+                    return item.label;
+                  },
+                  items: this._generateChooseContactAutocompleteItems(),
 
-              renderItem: function renderItem(item, isHighlighted) {
-                return _react2.default.createElement(
-                  'div',
-                  { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
-                  item.label
-                );
-              },
-              shouldItemRender: function shouldItemRender(item, val) {
-                return item.label.lastIndexOf(val, 0) === 0;
-              },
-              name: 'chooseContact',
-              value: this.state.chooseContact,
-              onChange: function onChange(event, val) {
-                return _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
-              },
-              onSelect: function onSelect(val) {
-                _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
-              }
-            })
+                  renderItem: function renderItem(item, isHighlighted) {
+                    return _react2.default.createElement(
+                      'div',
+                      { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
+                      item.label
+                    );
+                  },
+                  shouldItemRender: function shouldItemRender(item, val) {
+                    return item.label.lastIndexOf(val, 0) === 0;
+                  },
+                  className: 'autocomplete-input',
+                  name: 'chooseContact',
+                  value: this.state.chooseContact,
+                  onChange: function onChange(event, val) {
+                    return _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
+                  },
+                  onSelect: function onSelect(val) {
+                    _this2.setState(_extends({}, _this2.state, { 'chooseContact': val }));
+                  }
+                })
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              'Start date: \xA0',
+              _react2.default.createElement(
+                'label',
+                null,
+                _react2.default.createElement('input', {
+                  className: 'start-date-input',
+                  name: 'startDate',
+                  type: 'date',
+                  value: this.state.startDate,
+                  onChange: this.handleInputChange })
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(
+                'label',
+                null,
+                'Contact period (days): \xA0',
+                _react2.default.createElement('input', {
+                  className: 'contact-period-input',
+                  name: 'contactPeriod',
+                  type: 'number',
+                  value: this.state.contactPeriod,
+                  onChange: this.handleInputChange })
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { type: 'submit', className: 'btn schedule-btn', value: 'Schedule' })
+            )
           ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
           _react2.default.createElement(
-            'label',
-            null,
-            'Start date:',
-            _react2.default.createElement('input', {
-              name: 'startDate',
-              type: 'date',
-              value: this.state.startDate,
-              onChange: this.handleInputChange })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Contact period (days):',
-            _react2.default.createElement('input', {
-              name: 'contactPeriod',
-              type: 'number',
-              value: this.state.contactPeriod,
-              onChange: this.handleInputChange })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'submit', className: 'btn schedule-btn', value: 'Schedule' })
+            'div',
+            { className: 'schedule-instructions' },
+            'To select a contact, start typing their name.',
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            'Select a date from which to start your email messaging schedule.',
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            'The contact period is how many ',
+            _react2.default.createElement(
+              'p',
+              { className: 'highlighted-text' },
+              'days'
+            ),
+            ' by which emails will regularly be sent to your selected contact. Messages will be randomly selected from your message template collection accessible in the Messages tab.'
+          )
         )
       );
     }

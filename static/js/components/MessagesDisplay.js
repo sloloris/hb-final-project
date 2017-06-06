@@ -82,8 +82,10 @@ class MessagesDisplay extends Component {
           <div  className='msg-list msg-list-header msg-list-item'>
             {/*<div className='msg-header-item msg-field msg-id'>ID</div>*/}
             <div className='msg-header-item msg-field created-by'>Created By</div>
-            <div className='msg-header-item msg-field msg-text'>Message Preview</div>
-            <div className='btn add-msg-btn' onClick={ this._onClickAdd }>Add Template</div>    
+            <div className='msg-header-item msg-field msg-text'>Message Preview
+              <div className='btn add-msg-btn' onClick={ this._onClickAdd }>Add Template</div> 
+            </div>
+               
           </div>    
           <div className={ addMsgContainerClasses }>
             <textarea 

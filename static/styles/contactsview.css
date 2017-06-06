@@ -15,6 +15,7 @@
 
 .contacts-table {
   border: 1px solid #dadada;
+  border-radius: 3px;
   background: white;
 }
 
