@@ -45,9 +45,9 @@ class MainContents extends Component {
 
     return (
       <div className="main-contents">
-        <CSSTransitionGroup>
+        {/*<CSSTransitionGroup>*/}
         { contents }
-        </CSSTransitionGroup>
+        {/*</CSSTransitionGroup>*/}
       </div>
     )
   }

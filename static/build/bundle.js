@@ -27461,11 +27461,7 @@ var MainContents = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'main-contents' },
-        _react2.default.createElement(
-          _reactTransitionGroup2.default,
-          null,
-          contents
-        )
+        contents
       );
     }
   }]);
