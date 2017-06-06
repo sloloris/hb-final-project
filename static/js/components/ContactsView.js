@@ -73,12 +73,13 @@ class ContactsView extends Component {
   render() {
     return (
       <div className='contacts-view'>
-        <div className='search-bar contacts-content'>
-          Find a friend: <input
+        <div className='search-container contacts-content'>
+          <span>Find a friend: </span><span><input
+            className='search-input'
             name='searchContacts'
             type='text'
             value={this.state.searchContacts}
-            onChange={this.handleInputChange} />
+            onChange={this.handleInputChange} /></span>
         </div>
         <div className='contacts-table contacts-content'>
           <div  className='contacts-list contacts-list-header'>

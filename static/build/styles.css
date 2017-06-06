@@ -53,92 +53,102 @@
 }
 /* external div for contacts container */
 .contacts-view {
-    margin: 0 16px;
+  margin: 0 16px;
 }
 
 .contacts-content {
-    margin: 48px;
-    width: 928px;
+  margin: 48px;
+  width: 960px;
+}
+
+.search-input {
+  width: 87%;
 }
 
 .contacts-table {
-    border: 1px solid #dadada;
-    background: white;
+  border: 1px solid #dadada;
+  background: white;
 }
 
 .contacts-list {
-    margin: 0;
+  margin: 0;
 }
 
 .contacts-list-header {
-    background: #292929;
-    color: #ffffff;
-    width: 100%;
-    padding: 0 16px;
-    border-radius: 3px 3px 0 0;
+  background: #292929;
+  color: #ffffff;
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 3px 3px 0 0;
 }
 
 .header-item {
-    display: inline-block;
-    width: 280px;
-    line-height: 40px;
-    transition: color 0.3s ease;
+  display: inline-block;
+  width: 296px;
+  line-height: 40px;
+  transition: color 0.3s ease;
 }
 
 .header-item:hover {
-    color: #90ceb7;
+  color: #90ceb7;
 }
 
 .contact-list-item .field {
-    display: inline-block;
-    width: 280px;
-    line-height: 40px;
-    border: 0px;
-    padding: 0 16px;
+  display: inline-block;
+  width: 296px;
+  line-height: 40px;
+  border: 0px;
+  padding: 0 16px;
+}
+
+li.contact-list-item {
+  transition: background 0.2s ease;
+}
+
+li.contact-list-item:hover {
+  background: #90ceb7;
 }
 
 li.contact-list-item:nth-child(odd) {
-    background: #eaeaea
+  background: #eaeaea;
+  transition: background 0.2s ease;
 }
 
-.email {
-    width: 416px;
+li.contact-list-item:nth-child(odd):hover {
+  background: #90ceb7
 }
 
 .contact-period {
-    width: 32px;
+  width: 32px;
 }
 
 .msgs-display {
-    margin: 0 16px;
-    margin-top: 48px;
+  margin: 0 16px;
+  margin-top: 48px;
 }
 
 .msg-list-item {
-    line-height: 40px;
+  line-height: 40px;
 }
 
 .msg-field {
-    display: inline-block;
-    padding: 8px;
-}
-
-.msg_id {
-    width: 32px;
+  display: inline-block;
+  padding: 8px;
 }
 
 .created-by {
-    width: 120px;
+  width: 120px;
 }
 
 .msg-text {
-    width: 744px;
+  width: 744px;
 }
 
 
-/*.msg-table {
-
-}*/
+.msg-table {
+  border: 1px solid #dadada;
+  background: white;
+}
 
 /*.msg-list {
 
@@ -153,16 +163,32 @@ li.contact-list-item:nth-child(odd) {
 
 }*/
 
+li.msg-list-item:nth-child(odd) {
+  background: #eaeaea
+}
+
 .btn {
-    color: white;
+    color: #90ceb7;
     margin-right: 32px;
-    border: white solid 1px;
+    border: #90ceb7 solid 1px;
     border-radius: 2px;
     display: inline-block;
     position: relative;
+    padding: 0 16px;
+    background: #292929;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #353535;
 }
 
 /* , means all of either */
+
+.btn .add-message-btn {
+  background: #90ceb7;
+}
+
 .btn-save, .btn-cancel { 
     color: black;
     border: black solid 1px;
@@ -772,7 +798,7 @@ body {
 
 /* login button for google oauth on landing page */
 .google-login-btn {
-  background: #90CEB7;
+  background: #61AB8F;
   border: none;
   border-radius: 3px;
   color: white;
