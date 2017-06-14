@@ -3,8 +3,15 @@
 
 ![alt text](https://github.com/sloloris/hb-final-project/blob/scheduleview/static/img/landing_page_readme.png "FriendKeeper landing page.")
 
+## Table of Contents
+
 ## Introduction
-FriendKeeper was my final project for the Software Engineering Fellowship at Hackbright Academy and the first full web application I built. The server is written in Python using the Flask framework with SQLAlchemy as an added layer of protection for communication with the database. The only APIs used are the Gmail and Google Contacts API. The frontend is written in React/Redux and raw CSS with a bit of jQuery thrown in.
+FriendKeeper was my final project for the Software Engineering Fellowship at Hackbright Academy and the first full web application I built. 
+
+## Stack
+__Backend:__ Python, Flask, SQLAlchemy, PosgreSQL
+__Frontend:__ React/Redux, JavaScript, jQuery, HTML5, CSS3
+__APIs:__ Google Contacts, Gmail
 
 ## About The App
 FriendKeeper both motivates and helps you to keep in touch by allowing you to schedule when it will reach out to your friends for you - so you don't have to think about it until they respond! With FriendKeeper, you can set a start date and a period (measured in days) on any given contact according to which FriendKeeper will send them one of your self-created email templates. Then you just have to wait for them to follow up.
@@ -33,5 +40,7 @@ Login is implemented using Google OAuth 2.0. Upon login, the server pulls the us
 * pageview for sent messages
 * pageview for preferences
 
+
+## About the Developer
 
 
