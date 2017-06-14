@@ -9,6 +9,8 @@ FriendKeeper was my final project for the Software Engineering Fellowship at Hac
 ## About The App
 FriendKeeper both motivates and helps you to keep in touch by allowing you to schedule when it will reach out to your friends for you - so you don't have to think about it until they respond! With FriendKeeper, you can set a start date and a period (measured in days) on any given contact according to which FriendKeeper will send them one of your self-created email templates. Then you just have to wait for them to follow up.
 
+![alt text](https://github.com/sloloris/hb-final-project/blob/scheduleview/static/img/scheduleview.png "ScheduleView. This portion of the app is a single-page app built complete using React/Redux.")
+
 ## Tech Specs
 
 ### Google OAuth 2.0
