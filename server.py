@@ -14,7 +14,8 @@ import json
 import quickstart as gmail 
 import google_oauth as oauth # relevant oauth functions and methods
 import requests
-from datetime import datetime, timedelta
+import datetime
+
 import schedule
 import time
 import random
@@ -206,14 +207,14 @@ def create_new_schedule():
     start_date = request.form.get('start_date')
     period = request.form.get('period')
 
-    messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+    # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
     random_int = random.randint(0, len(messages) - 1)
 
 
-    send_date = start_date + timedelta(days=period)
-    new_scheduled_msg = ScheduledMessage(user_id=user_id, 
-                                        contact_id=contact_id,
-                                        send_date=send_date)
+    # send_date = start_date + datetime.timedelta(days=period)
+    # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
+    #                                     contact_id=contact_id,
+    #                                     send_date=send_date)
 
     # db.session.add(new_scheduled_msg)
     # db.session.commit()
@@ -223,28 +224,32 @@ def create_new_schedule():
     # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
     # print 'Message sent'
 
-    def check_for_msgs():
-        scheduled = ScheduledMessage.query.filter((send_date>=datetime.now()) && (user_id==user_id))
-        return scheduled
-
-    # how do i get this to return to a variable?
-    schedule.every().day.at("7:30").do(scheduled=check_for_msgs)
-
-    for msg in scheduled:
-        msg_text = messages[random_int].msg_text
-        gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
-
-    # schedule.every().day.minutes.do(job)
-
-    while 1:
-        schedule.run_pending()
-        time.sleep(1)
-
     print 'user_id:', user_id
     print 'contact_id:', contact_id
     print 'start_date:', start_date
     print 'period:', period
     return jsonify({})
+
+@app.route('/send_msgs', methods=["GET"])
+def send_msgs():
+    """ Cron job to check for and send overdue messages. """
+    return "I'm running!"
+    # scheduled = ScheduledMessage.query.filter((send_date>=datetime.datetime.now()))
+    # print "scheduled msgs = ", scheduled
+    # for msg in scheduled:
+    #     msg_text = messages[random_int].msg_text
+    #     print "sent message"
+        # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+
+
+# # how do i get this to return to a variable?
+# # schedule.every().day.at("7:30").do(send_msgs)
+
+# schedule.every(2).minutes.do(send_msgs)
+
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 
 
 if __name__ == "__main__":
