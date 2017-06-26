@@ -32,11 +32,11 @@ def get_user_info_from_google(oauth_token):
     return [first_name, last_name, email]
 
 # FOR TESTS: CREATE FAKE CREDENTIALS
-def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry):
+def create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry, refresh_token):
     user = User.query.filter_by(email=email).all()
     if user == []:
         # instantiate new user object in database
-        new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token,oauth_expiry=oauth_expiry) #sqlalchemy instantiation of user
+        new_user = User(first_name=first_name, last_name=last_name, email=email, oauth_token=oauth_token, oauth_expiry=oauth_expiry, refresh_token=refresh_token) #sqlalchemy instantiation of user
 
         db.session.add(new_user)
         db.session.commit()
@@ -127,6 +127,13 @@ def save_user_contacts_to_db(user_id, contact_list):
             new_contact = Contact(user_id=user_id, first_name=contact['first_name'], last_name=contact['last_name'], email=contact['email'])
             db.session.add(new_contact)
 
+    # figure out a better way to do this later
+    Contact.query.filter_by(first_name=None).delete()
+    Contact.query.filter_by(last_name=None).delete()
+
     db.session.commit()
 
     print "%d contacts added to database for user %s." % (len(contact_list), user_id)
+
+
+

@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD:static/styles.css
 body {
   font-family: 'Nunito', sans-serif;
   padding: 0px;
@@ -17,17 +18,20 @@ body {
     padding: 2em;
     float: right;
 }
+=======
+>>>>>>> scheduleview:static/styles/spareparts.css
 
-#user-topnav {
+/* logged in topnav */
+.user-topnav {
     padding-left: 20%;
     height: 10%;
 }
 
-/* landing page navigation bar */
-#landing-nav {
-    height: 4em;
-    width: 100%;
+/* greeting in logged in topnav */
+.user-greeting {
+
 }
+
 /* account homepage styling */
 .account-contents {
     text-align: left;
@@ -36,7 +40,7 @@ body {
 }
 
 /* side navigation */
-.sidenav {
+.left-nav {
     height: 100%; /* 100% Full-height */
     width: 20%; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
@@ -48,12 +52,9 @@ body {
     padding-top: 60px; /* Place content 60px from the top */
 }
 
-#sidenav-links {
+.nav-pages-list {
     padding-top: 12%;
     padding-left: 2em;
-}
-
-#sidenav-links a {
     color: white;
     font-size: 1.5em;
 }
@@ -80,6 +81,7 @@ body {
 .form-input {
     padding: 10px;
 }
+<<<<<<< HEAD:static/styles.css
 
 /* LANDING PAGE STYLING */
 
@@ -119,3 +121,5 @@ body {
 .google-login-btn:hover {
     background: rgba(255, 0, 0, 0.8);
 }
+=======
+>>>>>>> scheduleview:static/styles/spareparts.css

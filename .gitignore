@@ -6,3 +6,5 @@ contacts.sql
 .venv/
 contact_output.txt
 node_modules/
+todo.txt
+things_i_explain_to_myself.txt

@@ -1,0 +1,106 @@
+
+
+.msgs-display {
+  margin: 0 48px;
+  margin-top: 48px;
+}
+
+.msg-list-item {
+  line-height: 40px;
+}
+
+.msg-field {
+  display: inline-block;
+  padding: 8px;
+}
+
+.created-by {
+  width: 120px;
+}
+
+.msg-text {
+  width: 744px;
+}
+
+
+.msg-table {
+  border: 1px solid #dadada;
+  background: white;
+  border-radius: 3px;
+}
+
+/*.msg-list {
+
+}*/
+
+.msg-list-header{
+  background: #292929;
+  color: white;
+  border-radius: 3px 3px 0 0;
+}
+
+/*.msg-header-item {
+
+}*/
+
+.msg-textarea {
+  width: 100%;
+  height: 96px;
+}
+
+li.msg-list-item:nth-child(even) {
+  background: #eaeaea
+}
+
+.btn {
+    color: #90ceb7;
+    margin-right: 32px;
+    border: #90ceb7 solid 1px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    padding: 0 16px;
+    background: #292929;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #4a4a4a;
+}
+
+/* , means all of either */
+
+.add-msg-btn {
+  display: inline-block;
+  position: absolute;
+  margin-right: 96px;
+  right: 0;
+}
+
+.btn-cancel { 
+  color: white;
+  background: #4a4a4a;
+  border: none;
+}
+
+.btn-cancel:hover {
+  background: #6a6a6a;
+}
+
+.btn-save {
+  background: #292929;
+  color: #90ceb7;
+  border: 0;
+}
+
+.btn-save:hover {
+  background: #4a4a4a;
+}
+
+.btn-container {
+    text-align: right;
+    height: 40px;
+    background-color: #eaeaea;
+}
+
+

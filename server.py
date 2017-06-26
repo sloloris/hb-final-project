@@ -16,6 +16,10 @@ import google_oauth as oauth # relevant oauth functions and methods
 import requests
 import datetime
 
+import schedule
+import time
+import random
+
 # google contacts libraries
 import atom.data
 import gdata.data
@@ -42,6 +46,7 @@ def index():
 
     # else get oauth url
     else:
+        oauth.flow.params['access_type'] = 'offline'
         oauthurl = oauth.flow.step1_get_authorize_url() # method on flow to create url
    
         return render_template("landing.html", oauthurl=oauthurl) # pass url to landing page
@@ -64,6 +69,8 @@ def oauthcallback():
         oauth_credentials = credentials.get_access_token()
         oauth_token = oauth_credentials[0]
         oauth_expiry = datetime.datetime.now() + datetime.timedelta(seconds=oauth_credentials[1])
+        print credentials
+        refresh_token = credentials.refresh_token
         session['oauth_token'] = oauth_token
         session['oauth_expiry'] = oauth_expiry
 
@@ -71,7 +78,7 @@ def oauthcallback():
         first_name, last_name, email = get_user_info_from_google(oauth_token)
 
         # creates or updates user in the contacts database & redirects to account page
-        create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry)
+        create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry, refresh_token)
 
         get_google_contacts(credentials) # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
 
@@ -111,79 +118,148 @@ def show_user_account_home():
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     print user
 
-    return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
+    return render_template("base.html")
+    # return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
     #, user_id=user.user_id, email=email, name=first_name)
 
 
-@app.route('/<user_id>/preferences', methods=["GET"])
-def user_preferences(user_id):
-    """ Renders user preferences page. """
+@app.route('/user/<user_id>/contacts', methods=["GET"]) #add <user_id>
+def show_user_contacts(user_id):
+    """ Sends json of user contacts to client. """
 
-    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+    print "got in this handler"
 
-    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
+    user_contacts = Contact.query.filter_by(user_id=user_id).all()
+
+    contacts = []
+    for contact in user_contacts:
+        contacts.append( { 'contact_id': contact.contact_id,
+                            'first_name': contact.first_name,
+                            'last_name': contact.last_name,
+                            'email': contact.email } )
+
+    return jsonify(contacts)
 
 
-@app.route('/<user_id>/preferences', methods=["POST"])
-def update_user_preferences(user_id):
-    """ Updates user preferences in database. """
+@app.route('/user/<user_id>/messages', methods=["GET"])
+def messages_page(user_id):
+    """ Sends json of user messages to client. """
 
-    nickname = request.form.get('nickname')
-    phone = request.form.get('phone')
-    whatsapp = request.form.get('whatsapp')
+    default_msgs = Message.query.filter_by(created_by=1).all()
+    user_msgs = Message.query.filter_by(created_by=user_id).all()
 
-    user = User.query.filter_by(user_id=int(session['user_id'])).one()
-    # for nullable values:
-    user.nickname = nickname or None # if nickname, set to nickname; else set to None
-    user.phone = str(phone) or None
-    if whatsapp == "yes":
-        whatsapp_number = request.form.get('whatsapp_number')
-        user.whatsapp = whatsapp_number
+    messages = []
+    for msg in default_msgs:
+        messages.append( { 'msg_id': msg.msg_id,
+                            'created_by': msg.created_by,
+                            'msg_text': msg.msg_text } )
 
+    if user_msgs:
+        for msg in user_msgs:
+            if msg.created_by != 1:
+                messages.append( { 'msg_id': msg.msg_id,
+                                    'created_by': msg.created_by,
+                                    'msg_text': msg.msg_text } )
+
+    return jsonify(messages)
+
+
+@app.route('/user/<user_id>/messages', methods=["POST"])
+def add_new_message(user_id):
+    """ Allows users to add new messages to database. """
+
+    user_id = request.form.get('userId')
+    msg_text = request.form.get('msgText')
+
+    new_msg = Message(created_by=user_id, msg_text=msg_text)
+    db.session.add(new_msg)
     db.session.commit()
 
-    flash("Your preferences have been updated.")
-    return render_template("user_preferences.html", user_id=user.user_id, name=user.first_name)
+    response = {'user_id': user_id,
+                'msg_text': msg_text}
+
+    print 'user_id:', user_id, 'msg_text:', msg_text
+    return jsonify(response)
 
 
-@app.route('/<user_id>/contacts') #add <user_id>
-def show_user_contacts(user_id):
-    """ Displays all user contact pages. """
+@app.route('/set_period', methods=["POST"])
+def set_period():
+    """ Set period on a contact in database according to user input on Contacts View. """
 
-    user_contacts = Contact.query.filter_by(user_id=int(session['user_id'])).all()
-    print user_contacts
+    contact_id = request.form.get('contact_id')
+    period = request.form.get('value')
 
-    return render_template("contacts.html", user_contacts=user_contacts)
+    contact = Contact.query.filter_by(contact_id=contact_id).first()
+    contact.contact_period = int(period)
+    db.session.commit()
 
-# @app.route('/<user_id>/add_contacts')
-# def add_import_contacts(user_id):
-#     """ Allow user to add / import contacts. """
-
-#     return render_template("add_contacts.html")
-
-@app.route('/<user_id>/send')
-def send_email(user_id):
-    """ Test page for interactive email sending. """
+    return 'something returned'
 
 
+@app.route('/schedule', methods=["POST"])
+def create_new_schedule():
+    """ Save user schedule to database. """
 
-    return render_template("send_email.html")
+    user_id = int(session['user_id'])
+    user = User.query.filter_by(user_id=int(session['user_id'])).one()
+    contact_id = request.form.get('contact_id')
+    contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
+    start_date = request.form.get('start_date')
+    period = request.form.get('period')
+
+    # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+    random_int = random.randint(0, len(messages) - 1)
 
 
-@app.route('/<user_id>/messages')
-def messages_page(user_id):
+    # send_date = start_date + datetime.timedelta(days=period)
+    # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
+    #                                     contact_id=contact_id,
+    #                                     send_date=send_date)
 
-    return render_template
+    # db.session.add(new_scheduled_msg)
+    # db.session.commit()
+
+    # chron job + query database for user email
+    # gmail.SendMessage(sender, to, subject, msgHtml, msgPlain)
+    # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+    # print 'Message sent'
+
+    print 'user_id:', user_id
+    print 'contact_id:', contact_id
+    print 'start_date:', start_date
+    print 'period:', period
+    return jsonify({})
+
+@app.route('/send_msgs', methods=["GET"])
+def send_msgs():
+    """ Cron job to check for and send overdue messages. """
+    return "I'm running!"
+    # scheduled = ScheduledMessage.query.filter((send_date>=datetime.datetime.now()))
+    # print "scheduled msgs = ", scheduled
+    # for msg in scheduled:
+    #     msg_text = messages[random_int].msg_text
+    #     print "sent message"
+        # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+
+
+# # how do i get this to return to a variable?
+# # schedule.every().day.at("7:30").do(send_msgs)
+
+# schedule.every(2).minutes.do(send_msgs)
+
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.jinja_env.auto_reload = app.debug
+    # app.debug = True
+    # app.jinja_env.auto_reload = app.debug
 
 
     connect_to_db(app)
 
     # Activates DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
-    app.run(port=5000, host='0.0.0.0')
+    app.run(port=5000, host='0.0.0.0', threaded=True)

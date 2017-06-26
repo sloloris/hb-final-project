@@ -22,6 +22,7 @@ class User(db.Model):
 
     oauth_token = db.Column(db.String(200), nullable=True)
     oauth_expiry = db.Column(db.DateTime, nullable=True)
+    refresh_token = db.Column(db.String(200), nullable=True)
 
     def __repr__(self):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
@@ -54,7 +55,7 @@ class Contact(db.Model):
     last_name = db.Column(db.String(30), nullable=True)
     nickname = db.Column(db.String(15), nullable=True)
     birthday = db.Column(db.DateTime, nullable=True)
-    email = db.Column(db.String(50), nullable=False, unique=True)
+    email = db.Column(db.String(50), nullable=False)
     relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'), nullable=False, default="other")
     contact_period = db.Column(db.Integer, nullable=False, default=90)
     phone = db.Column(db.String(16), nullable=True)
@@ -112,7 +113,22 @@ class Message(db.Model):
         return "<Message msg_id=%s created_by=%s>" % (self.msg_id, self.created_by)
 
 
-# class ScheduledMessage(db.Model): # this would be a queue
+class ScheduledMessage(db.Model): # this would be a queue
+    """ Messages scheduled by users. """
+
+    __tablename__ = "scheduled_messages"
+    schedule_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False, default=None)
+    contact_id = db.Column(db.Integer, db.ForeignKey('contacts.contact_id'), nullable=False)
+    send_date = db.Column(db.DateTime, nullable=False)
+    sent = db.Column(db.Boolean, nullable=False, default=False)
+
+    user = db.relationship("User", backref=db.backref("scheduled_messages", 
+                                                        order_by=user_id))
+    contact = db.relationship("Contact", backref=db.backref("scheduled_messages",
+                                                            order_by=contact_id))
+
+
 
 
 ###############################################################################
@@ -177,6 +193,14 @@ def connect_to_db(app, db_uri='postgresql:///contacts'):
     db.init_app(app)
     db.create_all()
 
+def create_user1():
+    user1 = User(first_name="Default",
+                last_name="User",
+                email="contactmanager.tests@gmail.com")
+
+    db.session.add(user1)
+    db.session.commit()
+
 def fill_relationships_table():
     friend = Relationship(rel_id='frnd', rel_type='friend')
     family = Relationship(rel_id='fmly', rel_type='family')
@@ -186,12 +210,23 @@ def fill_relationships_table():
     db.session.add_all([friend, family, professional, other])
     db.session.commit()
 
+def add_msg_samples_to_messages_table():
+    skype_sometime = Message(created_by=1, msg_text="Hey you, \n\nI was just thinking of you the other day and that it's been a while! What do you say we set up a Skype call sometime soon to catch up?")
+    long_time_no_see = Message(created_by=1, msg_text="Hey, \nLong time no see! What are you up to these days?")
+    catch_up_sometime = Message(created_by=1, msg_text="Hi friend, It's been a while since we caught up. Do you have any time in the next couple of weeks to chat?")
+
+
+    db.session.add_all([skype_sometime, long_time_no_see, catch_up_sometime])
+    db.session.commit()
+
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
 
     from server import app
     connect_to_db(app)
+    create_user1()
     fill_relationships_table()
+    add_msg_samples_to_messages_table()
     print "Connected to DB."
 

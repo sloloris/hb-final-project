@@ -3,21 +3,29 @@
 
   <title>{% block title %} TITLE HERE {% endblock %}</title>
 
-  <link href="../static/styles.css" type="text/css" rel="stylesheet">
+  <link href="../static/build/styles.css" type="text/css" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400,700|Vidaloka" rel="stylesheet">
+
 
 
 </head>
 
 <body>
 {% for message in get_flashed_messages() %}
-    <span> {{ message }}</span>
+    <span >{{ message }}</span>
 {% endfor %}
+{% if 'user_id' in session %}
+    <p hidden id="user-id" value={{ session['user_id'] }} />
+{% endif %}
 
-{% block body %} CONTENT HERE {% endblock %}
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 
-  <script src="http://code.jquery.com/jquery.js"></script>
+    {% block content %} <div id='root'></div> {% endblock %}
+  <script src="../static/build/bundle.js"></script>
 
 </body>
 </html>

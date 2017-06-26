@@ -9,7 +9,7 @@ CLIENTSECRETS_LOCATION = '<CLIENT_SECRETS.JSON>'
 REDIRECT_URI = ["http://localhost"] # '<YOUR_REGISTERED_REDIRECT_URI>'
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.compose', # create, read, update & delete drafts. send messages & drafts
-    'https://www.googleapis.com/auth/gmail.labels', # create, read, update & delete labels
+    # 'https://www.googleapis.com/auth/gmail.labels', # create, read, update & delete labels
     'https://www.googleapis.com/auth/gmail.modify', # all read/write permissions
     'https://www.google.com/m8/feeds/', # access to user contacts
     'https://www.googleapis.com/auth/contacts.readonly',
@@ -22,5 +22,6 @@ SCOPES = [
 flow = OAuth2WebServerFlow(client_id=os.environ['client_id'],
                            client_secret=os.environ['client_secret'],
                            scope=SCOPES,
-                           redirect_uri='http://localhost:5000/oauthcallback')
-
+                           redirect_uri='http://localhost:5000/oauthcallback',
+                           prompt='consent')
+flow.params['access_type'] = 'offline'

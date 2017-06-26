@@ -1,0 +1,60 @@
+
+
+.schedule-form-container {
+  margin: 48px;
+  width: 840px;
+  height: 480px;
+  border-radius: 8px;
+  border: #292929 solid 1px;
+  padding: 0;
+}
+
+.form {
+  height: 100%;
+  position: relative;
+}
+
+.start-date-input {
+  width: 232px;
+}
+.contact-period-input {
+  width: 130px;
+}
+
+.highlighted-text {
+  color: #90ceb7;
+  display: inline-block;
+  font-weight: 400;
+}
+
+.schedule-btn {
+  padding: 16px;
+  line-height: 24px;
+  font-size: 24px;
+  font-family: 'Nunito';
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+}
+
+.schedule-instructions {
+  color: white;
+  font-family: 'Nunito';
+  font-weight: 200;
+  background: #292929;
+  width: 50%;
+  height: 478px;
+  padding: 32px;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 0 8px 8px 0;
+}
+
+.form-container {
+  width:50%;
+  height: 478px;
+  background: #eaeaea;
+  padding: 32px;
+  display: inline-block;
+  border-radius: 8px 0 0 8px;
+}

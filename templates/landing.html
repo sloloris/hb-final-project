@@ -1,16 +1,17 @@
-{% extends 'loggedout_template.html' %}
+{% extends 'base.html' %}
 
 {% block title %} LANDING PAGE {% endblock %}
 
 {% block content %}
 
-  <div class="topnav" id="landing-nav">
-    <a href="/about">About</a>
+  <div class="landing-topnav">
+    <span class="topnav-title">Friend<b>Keeper</b></span>
     <a href="{{ oauthurl }}" id="login-link">Log In</a>
+    <a href="/about">About</a>
   </div>
 
-
   <div class="landing-contents">
+<<<<<<< HEAD
     <h1 class="giant-header">Keep your friends closer<h1>
     <p class="header-subtitle">About section where all the explainy things about the app will be explained in a very explanatory way so you hopefully want to actually press this button and get started with Gmail yay!</p>
 
@@ -22,14 +23,39 @@
         Sign In with Google
       </div>
     </a>
+=======
+    <div class="behind-container">
+      <img id="landing-background-img" src="../static/img/cafe_image.jpg">
+    </div>
+
+    <div class="front-container">
+
+      <div class="header">
+        <h1 class="giant-header">Keep your friends closer<h1>
+        <p class="subheader">
+          <b>It can be hard to keep in touch - so let us do it for you!</b> <br>
+          Our automated emailing system makes both helps and <br>
+          motivates you to reach out to the people that matter, so <br>
+          time doesn't pass your relationships by.
+        </p>
+
+        <a href={{ oauthurl }}>
+          <div 
+            class="google-login-btn" 
+            id="get-started" 
+            type="button">
+            Sign In with Google
+          </div>
+        </a>
+>>>>>>> scheduleview
 
 
+      </div>
   </div>
 
 
 
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 
 // write redirectToAuth to redirect to gmail authorization page
@@ -38,6 +64,6 @@ $('#get-started').on('click', redirectToAuth)
 $('#login-link').on('click', redirectToAuth)
 
 
-
+</script>
 
 {% endblock %}
