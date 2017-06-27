@@ -42,5 +42,9 @@ Login is implemented using Google OAuth 2.0. Upon login, the server pulls the us
 
 
 ## About the Developer
+Isabelle is a recent graduate of Hackbright Academy, a San Francisco-based accelerated full-stack software development program for women. Prior to that, she completed a Master of Public Policy with a concentration in statistical analysis at the Hertie School of Governance in Berlin, [where she was first exposed to coding in R in the context of quantitative social science research.](https://github.com/sloloris/IsabelleandDiegosFinalResearchProject/tree/master/FinalPaper) Her main passion lies in the use of data-driven technologies to improve governance and policymaking, with a focus on improving integration of immigrants and equity of opportunity for women and minority groups through digital democracy technologies and better access to government services.
 
+Isabelle's other interests include linguistics, ceramics, cookies, and amateur acrobatics. She holds a B.A. in Linguistics and International Relations from Tulane University.
+
+Visit her LinkedIn profile [here](https://www.linkedin.com/in/isabelle-miller/).
 
