@@ -1,8 +1,8 @@
-""" DESCRIPTION HERE """
+""" Python server for FriendKeeper app. """
 
 from jinja2 import StrictUndefined
 
-from flask_debugtoolbar import DebugToolbarExtension
+from flask_debugtoolbar import DebugToolbarExtension 
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 
 from model import User, Contact, Relationship, Message, connect_to_db, db
@@ -11,12 +11,11 @@ from server_functions import get_google_contacts, get_user_info_from_google, cre
 import os
 
 import json
-import quickstart as gmail 
+import quickstart as gmail # relevant gmail functions
 import google_oauth as oauth # relevant oauth functions and methods
 import requests
 import datetime
 
-import schedule
 import time
 import random
 
@@ -30,7 +29,7 @@ app = Flask(__name__)
 
 app.secret_key = "SOMETHINGHERE"
 
-app.jinja_env.undefined = StrictUndefined #what does this do?
+app.jinja_env.undefined = StrictUndefined # disallows all operations beside testing for undefined objects
 
 
 @app.route('/')
@@ -56,7 +55,9 @@ def index():
 def oauthcallback():
     """
     Redirect URI callback for Google OAuth 2.0. Auth token passed
-    a URL param called 'code'
+    a URL param called 'code'.
+
+    See server_functions.py for full functions.
     """
     code = request.args.get('code') # gets code from auth server
     if code:
@@ -97,11 +98,14 @@ def oauthcallback():
 def about():
     """ App about page. """
 
-    return render_template("about.html")
+    oauth.flow.params['access_type'] = 'offline'
+    oauthurl = oauth.flow.step1_get_authorize_url()
+
+    return render_template("about.html", oauthurl=oauthurl)
 
 
 @app.route('/logout')
-def render_login_form(): # can I do this on the front end?
+def logout_user(): 
     """ Ends user session (logs user out). """
 
     print "Logging out."
@@ -200,6 +204,7 @@ def set_period():
 def create_new_schedule():
     """ Save user schedule to database. """
 
+    # collect all relevant information from form
     user_id = int(session['user_id'])
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     contact_id = request.form.get('contact_id')
@@ -253,13 +258,13 @@ def send_msgs():
 
 
 if __name__ == "__main__":
-    # app.debug = True
-    # app.jinja_env.auto_reload = app.debug
+    app.debug = True
+    app.jinja_env.auto_reload = app.debug
 
 
     connect_to_db(app)
 
     # Activates DebugToolbar
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0', threaded=True)
