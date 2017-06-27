@@ -24,6 +24,7 @@ FriendKeeper both motivates and helps you to keep in touch by allowing you to sc
 Login is implemented using Google OAuth 2.0. Upon login, the server pulls the user's profile and contact information using the Google Contacts API and saves it to the database (for new users) or updates it (for existing users). (Most of the relevant functions can be found in [server_functions.py](./blob/scheduleview/server_functions.py)). If later calls to the API are needed, the app can request a refresh token (code in [quickstart.py](./blob/scheduleview/quickstart.py)).
 
 ### Webpack 
+Webpack is a module bundler that makes it easier to organize your JavaScript into bite-sized pieces upon which Webpack can build a dependency graph, or model your DOM, in order to condense all of the code into a single file. This allows your frontend to load all components using a single HTTP request.
 
 ### React/Redux
 
