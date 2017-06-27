@@ -27,8 +27,12 @@ Login is implemented using Google OAuth 2.0. Upon login, the server pulls the us
 Webpack is a module bundler that makes it easier to organize your JavaScript into bite-sized pieces upon which Webpack can build a dependency graph, or model your DOM, in order to condense all of the code into a single file. This allows your frontend to load all components using a single HTTP request.
 
 ### React/Redux
+React is a powerful JS framework that allows for the development of single-page applications that update only each changed component as needed, rather than reloading the whole page. Redux is a library that allows you to save the whole state of your app inside of a single "store" that is affected by "actions" threaded to the store through "reducers" that update the store in real time. The entire logged-in view of the app was created using React/Redux; see [here](https://github.com/sloloris/hb-final-project/tree/master/static/js) for the relevant portions of the code (CSS [here](https://github.com/sloloris/hb-final-project/tree/master/static/styles)). The landing page was built using traditional JS, HTML, & CSS.
+
+The whole 
 
 ### Python & Flask 
+Python is a well-known, object-oriented programming language; here, Python 2.7 was used to create the server along with Flask, a popular backend framework that works with Python.
 
 ### SQLAlchemy
 
