@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %} TITLE HERE {% endblock %}
+{% block title %} About FriendKeeper {% endblock %}
 
 {% block content %}
-ABOUT PAGE
+
+<div class="about-page">
+
+  <div class="landing-topnav">
+    <span class="topnav-title">Friend<b>Keeper</b></span>
+    <a href="{{ oauthurl }}" id="login-link">Get Started</a>
+    <a href="/">Home</a>
+  </div>
+
+
+  <div class="about-container">  
+    <div class="about-header">
+      About FriendKeeper
+    </div>
+    <div class="about-text">
+      FriendKeeper is a relationship manager for those who care but often fail to take initiative when life gets in the way. This simple contact manager allows you to select friends and set contact periods on them according to which the app will automatically email them with inconspicuous-sounding "hey, let's catch up" messages, both helping and motivating you to keep in better touch with friends you don't regularly see.
+    </div>
+  </div>
+  
+</div>
 
 {% endblock %}

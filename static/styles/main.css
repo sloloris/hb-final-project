@@ -8,7 +8,8 @@ body {
   height: 100vh;
 }
 
-/* ACCOUNT HOMEPAGE STYLING */
+/*---------------------------------------------------------------------------*/
+/* ACCOUNT HOMEPAGE STYLING (LOGGED-IN VIEW) */
 .account-home {
     display: flex;
 }
@@ -33,9 +34,7 @@ body {
 }
 
 
-
-
-
+/*---------------------------------------------------------------------------*/
 /* LANDING PAGE STYLING */
 
 /* top navigation bar */
@@ -71,18 +70,6 @@ body {
   color: #90CEB7;
   font-weight: 700;
 }
-
-/*#login-link {
-  border: solid 2px #90CEB7;
-  border-radius: 3px;
-  background: none;
-  transition: background 0.5s ease;
-}
-
-#login-link:hover {
-  color: white;
-  background: #90CEB7;
-}*/
 
 /* landing page navigation bar */
 
@@ -153,5 +140,27 @@ body {
 
 .google-login-btn:hover {
     background: #333333;
+}
+
+/*---------------------------------------------------------------------------*/
+/* ABOUT PAGE STYLING */
+
+.about-page {
+  background-color: #eaeaea;
+  position: absolute;
+  height: 100vh;
+}
+.about-container {
+  background-color: #ffffff;
+  margin: 64px 192px 0 192px;
+  padding: 24px;
+  border-radius: 5px;
+}
+
+.about-header {
+  font-size: 32px;
+}
+.about-text {
+  font-size: 16px;
 }
 
