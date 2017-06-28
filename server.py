@@ -215,17 +215,17 @@ def create_new_schedule():
 
     start_date = parser.parse(start_date_unicode)
 
-    # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
-    # random_int = random.randint(0, len(messages) - 1)
-
-
     send_date = start_date + datetime.timedelta(days=period)
     # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
     #                                     contact_id=contact_id,
-    #                                     send_date=send_date)
+    #                                     send_date=send_date,
+    #                                     sent=False)
 
-    # db.session.add(new_scheduled_msg)
+    # db.session.add(new_scheduled_msg)`
     # db.session.commit()
+
+    # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+    # random_int = random.randint(0, len(messages) - 1)
 
     # chron job + query database for user email
     # gmail.SendMessage(sender, to, subject, msgHtml, msgPlain)
