@@ -9,14 +9,14 @@ from model import User, Contact, Relationship, Message, ScheduledMessage, connec
 from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db, clean_google_contact_data, save_user_contacts_to_db
 
 import os
-import re
+import re # regex
 
 import json
 import quickstart as gmail # relevant gmail functions
 import google_oauth as oauth # relevant oauth functions and methods
 import requests
 import datetime
-from dateutil import parser
+from dateutil import parser # for converting to datetime objects
 
 import time
 import random
@@ -83,9 +83,11 @@ def oauthcallback():
         # creates or updates user in the contacts database & redirects to account page
         create_update_user_in_db(credentials, email, first_name, last_name, oauth_token, oauth_expiry, refresh_token)
 
-        get_google_contacts(credentials) # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
+        # issue get request to Google Contacts API for user contacts and pipe data into contact_output.txt
+        get_google_contacts(credentials) 
 
-        contact_list = clean_google_contact_data(email) # clean data out of file and return list of contact dictionaries
+        # clean data out of file and return list of contact dictionaries
+        contact_list = clean_google_contact_data(email) 
 
         save_user_contacts_to_db(int(session['user_id']), contact_list)
 
@@ -202,7 +204,7 @@ def set_period():
 
 @app.route('/schedule', methods=["POST"])
 def create_new_schedule():
-    """ Save user schedule to database. """
+    """ Save user-scheduled message to database. """
 
     # collect all relevant information from form
     user_id = int(session['user_id'])
@@ -232,14 +234,6 @@ def create_new_schedule():
 
     db.session.add(new_scheduled_msg)
     db.session.commit()
-
-    # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
-    # random_int = random.randint(0, len(messages) - 1)
-
-    # chron job + query database for user email
-    # gmail.SendMessage(sender, to, subject, msgHtml, msgPlain)
-    # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
-    # print 'Message sent'
 
     print 'user_id:', user_id
     print 'contact_form_value:', contact_form_value
