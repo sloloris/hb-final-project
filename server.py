@@ -15,6 +15,7 @@ import quickstart as gmail # relevant gmail functions
 import google_oauth as oauth # relevant oauth functions and methods
 import requests
 import datetime
+from dateutil import parser
 
 import time
 import random
@@ -209,14 +210,16 @@ def create_new_schedule():
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     contact_id = request.form.get('contact_id')
     contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
-    start_date = request.form.get('start_date')
-    period = request.form.get('period')
+    start_date_unicode = request.form.get('start_date')
+    period = int(request.form.get('period'))
+
+    start_date = parser.parse(start_date_unicode)
 
     # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
-    random_int = random.randint(0, len(messages) - 1)
+    # random_int = random.randint(0, len(messages) - 1)
 
 
-    # send_date = start_date + datetime.timedelta(days=period)
+    send_date = start_date + datetime.timedelta(days=period)
     # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
     #                                     contact_id=contact_id,
     #                                     send_date=send_date)
@@ -231,8 +234,9 @@ def create_new_schedule():
 
     print 'user_id:', user_id
     print 'contact_id:', contact_id
-    print 'start_date:', start_date
+    print 'start_date:', start_date, 'type:', type(start_date)
     print 'period:', period
+    print 'send_date:', send_date
     return jsonify({})
 
 @app.route('/send_msgs', methods=["GET"])
