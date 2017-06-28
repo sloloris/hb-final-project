@@ -9,6 +9,7 @@ from model import User, Contact, Relationship, Message, connect_to_db, db
 from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db, clean_google_contact_data, save_user_contacts_to_db
 
 import os
+import re
 
 import json
 import quickstart as gmail # relevant gmail functions
@@ -206,10 +207,12 @@ def create_new_schedule():
     # collect all relevant information from form
     user_id = int(session['user_id'])
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
-    contact_id = request.form.get('contact_id')
+    contact_form_value = request.form.get('contact_id')
     # contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
     start_date_unicode = request.form.get('start_date')
     period = int(request.form.get('period'))
+
+    contact_email = contact_id.partition('<')[-1].rpartition('>')[0]
 
     start_date = parser.parse(start_date_unicode)
 
@@ -231,8 +234,9 @@ def create_new_schedule():
     # print 'Message sent'
 
     print 'user_id:', user_id
-    print 'contact_id:', contact_id
+    print 'contact_form_value:', contact_form_value
     print 'start_date:', start_date, 'type:', type(start_date)
+    print 'contact_email:', contact_email
     print 'period:', period
     print 'send_date:', send_date
     return jsonify({})
