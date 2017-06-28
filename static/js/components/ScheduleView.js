@@ -52,7 +52,8 @@ class ScheduleView extends Component {
     console.log(contacts)
     return contacts.map((contact, index) => {
       return (
-      { label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' }
+      { id: contact.contact_id,
+        label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' }
       )
     })
   }
@@ -63,7 +64,7 @@ class ScheduleView extends Component {
   $.ajax({
       url: '/schedule',
       type: 'POST',
-      data: { contact_id: 578,//this.state.chooseContact,
+      data: { contact_id: 578,//this.state.chooseContact.id,
             start_date: this.state.startDate,
             period: this.state.contactPeriod
             },

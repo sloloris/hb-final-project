@@ -7465,7 +7465,7 @@ var getUserContacts = exports.getUserContacts = function getUserContacts(dispatc
     fetch('/user/' + userId + '/contacts').then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log('got some data');
+      console.log('contacts received');
       var contacts = data;
       dispatch(setContacts(contacts));
     });
@@ -27745,7 +27745,8 @@ var ScheduleView = function (_Component) {
       var contacts = _this.props.contacts;
       console.log(contacts);
       return contacts.map(function (contact, index) {
-        return { label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' };
+        return { id: contact.contact_id,
+          label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' };
       });
     };
 
@@ -27755,7 +27756,7 @@ var ScheduleView = function (_Component) {
       $.ajax({
         url: '/schedule',
         type: 'POST',
-        data: { contact_id: 578, //this.state.chooseContact,
+        data: { contact_id: 578, //this.state.chooseContact.id,
           start_date: _this.state.startDate,
           period: _this.state.contactPeriod
         },
