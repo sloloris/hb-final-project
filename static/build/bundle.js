@@ -27743,7 +27743,6 @@ var ScheduleView = function (_Component) {
 
     _this._generateChooseContactAutocompleteItems = function () {
       var contacts = _this.props.contacts;
-      console.log(contacts);
       return contacts.map(function (contact, index) {
         return { id: contact.contact_id,
           label: contact.first_name + ' ' + contact.last_name + ' <' + contact.email + '>' };
@@ -27756,11 +27755,12 @@ var ScheduleView = function (_Component) {
       $.ajax({
         url: '/schedule',
         type: 'POST',
-        data: { contact_id: 578, //this.state.chooseContact.id,
+        data: { contact_id: _this.state.chooseContact,
           start_date: _this.state.startDate,
           period: _this.state.contactPeriod
         },
         success: function success(response) {
+          console.log(_this.state.chooseContact);
           console.log('Data posted to server');
         }
       });
@@ -27800,18 +27800,19 @@ var ScheduleView = function (_Component) {
                 _react2.default.createElement(_reactAutocomplete2.default, {
                   getItemValue: function getItemValue(item) {
                     return item.label;
-                  },
-                  items: this._generateChooseContactAutocompleteItems(),
+                  } // value that displays after autocomplete
+                  , items: this._generateChooseContactAutocompleteItems()
 
-                  renderItem: function renderItem(item, isHighlighted) {
+                  // changed key to item.id from item.label
+                  , renderItem: function renderItem(item, isHighlighted) {
                     return _react2.default.createElement(
                       'div',
-                      { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
+                      { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.id },
                       item.label
                     );
                   },
                   shouldItemRender: function shouldItemRender(item, val) {
-                    return item.label.lastIndexOf(val, 0) === 0;
+                    return item.label.lastIndexOf(val, 0) === 0; // checks for each letter typed
                   },
                   className: 'autocomplete-input',
                   name: 'chooseContact',
@@ -27862,7 +27863,7 @@ var ScheduleView = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'schedule-instructions' },
-            'To select a contact, start typing their name.',
+            'To select a contact, start typing their name. Names are case-sensitive!',
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
@@ -28042,7 +28043,6 @@ var contacts = function contacts() {
         //     }
 
         case 'SET_CONTACTS':
-            console.log(action.payload.contacts);
             return action.payload.contacts; // next state
 
         default:

@@ -207,7 +207,7 @@ def create_new_schedule():
     user_id = int(session['user_id'])
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     contact_id = request.form.get('contact_id')
-    contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
+    # contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
     start_date_unicode = request.form.get('start_date')
     period = int(request.form.get('period'))
 

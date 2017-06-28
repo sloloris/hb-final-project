@@ -49,7 +49,6 @@ class ScheduleView extends Component {
 
   _generateChooseContactAutocompleteItems = () => {
     var contacts = this.props.contacts
-    console.log(contacts)
     return contacts.map((contact, index) => {
       return (
       { id: contact.contact_id,
@@ -64,12 +63,14 @@ class ScheduleView extends Component {
   $.ajax({
       url: '/schedule',
       type: 'POST',
-      data: { contact_id: 578,//this.state.chooseContact.id,
+      data: { contact_id: this.state.chooseContact,
             start_date: this.state.startDate,
             period: this.state.contactPeriod
             },
       success: (response) => {
+        console.log(this.state.chooseContact); 
         console.log('Data posted to server');
+
       }
     })
   }
@@ -83,18 +84,18 @@ class ScheduleView extends Component {
               <label>
               To (contact): &nbsp;
                 <Autocomplete
-                  getItemValue={(item) => item.label}
+                  getItemValue={(item) => item.label} // value that displays after autocomplete
                   items=
                     { this._generateChooseContactAutocompleteItems() }
 
-                  
+                  // changed key to item.id from item.label
                   renderItem={(item, isHighlighted) =>
-                    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}>
+                    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.id}> 
                       {item.label}
                     </div>
                   }
                   shouldItemRender={(item, val) => {
-                    return item.label.lastIndexOf(val, 0) === 0
+                    return item.label.lastIndexOf(val, 0) === 0 // checks for each letter typed
                   }}
                   className='autocomplete-input'
                   name='chooseContact'
@@ -136,7 +137,7 @@ class ScheduleView extends Component {
             </form>
           </div>
           <div className='schedule-instructions'>
-            To select a contact, start typing their name.
+            To select a contact, start typing their name. Names are case-sensitive!
             <br /><br /><br />
             Select a date from which to start your email messaging schedule.
             <br /><br /><br />
