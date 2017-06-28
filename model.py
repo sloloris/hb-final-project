@@ -55,7 +55,7 @@ class Contact(db.Model):
     last_name = db.Column(db.String(30), nullable=True)
     nickname = db.Column(db.String(15), nullable=True)
     birthday = db.Column(db.DateTime, nullable=True)
-    email = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False, unique=True)
     relationship = db.Column(db.String(5), db.ForeignKey('relationships.rel_id'), nullable=False, default="other")
     contact_period = db.Column(db.Integer, nullable=False, default=90)
     phone = db.Column(db.String(16), nullable=True)
