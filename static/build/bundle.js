@@ -27801,13 +27801,12 @@ var ScheduleView = function (_Component) {
                   getItemValue: function getItemValue(item) {
                     return item.label;
                   } // value that displays after autocomplete
-                  , items: this._generateChooseContactAutocompleteItems()
+                  , items: this._generateChooseContactAutocompleteItems(),
 
-                  // changed key to item.id from item.label
-                  , renderItem: function renderItem(item, isHighlighted) {
+                  renderItem: function renderItem(item, isHighlighted) {
                     return _react2.default.createElement(
                       'div',
-                      { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.id },
+                      { style: { background: isHighlighted ? 'lightgray' : 'white' }, key: item.label },
                       item.label
                     );
                   },

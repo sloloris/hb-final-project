@@ -88,9 +88,8 @@ class ScheduleView extends Component {
                   items=
                     { this._generateChooseContactAutocompleteItems() }
 
-                  // changed key to item.id from item.label
                   renderItem={(item, isHighlighted) =>
-                    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.id}> 
+                    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item.label}> 
                       {item.label}
                     </div>
                   }

@@ -5,7 +5,7 @@ from jinja2 import StrictUndefined
 from flask_debugtoolbar import DebugToolbarExtension 
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 
-from model import User, Contact, Relationship, Message, connect_to_db, db
+from model import User, Contact, Relationship, Message, ScheduledMessage, connect_to_db, db
 from server_functions import get_google_contacts, get_user_info_from_google, create_update_user_in_db, clean_google_contact_data, save_user_contacts_to_db
 
 import os
@@ -208,22 +208,30 @@ def create_new_schedule():
     user_id = int(session['user_id'])
     user = User.query.filter_by(user_id=int(session['user_id'])).one()
     contact_form_value = request.form.get('contact_id')
-    # contact = Contact.query.filter_by(contact_id=int(contact_id)).one()
     start_date_unicode = request.form.get('start_date')
     period = int(request.form.get('period'))
 
-    contact_email = contact_id.partition('<')[-1].rpartition('>')[0]
+    # extracts email from contact_form_value string using re library
+    contact_email = contact_form_value.partition('<')[-1].rpartition('>')[0]
 
+    # pull contact from database
+    contact = Contact.query.filter_by(email=contact_email).one()
+    contact_id = contact.contact_id
+
+    # turns start_date into datetime object using dateutil library
     start_date = parser.parse(start_date_unicode)
 
+    # calculates send_date from start_date and period
     send_date = start_date + datetime.timedelta(days=period)
-    # new_scheduled_msg = ScheduledMessage(user_id=user_id, 
-    #                                     contact_id=contact_id,
-    #                                     send_date=send_date,
-    #                                     sent=False)
 
-    # db.session.add(new_scheduled_msg)`
-    # db.session.commit()
+    # write scheduled message to database
+    new_scheduled_msg = ScheduledMessage(user_id=user_id, 
+                                        contact_id=contact_id,
+                                        send_date=send_date,
+                                        sent=False)
+
+    db.session.add(new_scheduled_msg)
+    db.session.commit()
 
     # messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
     # random_int = random.randint(0, len(messages) - 1)
@@ -237,6 +245,8 @@ def create_new_schedule():
     print 'contact_form_value:', contact_form_value
     print 'start_date:', start_date, 'type:', type(start_date)
     print 'contact_email:', contact_email
+    print 'contact:', contact
+    print 'contact_id:', contact.contact_id
     print 'period:', period
     print 'send_date:', send_date
     return jsonify({})
