@@ -248,13 +248,21 @@ def create_new_schedule():
 @app.route('/send_msgs', methods=["GET"])
 def send_msgs():
     """ Cron job to check for and send overdue messages. """
-    return "I'm running!"
-    # scheduled = ScheduledMessage.query.filter((send_date>=datetime.datetime.now()))
-    # print "scheduled msgs = ", scheduled
-    # for msg in scheduled:
-    #     msg_text = messages[random_int].msg_text
-    #     print "sent message"
-        # gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+
+    # scheduled = ScheduledMessage.query.filter( (ScheduledMessage.send_date<=datetime.datetime.now() & (ScheduledMessage.sent==false) ).all()
+    scheduled = ScheduledMessage.query.filter(ScheduledMessage.send_date<=datetime.datetime.now()).all()
+    print "scheduled msgs = ", scheduled
+
+    for msg in scheduled:
+        user = User.query.filter_by(user_id=msg.user_id).one()
+        contact = Contact.query.filter_by(contact_id=msg.contact_id).one()
+        messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+        random_int = random.randint(0, len(messages) - 1)
+        msg_text = messages[random_int].msg_text
+        gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+        print "sent message"
+
+    return "All scheduled messages sent."
 
 
 # # how do i get this to return to a variable?
