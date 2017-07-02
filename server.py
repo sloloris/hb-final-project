@@ -249,8 +249,7 @@ def create_new_schedule():
 def send_msgs():
     """ Cron job to check for and send overdue messages. """
 
-    # scheduled = ScheduledMessage.query.filter( (ScheduledMessage.send_date<=datetime.datetime.now() & (ScheduledMessage.sent==false) ).all()
-    scheduled = ScheduledMessage.query.filter(ScheduledMessage.send_date<=datetime.datetime.now()).all()
+    scheduled = ScheduledMessage.query.filter( (ScheduledMessage.send_date<=datetime.datetime.now()) & (ScheduledMessage.sent=='f') ).all()
     print "scheduled msgs = ", scheduled
 
     for msg in scheduled:
@@ -260,6 +259,8 @@ def send_msgs():
         random_int = random.randint(0, len(messages) - 1)
         msg_text = messages[random_int].msg_text
         gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+        msg.sent = True
+        db.session.commit()
         print "sent message"
 
     return "All scheduled messages sent."
