@@ -64,5 +64,5 @@ Isabelle is a recent graduate of Hackbright Academy, a San Francisco-based accel
 
 Isabelle's other interests include linguistics, ceramics, cookies, and amateur acrobatics. She holds a B.A. in Linguistics and International Relations from Tulane University.
 
-Visit her LinkedIn profile [here](https://www.linkedin.com/in/isabelle-miller/).
+Visit her LinkedIn profile [here](https://www.linkedin.com/in/isabelle-miller/) and her hipstergram [here](https://www.instagram.com/belleandcompass/).
 
