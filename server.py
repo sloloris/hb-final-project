@@ -146,6 +146,26 @@ def show_user_contacts(user_id):
 
     return jsonify(contacts)
 
+@app.route('/user/<user_id>/contacts', methods=["POST"])
+def add_new_contact(user_id):
+    """ Allows users to add new contact to database. """
+
+    user_id = request.form.get('user_id')
+    contact_fname = request.form.get('contact_fname')
+    contact_lname = request.form.get('contact_lname')
+    contact_email = request.form.get('contact_email')
+
+    new_contact = Contact(first_name=contact_fname, last_name=contact_lname, email=contact_email, user_id=user_id)
+    db.session.add(new_contact)
+    db.session.commit()
+
+    response = {'user_id': user_id,
+                'contact_fname': contact_fname,
+                'contact_lname': contact_lname,
+                'contact_email': contact_email}
+    return jsonify(response)
+
+
 
 @app.route('/user/<user_id>/messages', methods=["GET"])
 def messages_page(user_id):

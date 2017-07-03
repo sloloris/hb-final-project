@@ -2,19 +2,22 @@ require('../../styles/contactsview.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { userId } from '../actions'
+import { userId } from '../actions'
 import ContactPeriodForm from './ContactPeriodForm'
 
 
 class ContactsView extends Component {
   static propTypes = { 
     contacts: PropTypes.array.isRequired,
+    addContact: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
     this.state = {
       searchContacts: '',
+      displayAdd: false,
+      newContact: {}
       // contacts: props.contacts
     };
 
@@ -68,6 +71,42 @@ class ContactsView extends Component {
     //     </li>
     //  )
     // })
+  }
+
+  _onClickAdd = (event) => {
+    this.setState({
+      ...this.state,
+      displayAdd: true
+    })
+  }
+
+  _onClickCancel = (event) => {
+    this.setState({
+      ...this.state,
+      displayAdd: false
+    })
+  }
+
+  _onClickSave = (event) => {
+        $.ajax({
+        url: '/user/' + userId + '/contacts',
+        type: 'POST',
+        data: {userId: userId,
+              contact: this.state.newContact},
+        success: (response) => {
+          this.props.addContact({            
+            // msg_id: 3,
+            user_id: response['user_id'],
+            contact_fname: response['contact_fname'],
+            contact_lname: response['contact_lname'],
+            contact_email: response['contact_email']
+          })
+        }
+    })
+    this.setState({
+      ...this.state,
+      displayAdd: false
+    })
   }
 
   render() {
