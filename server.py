@@ -232,6 +232,9 @@ def create_new_schedule():
                                         send_date=send_date,
                                         sent=False)
 
+    # set new period on contact in database
+    contact.contact_period = period
+
     db.session.add(new_scheduled_msg)
     db.session.commit()
 
@@ -260,6 +263,12 @@ def send_msgs():
         msg_text = messages[random_int].msg_text
         gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
         msg.sent = True
+        # schedule next message
+        next_msg = ScheduledMessage(user_id=user.user_id, 
+                                    contact_id=contact.contact_id,
+                                    send_date=msg.send_date + datetime.timedelta(days=contact.contact_period),
+                                    sent=False)
+        db.session.add(next_msg)
         db.session.commit()
         print "sent message"
 
