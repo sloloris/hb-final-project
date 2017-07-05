@@ -1,3 +1,5 @@
+// decided to scrap component - not necessary for clean UI
+
 require('../../styles/topnav.css')
 
 import React, { Component } from 'react'

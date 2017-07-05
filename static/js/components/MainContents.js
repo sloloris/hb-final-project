@@ -41,7 +41,7 @@ class MainContents extends Component {
         break;
     }
 
-
+// working on CSS transition animations - return to later
     return (
       <div className="main-contents">
 {/*        <CSSTransitionGroup

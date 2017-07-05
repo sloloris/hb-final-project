@@ -1,3 +1,4 @@
+// contact period dropdown component for possible later use
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -7,7 +8,7 @@ class ContactPeriodForm extends Component {
   static propTypes = {
     contact_id: PropTypes.number.isRequired
   }
-  constructor(props) { // need?
+  constructor(props) { 
     super(props);
     this.state = {value: 90}; 
 

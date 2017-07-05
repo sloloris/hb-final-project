@@ -68,7 +68,7 @@ li.msg-list-item:nth-child(even) {
   background: #4a4a4a;
 }
 
-/* , means all of either */
+/* NOTE: , means all of either */
 
 .add-msg-btn {
   display: inline-block;

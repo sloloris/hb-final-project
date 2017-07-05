@@ -1,3 +1,5 @@
+// topnav component scrapped
+
 import { connect } from 'react-redux'
 import TopNav from '../components/TopNav'
 

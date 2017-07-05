@@ -75,25 +75,3 @@ export const addMessage = (msg) => ({
   }
 })
 
-// export const contactPeriodSuccess = () => ({
-//   type: 'POST_CONTACT_PERIOD_SUCCESS',
-//   payload: {
-
-//   }
-// })
-
-// export const postContactPeriod = (dispatch) => {
-//   return (dispatch) => {
-//     fetch('/set_period', {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       contact_id: 206, // example data
-//       period: 30,
-//       })
-//     })
-//   }
-// }
