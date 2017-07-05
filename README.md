@@ -52,8 +52,9 @@ SQLAlchemy is a library that integrates SQL database queries and edits with Pyth
 * fix autocomplete case sensitivity
 * add feature to add and remove contacts
 * appearing 'schedule' button on selected contacts
+* add CSS transition animations
 * add user's google photo to leftnav
-* contact sort by field on click
+* debug contact sort by field on click
 * pageview for scheduled messages
 * pageview for sent messages
 * pageview for preferences
