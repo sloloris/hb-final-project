@@ -49,6 +49,7 @@ Python is a well-known, object-oriented programming language; here, Python 2.7 w
 SQLAlchemy is a library that integrates SQL database queries and edits with Python.
 
 ## <a name="todo"></a>TODO
+* migrate message sending to crontab file
 * fix autocomplete case sensitivity
 * add feature to add and remove contacts
 * appearing 'schedule' button on selected contacts
