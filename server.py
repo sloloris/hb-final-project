@@ -127,9 +127,7 @@ def show_user_account_home():
     print user
 
     return render_template("base.html")
-    # return render_template("user_account.html", user_id=user.user_id, name=user.first_name)
-    #, user_id=user.user_id, email=email, name=first_name)
-
+    
 
 @app.route('/user/<user_id>/contacts', methods=["GET"]) #add <user_id>
 def show_user_contacts(user_id):
@@ -273,16 +271,6 @@ def send_msgs():
         print "sent message"
 
     return "All scheduled messages sent."
-
-
-# # how do i get this to return to a variable?
-# # schedule.every().day.at("7:30").do(send_msgs)
-
-# schedule.every(2).minutes.do(send_msgs)
-
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
 
 
 if __name__ == "__main__":
