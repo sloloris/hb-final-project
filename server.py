@@ -246,31 +246,31 @@ def create_new_schedule():
     print 'send_date:', send_date
     return jsonify({})
 
-@app.route('/send_msgs', methods=["GET"])
-def send_msgs():
-    """ Cron job to check for and send overdue messages. """
+# @app.route('/send_msgs', methods=["GET"])
+# def send_msgs():
+#     """ Cron job to check for and send overdue messages. """
 
-    scheduled = ScheduledMessage.query.filter( (ScheduledMessage.send_date<=datetime.datetime.now()) & (ScheduledMessage.sent=='f') ).all()
-    print "scheduled msgs = ", scheduled
+#     scheduled = ScheduledMessage.query.filter( (ScheduledMessage.send_date<=datetime.datetime.now()) & (ScheduledMessage.sent=='f') ).all()
+#     print "scheduled msgs = ", scheduled
 
-    for msg in scheduled:
-        user = User.query.filter_by(user_id=msg.user_id).one()
-        contact = Contact.query.filter_by(contact_id=msg.contact_id).one()
-        messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
-        random_int = random.randint(0, len(messages) - 1)
-        msg_text = messages[random_int].msg_text
-        gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
-        msg.sent = True
-        # schedule next message
-        next_msg = ScheduledMessage(user_id=user.user_id, 
-                                    contact_id=contact.contact_id,
-                                    send_date=msg.send_date + datetime.timedelta(days=contact.contact_period),
-                                    sent=False)
-        db.session.add(next_msg)
-        db.session.commit()
-        print "sent message"
+#     for msg in scheduled:
+#         user = User.query.filter_by(user_id=msg.user_id).one()
+#         contact = Contact.query.filter_by(contact_id=msg.contact_id).one()
+#         messages = Message.query.filter((Message.created_by==user.user_id) | (Message.created_by==1)).all()
+#         random_int = random.randint(0, len(messages) - 1)
+#         msg_text = messages[random_int].msg_text
+#         gmail.SendMessage(user.email, contact.email, 'Hey', msg_text, msg_text)
+#         msg.sent = True
+#         # schedule next message
+#         next_msg = ScheduledMessage(user_id=user.user_id, 
+#                                     contact_id=contact.contact_id,
+#                                     send_date=msg.send_date + datetime.timedelta(days=contact.contact_period),
+#                                     sent=False)
+#         db.session.add(next_msg)
+#         db.session.commit()
+#         print "sent message"
 
-    return "All scheduled messages sent."
+#     return "All scheduled messages sent."
 
 
 if __name__ == "__main__":
