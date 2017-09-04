@@ -5665,7 +5665,7 @@ module.exports = { debugTool: debugTool };
 "use strict";
 
 
-module.exports = __webpack_require__(22);
+module.exports = __webpack_require__(23);
 
 
 /***/ }),
@@ -5728,7 +5728,7 @@ var _prodInvariant = __webpack_require__(4),
 var CallbackQueue = __webpack_require__(184);
 var PooledClass = __webpack_require__(17);
 var ReactFeatureFlags = __webpack_require__(189);
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 var Transaction = __webpack_require__(33);
 
 var invariant = __webpack_require__(2);
@@ -7002,6 +7002,127 @@ module.exports = reactProdInvariant;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addMessage = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = exports.userId = undefined;
+
+__webpack_require__(367);
+
+var userIdSpan = document.getElementById('user-id'); // defines 'action creators', or what reducers listen to
+
+var userId = exports.userId = parseInt(userIdSpan.getAttribute('value'));
+console.log("User", userId, "logged in.");
+
+var setCurrentView = exports.setCurrentView = function setCurrentView(index) {
+  return {
+    type: 'SET_CURRENT_VIEW',
+    payload: {
+      index: index
+    }
+  };
+};
+
+// export const beginFetchingContacts = (userId) => ({
+//     type: 'BEGIN_FETCHING_CONTACTS',
+//     payload: {
+//         userId: userId
+//     }
+// })
+
+// export const finishFetchingContacts = (userId) => ({
+//     type: 'FINISH_FETCHING_CONTACTS',
+//     payload: {
+//         userId: userId,
+//         data: data
+//     }
+// })
+
+var setContacts = exports.setContacts = function setContacts(contacts) {
+  return {
+    type: 'SET_CONTACTS',
+    payload: {
+      contacts: contacts,
+      userId: userId
+    }
+  };
+};
+
+// this is a thunk
+var getUserContacts = exports.getUserContacts = function getUserContacts(dispatch) {
+  // did not need to pass userId because it's already in function
+  return function (dispatch) {
+    console.log('sending contacts request');
+    fetch('/user/' + userId + '/contacts').then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log('contacts received');
+      var contacts = data;
+      dispatch(setContacts(contacts));
+    });
+  };
+};
+
+var displayMessages = exports.displayMessages = function displayMessages(messages) {
+  return {
+    type: 'DISPLAY_MESSAGES',
+    payload: {
+      messages: messages
+    }
+  };
+};
+
+// this is also a thunk
+var getMessages = exports.getMessages = function getMessages(dispatch) {
+  return function (dispatch) {
+    fetch('/user/' + userId + '/messages').then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      var messages = data;
+      dispatch(displayMessages(messages));
+    });
+  };
+};
+
+var addMessage = exports.addMessage = function addMessage(msg) {
+  return {
+    type: 'ADD_MESSAGE',
+    payload: {
+      msg: msg
+    }
+  };
+};
+
+// export const contactPeriodSuccess = () => ({
+//   type: 'POST_CONTACT_PERIOD_SUCCESS',
+//   payload: {
+
+//   }
+// })
+
+// export const postContactPeriod = (dispatch) => {
+//   return (dispatch) => {
+//     fetch('/set_period', {
+//     method: 'POST',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       contact_id: 206, // example data
+//       period: 30,
+//       })
+//     })
+//   }
+// }
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /**
  * Copyright 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -7121,7 +7242,7 @@ DOMLazyTree.queueText = queueText;
 module.exports = DOMLazyTree;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7295,7 +7416,7 @@ module.exports = ReactReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7403,127 +7524,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addMessage = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = exports.userId = undefined;
-
-__webpack_require__(367);
-
-var userIdSpan = document.getElementById('user-id'); // defines 'action creators', or what reducers listen to
-
-var userId = exports.userId = parseInt(userIdSpan.getAttribute('value'));
-console.log("User", userId, "logged in.");
-
-var setCurrentView = exports.setCurrentView = function setCurrentView(index) {
-  return {
-    type: 'SET_CURRENT_VIEW',
-    payload: {
-      index: index
-    }
-  };
-};
-
-// export const beginFetchingContacts = (userId) => ({
-//     type: 'BEGIN_FETCHING_CONTACTS',
-//     payload: {
-//         userId: userId
-//     }
-// })
-
-// export const finishFetchingContacts = (userId) => ({
-//     type: 'FINISH_FETCHING_CONTACTS',
-//     payload: {
-//         userId: userId,
-//         data: data
-//     }
-// })
-
-var setContacts = exports.setContacts = function setContacts(contacts) {
-  return {
-    type: 'SET_CONTACTS',
-    payload: {
-      contacts: contacts,
-      userId: userId
-    }
-  };
-};
-
-// this is a thunk
-var getUserContacts = exports.getUserContacts = function getUserContacts(dispatch) {
-  // did not need to pass userId because it's already in function
-  return function (dispatch) {
-    console.log('sending contacts request');
-    fetch('/user/' + userId + '/contacts').then(function (resp) {
-      return resp.json();
-    }).then(function (data) {
-      console.log('contacts received');
-      var contacts = data;
-      dispatch(setContacts(contacts));
-    });
-  };
-};
-
-var displayMessages = exports.displayMessages = function displayMessages(messages) {
-  return {
-    type: 'DISPLAY_MESSAGES',
-    payload: {
-      messages: messages
-    }
-  };
-};
-
-// this is also a thunk
-var getMessages = exports.getMessages = function getMessages(dispatch) {
-  return function (dispatch) {
-    fetch('/user/' + userId + '/messages').then(function (resp) {
-      return resp.json();
-    }).then(function (data) {
-      var messages = data;
-      dispatch(displayMessages(messages));
-    });
-  };
-};
-
-var addMessage = exports.addMessage = function addMessage(msg) {
-  return {
-    type: 'ADD_MESSAGE',
-    payload: {
-      msg: msg
-    }
-  };
-};
-
-// export const contactPeriodSuccess = () => ({
-//   type: 'POST_CONTACT_PERIOD_SUCCESS',
-//   payload: {
-
-//   }
-// })
-
-// export const postContactPeriod = (dispatch) => {
-//   return (dispatch) => {
-//     fetch('/set_period', {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       contact_id: 206, // example data
-//       period: 30,
-//       })
-//     })
-//   }
-// }
 
 /***/ }),
 /* 24 */
@@ -9551,7 +9551,7 @@ module.exports = ReactPropTypesSecret;
 
 
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var Danger = __webpack_require__(274);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInstrumentation = __webpack_require__(10);
@@ -10108,7 +10108,7 @@ var _prodInvariant = __webpack_require__(4);
 var ReactPropTypesSecret = __webpack_require__(194);
 var propTypesFactory = __webpack_require__(181);
 
-var React = __webpack_require__(22);
+var React = __webpack_require__(23);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(2);
@@ -24414,9 +24414,9 @@ module.exports = ReactInputSelection;
 
 var _prodInvariant = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var DOMProperty = __webpack_require__(16);
-var React = __webpack_require__(22);
+var React = __webpack_require__(23);
 var ReactBrowserEventEmitter = __webpack_require__(31);
 var ReactCurrentOwner = __webpack_require__(14);
 var ReactDOMComponentTree = __webpack_require__(6);
@@ -24426,7 +24426,7 @@ var ReactFeatureFlags = __webpack_require__(189);
 var ReactInstanceMap = __webpack_require__(27);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactMarkupChecksum = __webpack_require__(306);
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 var ReactUpdateQueue = __webpack_require__(49);
 var ReactUpdates = __webpack_require__(13);
 
@@ -24959,7 +24959,7 @@ module.exports = ReactMount;
 
 var _prodInvariant = __webpack_require__(4);
 
-var React = __webpack_require__(22);
+var React = __webpack_require__(23);
 
 var invariant = __webpack_require__(2);
 
@@ -26982,7 +26982,7 @@ var _propTypes = __webpack_require__(12);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _actions = __webpack_require__(23);
+var _actions = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27110,6 +27110,8 @@ var _propTypes = __webpack_require__(12);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _actions = __webpack_require__(20);
+
 var _ContactPeriodForm = __webpack_require__(220);
 
 var _ContactPeriodForm2 = _interopRequireDefault(_ContactPeriodForm);
@@ -27125,7 +27127,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 __webpack_require__(235);
-// import { userId } from '../actions'
 
 var ContactsView = function (_Component) {
   _inherits(ContactsView, _Component);
@@ -27188,8 +27189,44 @@ var ContactsView = function (_Component) {
       // })
     };
 
+    _this._onClickAdd = function (event) {
+      _this.setState(_extends({}, _this.state, {
+        displayAdd: true
+      }));
+    };
+
+    _this._onClickCancel = function (event) {
+      _this.setState(_extends({}, _this.state, {
+        displayAdd: false
+      }));
+    };
+
+    _this._onClickSave = function (event) {
+      $.ajax({
+        url: '/user/' + _actions.userId + '/contacts',
+        type: 'POST',
+        data: { userId: _actions.userId,
+          contact: _this.state.newContact },
+        success: function success(response) {
+          _this.props.addContact({
+            // msg_id: 3,
+            user_id: response['user_id'],
+            contact_fname: response['contact_fname'],
+            contact_lname: response['contact_lname'],
+            contact_email: response['contact_email']
+          });
+        }
+      });
+      _this.setState(_extends({}, _this.state, {
+        displayAdd: false
+      }));
+    };
+
     _this.state = {
-      searchContacts: ''
+      searchContacts: '',
+      displayAdd: false,
+      newContact: {}
+      // contacts: props.contacts
     };
 
     _this.handleInputChange = _this.handleInputChange.bind(_this);
@@ -27232,6 +27269,15 @@ var ContactsView = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
+          { className: 'btn-container contacts-content' },
+          _react2.default.createElement(
+            'div',
+            { className: 'btn btn-add-contact', onClick: this._onClickAdd },
+            'Add a Contact'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
           { className: 'contacts-table contacts-content' },
           _react2.default.createElement(
             'div',
@@ -27266,7 +27312,8 @@ var ContactsView = function (_Component) {
 }(_react.Component);
 
 ContactsView.propTypes = {
-  contacts: _propTypes2.default.array.isRequired
+  contacts: _propTypes2.default.array.isRequired,
+  addContact: _propTypes2.default.func.isRequired
 };
 exports.default = ContactsView;
 
@@ -27516,7 +27563,7 @@ var _classnames = __webpack_require__(38);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _actions = __webpack_require__(23);
+var _actions = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27908,7 +27955,7 @@ var _LeftNav = __webpack_require__(222);
 
 var _LeftNav2 = _interopRequireDefault(_LeftNav);
 
-var _actions = __webpack_require__(23);
+var _actions = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27949,7 +27996,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(29);
 
-var _actions = __webpack_require__(23);
+var _actions = __webpack_require__(20);
 
 var _MainContents = __webpack_require__(223);
 
@@ -27987,7 +28034,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(29);
 
-var _actions = __webpack_require__(23);
+var _actions = __webpack_require__(20);
 
 var _MessagesDisplay = __webpack_require__(224);
 
@@ -31823,7 +31870,7 @@ module.exports = ChangeEventPlugin;
 
 var _prodInvariant = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ExecutionEnvironment = __webpack_require__(7);
 
 var createNodesFromMarkup = __webpack_require__(245);
@@ -32352,7 +32399,7 @@ module.exports = HTMLDOMPropertyConfig;
 
 
 
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 
 var instantiateReactComponent = __webpack_require__(200);
 var KeyEscapeUtils = __webpack_require__(45);
@@ -32550,14 +32597,14 @@ module.exports = ReactComponentBrowserEnvironment;
 var _prodInvariant = __webpack_require__(4),
     _assign = __webpack_require__(5);
 
-var React = __webpack_require__(22);
+var React = __webpack_require__(23);
 var ReactComponentEnvironment = __webpack_require__(47);
 var ReactCurrentOwner = __webpack_require__(14);
 var ReactErrorUtils = __webpack_require__(48);
 var ReactInstanceMap = __webpack_require__(27);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactNodeTypes = __webpack_require__(193);
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(329);
@@ -33460,7 +33507,7 @@ module.exports = ReactCompositeComponent;
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDefaultInjection = __webpack_require__(299);
 var ReactMount = __webpack_require__(192);
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 var ReactUpdates = __webpack_require__(13);
 var ReactVersion = __webpack_require__(314);
 
@@ -33579,7 +33626,7 @@ var _prodInvariant = __webpack_require__(4),
 
 var AutoFocusUtils = __webpack_require__(270);
 var CSSPropertyOperations = __webpack_require__(272);
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var DOMNamespaces = __webpack_require__(43);
 var DOMProperty = __webpack_require__(16);
 var DOMPropertyOperations = __webpack_require__(185);
@@ -34620,7 +34667,7 @@ module.exports = ReactDOMContainerInfo;
 
 var _assign = __webpack_require__(5);
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(6);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -35187,7 +35234,7 @@ module.exports = ReactDOMNullInputValuePropHook;
 
 var _assign = __webpack_require__(5);
 
-var React = __webpack_require__(22);
+var React = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMSelect = __webpack_require__(187);
 
@@ -35535,7 +35582,7 @@ var _prodInvariant = __webpack_require__(4),
     _assign = __webpack_require__(5);
 
 var DOMChildrenOperations = __webpack_require__(42);
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(6);
 
 var escapeTextContentForBrowser = __webpack_require__(34);
@@ -37062,7 +37109,7 @@ var ReactInstanceMap = __webpack_require__(27);
 var ReactInstrumentation = __webpack_require__(10);
 
 var ReactCurrentOwner = __webpack_require__(14);
-var ReactReconciler = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(22);
 var ReactChildReconciler = __webpack_require__(279);
 
 var emptyFunction = __webpack_require__(9);

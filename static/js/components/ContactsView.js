@@ -120,6 +120,9 @@ class ContactsView extends Component {
             value={this.state.searchContacts}
             onChange={this.handleInputChange} /></span>
         </div>
+        <div className='btn-container contacts-content'>
+          <div className='btn btn-add-contact' onClick={ this._onClickAdd }>Add a Contact</div>
+        </div>
         <div className='contacts-table contacts-content'>
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>
