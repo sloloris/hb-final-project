@@ -28,22 +28,6 @@ class User(db.Model):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
 
 
-# class Oauth(db.Model):
-#     """ Oauth credentials for given user. """
-
-#     __tablename__ = "oauth"
-
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True)
-
-
-#     user = db.relationship("User", backref=db.backref("oauth",
-#                                                     order_by=user_id))
-
-#     def __repr__(self):
-#         return "<Oauth oauth_token=%s oauth_expiry=%s for user_id=%s>" % (self.oauth_token, 
-#                                                             self.oauth_expiry, self.user_id)
-
-
 class Contact(db.Model):
     """ User contacts. """
 
@@ -65,8 +49,6 @@ class Contact(db.Model):
     user = db.relationship("User", backref=db.backref("contacts",
                                                     order_by=user_id))
     relationship_fk = db.relationship("Relationship", backref=db.backref("contacts"))
-    # period = db.relationship("ContactPeriod", 
-    #                                 backref=db.backref("contacts", order_by=contact_id))
 
     def __repr__(self):
         return "<Contact contact_id=%s email=%s belonging to user_id=%s>" % (self.contact_id, self.email, self.user_id)
@@ -83,18 +65,6 @@ class Relationship(db.Model):
 
     def __repr__(self):
         return "<Relationship rel_id=%s rel_type=%s>" % (self.rel_id, self.rel_type)
-
-
-# class ContactPeriod(db.Model):
-#     """ How frequently the user wishes to contact a given contact. """
-
-#     __tablename__ = "contact_periods"
-
-#     period_id = db.Column(db.Integer, primary_key=True)
-#     description = db.Column(db.String(20), nullable=False)
-
-#     def __repr__(self):
-#         return "<ContactPeriod period_id=%s (days) description=%s>" % (self.period_id, self.description)
 
 
 class Message(db.Model):
