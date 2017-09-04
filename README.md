@@ -13,6 +13,7 @@
     * [React-Redux](#react-redux)
     * [Python & Flask](#python-flask)
     * [SQLAlchemy](#sqlalchemy)
+* [Run Me](#run-me)
 * [TODO](#todo)
 * [About the Developer](#about-me)
 
@@ -43,10 +44,20 @@ React is a powerful JS framework that allows for the development of single-page 
 This part was particularly challenging for me, as it was not part of the Hackbright curriculum but rather a technology I wanted to learn on my own.
 
 ### <a name="python-flask"></a>Python & Flask 
-Python is a well-known, object-oriented programming language; here, Python 2.7 was used to create the server along with Flask, a popular backend framework that works with Python.
+Python 2.7 was used with Flask to create the server, a popular backend framework that works with Python.
 
 ### <a name="sqlalchemy"></a>SQLAlchemy
 SQLAlchemy is a library that integrates SQL database queries and edits with Python.
+
+## <a name="run-me"></a>Run the App
+To run this app from your computer, you will need to have PostgreSQL and pip installed, a local clone of this repository, and a working knowledge of CLI. You will also need a GMail account to sign in.
+### Directions
+1. Open the terminal and run the command `createdb contacts` to create the PostgreSQL database. 
+2. Run `python model.py` to seed the data model into the database.
+3. Then you will need to create a Google API key. [Follow this link](https://developers.google.com/places/web-service/get-api-key) and follow the directions there to get one.
+4. Create a secrets.sh file in the root directory and export the following variables: `auth_uri`, `token_uri`, `auth_provider_x509_cert_url="https://www.googleapis.com/oauth2/v1/certs"`, `client_secret`, and `redirect_uris`, making sure to include localhost in the last one.
+5. Create a virtual environment (`virtualenv .venv` or a name of your choice) and `pip install -r requirements.txt` and then `source secrets.sh`.
+6. You should then be ready to run your server! Type `python server.py` and go to localhost:5000 in your browser to view the app!
 
 ## <a name="todo"></a>TODO
 * fix autocomplete case sensitivity
