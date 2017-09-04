@@ -56,7 +56,7 @@ To run this app from your computer, you will need to have PostgreSQL and pip ins
 2. Run `python model.py` to seed the data model into the database.
 3. Then you will need to create a Google API key. [Follow this link](https://developers.google.com/places/web-service/get-api-key) and follow the directions there to get one.
 4. Create a secrets.sh file in the root directory and export the following variables: `auth_uri`, `token_uri`, `auth_provider_x509_cert_url="https://www.googleapis.com/oauth2/v1/certs"`, `client_secret`, and `redirect_uris`, making sure to include localhost in the last one.
-5. Create a virtual environment (`virtualenv .venv` or a name of your choice) and `pip install -r requirements.txt` and then `source secrets.sh`.
+5. Create a virtual environment (`virtualenv .venv` or a name of your choice), run it (`source .venv/bin/activate`) and `pip install -r requirements.txt` and then `source secrets.sh`.
 6. You should then be ready to run your server! Type `python server.py` and go to localhost:5000 in your browser to view the app!
 
 ## <a name="todo"></a>TODO
