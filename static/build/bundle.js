@@ -27240,7 +27240,7 @@ var ContactsView = function (_Component) {
   _createClass(ContactsView, [{
     key: 'render',
     value: function render() {
-      var addContactContainerClasses = (0, _classnames2.default)('add-contact-container', { 'no-display': !this.state.displayAdd });
+      var addContactContainerClasses = (0, _classnames2.default)('add-contact-container', 'contacts-content', { 'no-display': !this.state.displayAdd });
       return _react2.default.createElement(
         'div',
         { className: 'contacts-view' },
@@ -27275,10 +27275,11 @@ var ContactsView = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: addContactContainerClasses },
+          'Placeholder for form here',
           _react2.default.createElement(
-            'div',
+            'form',
             null,
-            ' Placeholder for form here '
+            _react2.default.createElement('label', null)
           ),
           _react2.default.createElement(
             'div',

@@ -102,7 +102,7 @@ class ContactsView extends Component {
   }
 
   render() {
-    var addContactContainerClasses = classnames('add-contact-container', { 'no-display': !this.state.displayAdd })
+    var addContactContainerClasses = classnames('add-contact-container', 'contacts-content', { 'no-display': !this.state.displayAdd })
     return (
       <div className='contacts-view'>
         <div className='search-container contacts-content'>
@@ -116,13 +116,22 @@ class ContactsView extends Component {
         <div className='btn-container contacts-content'>
           <div className='btn btn-add-contact' onClick={ this._onClickAdd }>Add a Contact</div>
         </div>
+
         <div className = { addContactContainerClasses }>
-          <div> Placeholder for form here </div>
+          Placeholder for form here 
+          <form>
+            <label>
+
+            </label>
+
+
+          </form>
           <div className='btn-container'>
             <div className='btn btn-cancel' onClick={ this._onClickCancel }>Cancel</div>
             <div className='btn btn-save' onClick={ this._onClickSave }>Save</div>
           </div>
         </div>
+
 
         <div className='contacts-table contacts-content'>
           <div  className='contacts-list contacts-list-header'>
