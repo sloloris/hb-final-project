@@ -1,9 +1,10 @@
-require('../../styles/contactsview.css')
+require('../../styles/contactsview.css');
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { userId } from '../actions'
-import ContactPeriodForm from './ContactPeriodForm'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { userId } from '../actions';
+import ContactPeriodForm from './ContactPeriodForm';
+import classnames from 'classnames';
 
 
 class ContactsView extends Component {
@@ -23,15 +24,6 @@ class ContactsView extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.contacts != this.props.contacts) {
-  //     this.setState({
-  //       ...this.state,
-  //       contacts: nextProps.contacts
-  //     })
-  //   }
-  // }
 
   handleInputChange = (event) => {
     const target = event.target;
@@ -110,6 +102,7 @@ class ContactsView extends Component {
   }
 
   render() {
+    var addContactContainerClasses = classnames('add-contact-container', { 'no-display': !this.state.displayAdd })
     return (
       <div className='contacts-view'>
         <div className='search-container contacts-content'>
@@ -123,6 +116,14 @@ class ContactsView extends Component {
         <div className='btn-container contacts-content'>
           <div className='btn btn-add-contact' onClick={ this._onClickAdd }>Add a Contact</div>
         </div>
+        <div className = { addContactContainerClasses }>
+          <div> Placeholder for form here </div>
+          <div className='btn-container'>
+            <div className='btn btn-cancel' onClick={ this._onClickCancel }>Cancel</div>
+            <div className='btn btn-save' onClick={ this._onClickSave }>Save</div>
+          </div>
+        </div>
+
         <div className='contacts-table contacts-content'>
           <div  className='contacts-list contacts-list-header'>
             <div className='header-item contact-list-item field'>First Name</div>

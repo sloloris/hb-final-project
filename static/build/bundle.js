@@ -27116,6 +27116,10 @@ var _ContactPeriodForm = __webpack_require__(220);
 
 var _ContactPeriodForm2 = _interopRequireDefault(_ContactPeriodForm);
 
+var _classnames = __webpack_require__(38);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -27233,18 +27237,10 @@ var ContactsView = function (_Component) {
     return _this;
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.contacts != this.props.contacts) {
-  //     this.setState({
-  //       ...this.state,
-  //       contacts: nextProps.contacts
-  //     })
-  //   }
-  // }
-
   _createClass(ContactsView, [{
     key: 'render',
     value: function render() {
+      var addContactContainerClasses = (0, _classnames2.default)('add-contact-container', { 'no-display': !this.state.displayAdd });
       return _react2.default.createElement(
         'div',
         { className: 'contacts-view' },
@@ -27274,6 +27270,29 @@ var ContactsView = function (_Component) {
             'div',
             { className: 'btn btn-add-contact', onClick: this._onClickAdd },
             'Add a Contact'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: addContactContainerClasses },
+          _react2.default.createElement(
+            'div',
+            null,
+            ' Placeholder for form here '
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'btn-container' },
+            _react2.default.createElement(
+              'div',
+              { className: 'btn btn-cancel', onClick: this._onClickCancel },
+              'Cancel'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'btn btn-save', onClick: this._onClickSave },
+              'Save'
+            )
           )
         ),
         _react2.default.createElement(

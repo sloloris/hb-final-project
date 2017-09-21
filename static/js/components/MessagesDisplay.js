@@ -25,7 +25,6 @@ class MessagesDisplay extends Component {
     return this.props.messages.map((message, index) => {
       return (
         <li className='msg-list-item' key={index}>
-          {/*<div className='msg-field msg-id'>{ message.msg_id }</div>*/}
           <div className='msg-field created-by'>{ message.created_by==1 ? 'default':'user' }</div>
           <div className='msg-field msg-text'>{ message.msg_text }</div>
         </li>
