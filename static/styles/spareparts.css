@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD:static/styles.css
 body {
   font-family: 'Nunito', sans-serif;
   padding: 0px;
@@ -18,8 +17,6 @@ body {
     padding: 2em;
     float: right;
 }
-=======
->>>>>>> scheduleview:static/styles/spareparts.css
 
 /* logged in topnav */
 .user-topnav {
@@ -81,7 +78,6 @@ body {
 .form-input {
     padding: 10px;
 }
-<<<<<<< HEAD:static/styles.css
 
 /* LANDING PAGE STYLING */
 
@@ -121,5 +117,3 @@ body {
 .google-login-btn:hover {
     background: rgba(255, 0, 0, 0.8);
 }
-=======
->>>>>>> scheduleview:static/styles/spareparts.css

@@ -27,7 +27,6 @@
 }
 
 /* selected list item */
-/*.left-nav li.selected {*/
 .nav-pages-list li.selected {
   font-weight: 400;
   background: rgba(144, 206, 183, 0.6);
@@ -39,7 +38,6 @@
   position: absolute;
   bottom: 0;
   padding-left: 32px;
-  /*background-color: rgba(255, 255, 255, 0.5);*/
   bottom: 0;
   text-decoration: none;
   width: 240px;
