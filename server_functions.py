@@ -58,8 +58,6 @@ def create_update_user_in_db(credentials, email, first_name, last_name, oauth_to
 
         db.session.commit()
 
-        # contacts = requests.get("https://www.google.com/m8/feeds/contacts/%s/full" % (email))
-        # import pdb;pdb.set_trace()
         print 'Oauth credentials updated for user %s in database.' % (session['user_id'])
         
 

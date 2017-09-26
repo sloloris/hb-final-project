@@ -275,16 +275,6 @@ def send_msgs():
     return "All scheduled messages sent."
 
 
-# # how do i get this to return to a variable?
-# # schedule.every().day.at("7:30").do(send_msgs)
-
-# schedule.every(2).minutes.do(send_msgs)
-
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
-
-
 if __name__ == "__main__":
     app.debug = False
     app.jinja_env.auto_reload = app.debug
