@@ -35,10 +35,6 @@ class ScheduleView extends Component {
   }
 
   _onChangeChooseContact = (event, value) => {
-    // const target = event.target;
-    // const value = target.value
-    // const name = 'chooseContact'
-
     this.setState({
       ...this.state,
       'chooseContact': value

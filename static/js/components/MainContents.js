@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import ContactsView from './ContactsView'
 import MessagesDisplayContainer from '../containers/MessagesDisplayContainer'
 import ScheduleView from './ScheduleView'
-// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 
 class MainContents extends Component {
@@ -44,15 +43,7 @@ class MainContents extends Component {
 // working on CSS transition animations - return to later
     return (
       <div className="main-contents">
-{/*        <CSSTransitionGroup
-          transitionName="slide"
-          transitionAppear={true}
-          transitionLeave={true}
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}>*/}
         { contents }
-        {/*</CSSTransitionGroup>*/}
       </div>
     )
   }

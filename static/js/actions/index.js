@@ -12,21 +12,6 @@ export const setCurrentView = (index) => ({
     }
 })
 
-// export const beginFetchingContacts = (userId) => ({
-//     type: 'BEGIN_FETCHING_CONTACTS',
-//     payload: {
-//         userId: userId
-//     }
-// })
-
-// export const finishFetchingContacts = (userId) => ({
-//     type: 'FINISH_FETCHING_CONTACTS',
-//     payload: {
-//         userId: userId,
-//         data: data
-//     }
-// })
-
 export const setContacts = (contacts) => ({
     type: 'SET_CONTACTS',
     payload: {
