@@ -47,19 +47,12 @@ class MessagesDisplay extends Component {
   }
 
   _onClickSave = (event) => {
-        $.ajax({
-        url: '/user/' + userId + '/messages',
-        type: 'POST',
-        data: {userId: userId,
-              msgText: this.state.msgText},
-        success: (response) => {
-          this.props.addMessage({            
-            // msg_id: 3,
-            created_by: response['created_by'],
-            msg_text: response['msg_text']
-          })
-        }
+    this.props.addMessage({            
+      // msg_id: 3,
+      created_by: 0,
+      msg_text: this.state.msgText,
     })
+    
     this.setState({
       ...this.state,
       displayAdd: false

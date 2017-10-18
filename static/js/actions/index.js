@@ -20,19 +20,26 @@ export const setContacts = (contacts) => ({
     }
 })
 
-// this is a thunk
-export const getUserContacts = (dispatch) => { // did not need to pass userId because it's already in function
+export const getUserContacts = (dispatch) => { 
   return (dispatch) => {
-    console.log('sending contacts request')
-    fetch('/user/' + userId + '/contacts')
-    .then((resp) => resp.json()) 
-    .then((data) => {
-      console.log('contacts received')
-      var contacts = data
-      dispatch(setContacts(contacts))
-    })
+    var contacts = [
+      {
+        contact_id: 1,
+        email: 'example1@gmail.com',
+        first_name: 'Some',
+        last_name: 'Person'
+      },
+      {
+        contact_id: 2,
+        email: 'example2@gmail.com',
+        first_name: 'Some',
+        last_name: 'OtherPerson'
+      },
+    ]
+    dispatch(setContacts(contacts))
   }
 }
+
 
 export const displayMessages = (messages) => ({
   type: 'DISPLAY_MESSAGES',
@@ -44,12 +51,14 @@ export const displayMessages = (messages) => ({
 // this is also a thunk
 export const getMessages = (dispatch) => {
   return (dispatch) => {
-    fetch('/user/' + userId + '/messages')
-    .then((resp) => resp.json())
-    .then((data) => {
-      var messages = data
-      dispatch(displayMessages(messages))
-    })
+    var messages = [
+      {
+        created_by: 1,
+        msg_id: 1,
+        msg_text: "Hey, sorry I've been so out of the loop but I'd love to chat sometime soon."
+      }
+    ]
+    dispatch(displayMessages(messages))
   }
 }
 
