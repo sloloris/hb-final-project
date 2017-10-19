@@ -1,9 +1,6 @@
 // defines 'action creators', or what reducers listen to
 
 import 'whatwg-fetch'
-var userIdSpan = document.getElementById('user-id');
-export const userId = parseInt(userIdSpan.getAttribute('value'))
-console.log("User", userId, "logged in.");
 
 export const setCurrentView = (index) => ({
     type: 'SET_CURRENT_VIEW',
@@ -16,7 +13,6 @@ export const setContacts = (contacts) => ({
     type: 'SET_CONTACTS',
     payload: {
         contacts: contacts,
-        userId: userId
     }
 })
 

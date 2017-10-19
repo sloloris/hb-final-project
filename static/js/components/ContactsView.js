@@ -2,7 +2,6 @@ require('../../styles/contactsview.css')
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { userId } from '../actions'
 import ContactPeriodForm from './ContactPeriodForm'
 
 
@@ -15,7 +14,6 @@ class ContactsView extends Component {
     super(props);
     this.state = {
       searchContacts: '',
-      // contacts: props.contacts
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);

@@ -8000,14 +8000,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addMessage = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = exports.userId = undefined;
+exports.addMessage = exports.getMessages = exports.displayMessages = exports.getUserContacts = exports.setContacts = exports.setCurrentView = undefined;
 
 __webpack_require__(366);
-
-var userIdSpan = document.getElementById('user-id'); // defines 'action creators', or what reducers listen to
-
-var userId = exports.userId = parseInt(userIdSpan.getAttribute('value'));
-console.log("User", userId, "logged in.");
 
 var setCurrentView = exports.setCurrentView = function setCurrentView(index) {
   return {
@@ -8016,14 +8011,13 @@ var setCurrentView = exports.setCurrentView = function setCurrentView(index) {
       index: index
     }
   };
-};
+}; // defines 'action creators', or what reducers listen to
 
 var setContacts = exports.setContacts = function setContacts(contacts) {
   return {
     type: 'SET_CONTACTS',
     payload: {
-      contacts: contacts,
-      userId: userId
+      contacts: contacts
     }
   };
 };
@@ -27087,7 +27081,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 __webpack_require__(235);
-// import { userId } from '../actions'
 
 var ContactsView = function (_Component) {
   _inherits(ContactsView, _Component);
