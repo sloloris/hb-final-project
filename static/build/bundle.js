@@ -27692,19 +27692,21 @@ var ScheduleView = function (_Component) {
 
     _this.handleSubmit = function (event) {
       alert('Message scheduled!');
-      event.preventDefault();
-      $.ajax({
-        url: '/schedule',
-        type: 'POST',
-        data: { contact_id: _this.state.chooseContact,
-          start_date: _this.state.startDate,
-          period: _this.state.contactPeriod
-        },
-        success: function success(response) {
-          console.log(_this.state.chooseContact);
-          console.log('Data posted to server');
-        }
-      });
+      console.log("Message schedule would be posted to server here");
+      // event.preventDefault();
+      // $.ajax({
+      //     url: '/schedule',
+      //     type: 'POST',
+      //     data: { contact_id: this.state.chooseContact,
+      //           start_date: this.state.startDate,
+      //           period: this.state.contactPeriod
+      //           },
+      //     success: (response) => {
+      //       console.log(this.state.chooseContact); 
+      //       console.log('Data posted to server');
+
+      //     }
+      //   })
     };
 
     _this.state = {

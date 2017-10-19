@@ -55,20 +55,21 @@ class ScheduleView extends Component {
 
   handleSubmit = (event) => {
   alert('Message scheduled!');
-  event.preventDefault();
-  $.ajax({
-      url: '/schedule',
-      type: 'POST',
-      data: { contact_id: this.state.chooseContact,
-            start_date: this.state.startDate,
-            period: this.state.contactPeriod
-            },
-      success: (response) => {
-        console.log(this.state.chooseContact); 
-        console.log('Data posted to server');
+  console.log("Message schedule would be posted to server here")
+  // event.preventDefault();
+  // $.ajax({
+  //     url: '/schedule',
+  //     type: 'POST',
+  //     data: { contact_id: this.state.chooseContact,
+  //           start_date: this.state.startDate,
+  //           period: this.state.contactPeriod
+  //           },
+  //     success: (response) => {
+  //       console.log(this.state.chooseContact); 
+  //       console.log('Data posted to server');
 
-      }
-    })
+  //     }
+  //   })
   }
 
   render() {
